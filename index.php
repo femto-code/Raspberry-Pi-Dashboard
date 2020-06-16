@@ -199,12 +199,12 @@ if(strpos($spannung,"failed")!==false) $spannung=$spannung."<br><font style='fon
 	<div class="row">
 	  <div class="col-sm-9">
 			<div class="card shadow-sm">
-	      <div class="card-header border-primary text-primary"><i data-feather="align-justify"></i>&nbsp;Übersicht</div>
+	      <div class="card-header border-primary text-primary"><i data-feather="align-justify"></i>&nbsp;Overview</div>
 			  <div class="card-body">
 					<h5 id="sys1" class="card-title"><span id="overallstate"></span></h5>
 					<p id="sys2" class="card-text"></p>
 					<hr>
-					<p><i data-feather="clock"></i><!--<img src="img/time-icon.png">-->&nbsp;Uptime: <b><span id="uptime"></span></b>&nbsp;(<?php system('uptime -s')?>)</p>
+					<p><i data-feather="clock"></i><!--<img src="img/time-icon.png">-->&nbsp;Uptime: <b><span id="uptime"></span></b>&nbsp;(started <?php system('uptime -s')?>)</p>
 		      <table style="width:100%"><tbody><tr><td style="width:10%"><button type="button" id="pctl" onclick="y=100; this.innerHTML=togglep(true);feather.replace();" class="btn btn-secondary btn-sm"><i data-feather="x"></i></button></td><td style="width:90%">
 		      <div class="progress" style="margin-top: 1px; height: 2px;"><div class="progress-bar py" role="progressbar" style="width: 0%;" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div></div></td></tr></tbody></table>
 					<p class="card-text"><small class="text-muted">Updated <span name="lastupdated">now</span></small></p>
@@ -821,7 +821,7 @@ function updatedb(){
 			//Overall
 			if (warn > 0){
 				document.getElementById("overallstate").innerHTML="<font color='red'><i data-feather='alert-circle'></i>&nbsp;A problem occured</font>";
-				warnuser();
+				warnuser(); // TODO: rework notification that does not disturb to much
 			}else{
 				document.getElementById("overallstate").innerHTML="<font color='green'><i data-feather='check-circle'></i>&nbsp;System runs normally</font>";
 				modal.style.display = "none"; // remove warning modal
@@ -836,7 +836,7 @@ y=0;
 function togglep(force){
 	console.log("Togglep() - Timer: "+timer);
 	if(timer == false){
-		if(force){ updatedb();y=100; }
+		if(force){ y=100; }
 		updinterval=setInterval(function(){
 		//console.log(y);
 			if(y<100){
@@ -850,13 +850,13 @@ function togglep(force){
 		}, (((upd_time_interval*1000)-1.5)/10));
 		timer=true;
 		console.log("Timer started");
-		$('#overallstate').html('<font color="blue">Will be updated...</font>');
+		$('#overallstate').html('<font class="text-info">Will be updated ...</font>');
 		return '<i data-feather="x"></i>';
 	}else{
 		clearInterval(updinterval);
 		timer=false;
 		console.log("Timer gestoppt");
-		$('#overallstate').html('<font color="grey">Live Update disabled.</font>');
+		$('#overallstate').html('<font color="grey">Live Update disabled</font>');
 		return '<i data-feather="play"></i>';
 	}
 }
