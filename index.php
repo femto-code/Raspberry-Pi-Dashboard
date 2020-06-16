@@ -30,15 +30,16 @@
 
 <script>
 function preload(){
-	//Update aller Daten
+	// Update of all data
 	updatedb();
 	if(window.location.search == "?live=disabled"){
-		console.info("Die automatische Live-Aktualisierung wurde durch Seitenparamter deaktiviert.");
+		console.info("Live Update was disabled through site parameters.");
 		document.getElementById("pctl").innerHTML='<i data-feather="play"></i>';
 	}else{
 		togglep(false);
 	}
-	setTimeout(function(){ document.getElementById("preload").style.display = "none"; }, 500);
+  setTimeout(function(){ document.getElementById("preload").style.display = "none"; }, 500);
+  checkShutdown();
 }
 </script>
 
@@ -83,7 +84,7 @@ $p = $df / $ds * 100;
 //
 
 $spannung=substr(exec("vcgencmd measure_volts core"),5);
-if(strpos($spannung,"failed")!==false) $spannung=$spannung."<br><font style='font-size: 15px;' color='red'>Die Abfrage der Spannung ist fehlgeschlagen. Bitte führen Sie den Befehl <b>sudo usermod -aG video www-data</b> im Terminal aus, um das Problem zu beheben.</font>";
+if(strpos($spannung,"failed")!==false) $spannung=$spannung."<br><font style='font-size: 15px;' color='red'>Reading of core voltage failed. Please run <b>sudo usermod -aG video www-data</b> in a terminal to solve the problem.</font>";
 
 ?>
 
@@ -364,11 +365,12 @@ if(strpos($spannung,"failed")!==false) $spannung=$spannung."<br><font style='fon
   <div class="modal-dialog modal-dialog-centered" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLongTitle"><i data-feather="power"></i>&nbsp;System shutdown/reboot</h5>
+        <h5 class="modal-title" id="exampleModalLongTitle"><i data-feather="power"></i>&nbsp;Shutdown / Reboot RPi</h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
       </div>
       <div class="modal-body">
 				<!---->
+        <div id="currentState"></div>
 				<form action="javascript:void(0);">
 					<div class="form-check form-check-inline">
 					<input class="form-check-input" type="radio" name="pwrOptions" id="inlineRadio1" value="1">
@@ -379,15 +381,33 @@ if(strpos($spannung,"failed")!==false) $spannung=$spannung."<br><font style='fon
 					<label class="form-check-label" for="inlineRadio2">Reboot</label>
 					</div>
 					<hr>
-					<div class="form-group">
-					<label class="my-1 mr-2" for="inlineFormCustomSelectPref">Time</label>
-					  <select class="custom-select my-1 mr-sm-2" id="inlineFormCustomSelectPref" onchange="if(document.getElementById('inlineFormCustomSelectPref').selectedIndex == 3){time=prompt('Enter minutes','');$('#customTime').val(time).html('in '+time+' min (user defined)')}">
-							<option selected value="1">now</option>
-					    <option value="5">in 5 min</option>
-					    <option value="30">in 30 min</option>
-					    <option id="customTime" value="u">user defined</option>
-					  </select>
-					</div>
+          <nav>
+            <div class="nav nav-tabs" id="nav-tab" role="tablist">
+              <a class="nav-item nav-link active" id="nav-home-presets" data-toggle="tab" href="#nav-presets" role="tab" aria-controls="nav-presets" aria-selected="true">Presets</a>
+              <a class="nav-item nav-link" id="nav-home-tab" data-toggle="tab" href="#nav-home" role="tab" aria-controls="nav-home" aria-selected="true">Delay</a>
+              <a class="nav-item nav-link" id="nav-profile-tab" data-toggle="tab" href="#nav-profile" role="tab" aria-controls="nav-profile" aria-selected="false">Exact</a>
+            </div>
+          </nav>
+          <div class="tab-content" id="nav-tabContent" style="padding:10px">
+            <div class="tab-pane fade show active" id="nav-presets" role="tabpanel" aria-labelledby="nav-home-presets">
+              <select class="custom-select my-1 mr-sm-2" id="time1" onchange="tselect=1">
+                <option selected value="1">now (= 1 min)</option>
+                <option value="5">in 5 min</option>
+                <option value="15">in 15 min</option>
+                <option value="30">in 30 min</option>
+              </select>
+            </div>
+            <div class="tab-pane fade show" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
+              
+              <label for="customRange2">Delay by <b><span id="rinp">?</span></b> min</label>
+              <input type="range" id="time2" class="custom-range" min="1" max="60" id="customRange2" onchange="document.getElementById('rinp').innerHTML=this.value;tselect=2">
+              
+            </div>
+            <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
+              <input id="time3" class="form-control" type="time" placeholder="Select exact time" onchange="tselect=3">
+            </div>
+          </div>
+          <hr>
 
 					<div class="form-group">
 					<label for="inputPassword2" class="sr-only">Password</label>
@@ -539,14 +559,28 @@ if(strpos($spannung,"failed")!==false) $spannung=$spannung."<br><font style='fon
 
 
 <script>
+tselect=1;
 function authorize(pass) {
-	console.log(pass);
-	var e = document.getElementById("inlineFormCustomSelectPref");
-	var time = e.options[e.selectedIndex].value;
-	if(!Number.isInteger(time)){
-		alert("Time is not a number");
-		return false;
-	}
+  console.log(pass);
+  var e = document.getElementById("time"+tselect);
+  if( (tselect==1) || (tselect==2) ){
+    
+    if(tselect==1){
+      var time = parseInt(e.options[e.selectedIndex].value);
+    }else{
+      var time = parseInt(e.value);
+    }
+    
+    if( (!Number.isInteger(time)) || (time < 1) ){
+		  alert("Invalid time input!");
+		  return false;
+	  }
+  }else if(tselect==3){
+    var time = e.value;
+  }
+	
+  console.log(time);
+	
 	var act=document.querySelector('input[name="pwrOptions"]:checked').value;
   if (pass.length == 0) { 
     document.getElementById("rmd").innerHTML = "<font color='red'>Please enter a valid password!</font>";
@@ -554,19 +588,67 @@ function authorize(pass) {
   } else {
     var xmlhttp = new XMLHttpRequest();
     xmlhttp.onreadystatechange = function() {
-        if (this.readyState == 4 && this.status == 200) {
-		console.log(this.responseText);
-		if(this.responseText=="true"){
-			document.getElementById("rmd").innerHTML = "<font color='green'>Authorization completed!</font>";
-			setTimeout(shutdown, 1000);
-		}else{
-			document.getElementById("rmd").innerHTML = "<font color='red'>Authorization failed!</font>";
-		}
+      if (this.readyState == 4 && this.status == 200) {
+        console.log(this.responseText);
+        if(this.responseText.indexOf("true") > -1){
+          document.getElementById("rmd").innerHTML = "<font color='green'>Authorization completed!</font>";
+          var res=this.responseText.split("_");
+          outputShutdown(res[1],act);
+        }else if(this.responseText=="wrongCredentials"){
+          document.getElementById("rmd").innerHTML = "<font color='red'>Authorization failed!</font>";
+        }else{
+          document.getElementById("rmd").innerHTML = "<font color='red'>Error!</font>";
         }
+      }
     };
-    xmlhttp.open("GET", "serv.php?p=" + pass+"&a="+act+"&time="+parseInt(time), true);
+    xmlhttp.open("GET", "serv.php?p=" + pass+"&a="+act+"&time="+time, true);
     xmlhttp.send();
   }
+}
+function checkShutdown() {
+  var xmlhttp = new XMLHttpRequest();
+  xmlhttp.onreadystatechange = function() {
+    if (this.readyState == 4 && this.status == 200) {
+      if(this.responseText==""){
+        document.getElementById("sys2").innerHTML="";
+        shutdownCurrent=false;
+        return;
+      }
+      shutdownCurrent=true;
+      outputShutdown(this.responseText,"unknown");
+    }
+  };
+  xmlhttp.open("GET", "serv.php?checkShutdown", true);
+  xmlhttp.send();
+}
+
+function cancelShutdown() {
+  var xmlhttp = new XMLHttpRequest();
+  xmlhttp.onreadystatechange = function() {
+    if (this.readyState == 4 && this.status == 200) {
+      console.log(this.responseText);
+      if(this.responseText==""){
+        console.log("Cancel response is empty");
+        checkShutdown();
+        return;
+      }
+    }
+  };
+  xmlhttp.open("GET", "serv.php?cancelShutdown", true);
+  xmlhttp.send();
+}
+
+function outputShutdown(data,act) {
+  // TODO: calc diff in min
+  var toParse=data.split(" CEST ")[0];
+  var scheduled=Date.parse(toParse);
+  console.log(scheduled);
+  var action = (act=="1") ? "shutdown" : "reboot";
+  if(act=="unknown"){
+    action="shutdown/reboot";
+  }
+  //setTimeout(shutdown, 1000);
+  document.getElementById("sys2").innerHTML+='<div class="alert alert-warning" role="alert">System is going to '+action+' at '+toParse.split(" ")[3]+'&nbsp;<a href="javascript:cancelShutdown()">Cancel</a></div>';
 }
 
 function shutdown(){
@@ -819,6 +901,15 @@ window.onclick = function(event) {
     modal.style.display = "none";
   }
 }
+
+$('#exampleModalCenter').on('shown.bs.modal', function (e) {
+  // TODO: First call checkShutdown()
+  if(shutdownCurrent){
+    document.getElementById("currentState").innerHTML='<div class="alert alert-danger" role="alert">Existing shutdown will be overwritten.</div>';
+  }else{
+    document.getElementById("currentState").innerHTML='<div class="alert alert-success" role="alert">Currently there is no other shutdown planned.</div>';
+  }
+});
 </script>
 <script src="js/feather.min.js"></script>
 <script>feather.replace()</script>
