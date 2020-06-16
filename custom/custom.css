@@ -1,0 +1,33 @@
+.default-img{
+	position:absolute;
+	top:50%;
+	left:50%;
+	width:128px;
+	height:128px;
+	padding:20px;
+	margin-left:-64px;
+	margin-top:-64px;
+}
+.default-loadmsg{
+	position:absolute;
+	top:60%;
+	left:50%;
+	padding:20px;
+	margin-left:-100px;
+}
+.custom1-img{
+	position:absolute;
+	top:50%;
+	left:47%;
+	width:200px;
+	height:200px;
+	margin-left:-64px;
+	margin-top:-64px;
+}
+.custom1-loadmsg{
+	position:absolute;
+	top:60%;
+	left:50%;
+	padding:20px;
+	margin-left:-100px;
+}
