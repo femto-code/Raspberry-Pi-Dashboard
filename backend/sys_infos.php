@@ -123,7 +123,7 @@ if(isset($_GET["statemail"])){
 	
 	$a1 = "\n<div class=\"testbox\"	style=\"border: 1px dotted green; position: absolute; margin:0px; padding:10px; z-index:5; background-color:#ffffcc; color:#000000;\"> \n";
 	$a2 = " \n </div> \n";
-	$ausgabe = $a1 . "Status mail was sent!<br><button onclick='location.replace(\"index.php\");'>Zurück</button>" . $a2;
+	$ausgabe = $a1 . "Status mail was sent!<br><button onclick='location.replace(\"../index.php\");'>Zurück</button>" . $a2;
 	echo $ausgabe;
 
 }else{

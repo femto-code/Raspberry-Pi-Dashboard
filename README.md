@@ -1,8 +1,8 @@
 # Raspberry Pi Dashboard
 
-> View RPi system information and hardware statistics on a webpage in your web browser!
+> View RPi system information and hardware statistics on a webpage in your web browser! Written in plain HTML5, CSS3, JavaScript and PHP (backend). No extra programs required.
 
-![Intro](intro.png?raw=true "Components of this project")
+![Intro](img/intro.png?raw=true "Components of this project")
 
 ## Features
 
@@ -11,7 +11,7 @@
 - Power (shutdown/reboot) Raspberry Pi with schedule options ([setup instructions](https://github.com/femto-code/Rasberry-Pi-Dashboard#setup-project))
 - Web-App capable with mobile integration and responsive design
 
-![Preview](preview.png?raw=true "Preview of dashboard in a web browser")
+![Preview](img/preview.png?raw=true "Preview of dashboard in a web browser")
 
 ## Installation
 

@@ -178,7 +178,7 @@ if(strpos($spannung,"failed")!==false) $spannung=$spannung."<br><font style='fon
 <span id="preload"><img src="img/load.gif" class="default-img"><span class="default-loadmsg">Dashboard is loading...</span></span>
 
 <nav class="navbar navbar-expand-lg fixed-top navbar-dark bg-dark shadow-sm">
-  <img class="rounded float-left" src="img/rpi_logo.png" alt="Responsive image" height="30px" width="auto">&nbsp;<!--50px heigth navbar default-->
+  <img class="rounded float-left" src="img/rpi_logo.png" alt="Responsive image" height="30px" width="auto">&nbsp;<!--50px height navbar default-->
   <a class="navbar-brand" href="#">Raspberry Pi Dashboard</a>
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
@@ -187,7 +187,7 @@ if(strpos($spannung,"failed")!==false) $spannung=$spannung."<br><font style='fon
   <div class="collapse navbar-collapse" id="navbarSupportedContent">
     <ul class="navbar-nav mr-auto">
       <li class="nav-item">
-				<a class="nav-link" href="sys_infos.php?statemail" onclick="return confirm('Send status mail?')">Status Mail</a>
+				<a class="nav-link" href="backend/sys_infos.php?statemail" onclick="return confirm('Send status mail?')">Status Mail</a>
       </li>
     </ul>
 		<p style="color: white;line-height:15px;margin-bottom:0px"><b>Hostname:</b> <?php system("hostname");?> &#183; <b>Internal IP:</b> <?php echo $_SERVER["SERVER_ADDR"];?><br>
@@ -600,7 +600,7 @@ function authorize(pass) {
         }
       }
     };
-    xmlhttp.open("GET", "serv.php?p=" + pass+"&a="+act+"&time="+time, true);
+    xmlhttp.open("GET", "backend/serv.php?p=" + pass+"&a="+act+"&time="+time, true);
     xmlhttp.send();
   }
 }
@@ -617,7 +617,7 @@ function checkShutdown() {
       outputShutdown(this.responseText,"unknown");
     }
   };
-  xmlhttp.open("GET", "serv.php?checkShutdown", true);
+  xmlhttp.open("GET", "backend/serv.php?checkShutdown", true);
   xmlhttp.send();
 }
 
@@ -633,7 +633,7 @@ function cancelShutdown() {
       }
     }
   };
-  xmlhttp.open("GET", "serv.php?cancelShutdown", true);
+  xmlhttp.open("GET", "backend/serv.php?cancelShutdown", true);
   xmlhttp.send();
 }
 
@@ -748,7 +748,7 @@ function updatedb(){
 		type: "GET",
 		dataType: "json",
 		cache: false,
-		url: "sys_infos.php",
+		url: "backend/sys_infos.php",
 		error : function(jqXHR, textStatus, errorThrown){
 			console.error("Ajax error");
 			console.error(jqXHR + " | " + textStatus + " | " + errorThrown);
