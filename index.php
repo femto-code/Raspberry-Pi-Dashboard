@@ -22,7 +22,7 @@
 <meta name="msapplication-TileImage" content="rpidb_ico/ms-icon-144x144.png">
 <meta name="theme-color" content="#0099ff">
 
-<link rel="stylesheet" href="css/bootstrap.min.css">
+<link rel="stylesheet" href="css/bootstrap-4.5.0.min.css">
 
 <link rel="stylesheet" href="custom/custom.css"><!-- Custom Styles -->
 
@@ -552,10 +552,9 @@ if(strpos($spannung,"failed")!==false) $spannung=$spannung."<br><font style='fon
 </footer>
 <!-- Ende Footer -->
 
-<!--<script src="js/jquery-3.2.1.slim.min.js"></script> This version obviously does not contain ajax method-->
-<script src="js/jquery-3.4.1.min.js"></script>
-<script src="js/popper.min.js"></script>
-<script src="js/bootstrap.min.js"></script>
+<script src="js/jquery-3.5.1.min.js"></script>
+<script src="js/popper-1.16.0.min.js"></script>
+<script src="js/bootstrap-4.5.0.min.js"></script>
 
 
 <script>
@@ -683,7 +682,7 @@ function send_supportmail(){
 }
 </script>
 
-<script src="js/Chart.min.js"></script>
+<script src="js/Chart-2.9.3.min.js"></script>
 <script>
 var ctx = document.getElementById('myChart').getContext('2d');
 var chart = new Chart(ctx, {
@@ -863,7 +862,7 @@ function togglep(force){
 
 </script>
 
-<script src="js/radialIndicator.min.js"></script>
+<script src="js/radialIndicator-2.0.0.min.js"></script>
 <script>
 $('#indicatorContainer').radialIndicator({
 	barColor: {
