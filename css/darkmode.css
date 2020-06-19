@@ -1,0 +1,21 @@
+@charset "utf-8";
+body, div.bg-light {
+  background-color: #24292e!important;
+}
+
+footer, .card, .modal-header, .modal-body, .modal-footer, .close, #preload {
+  background-color: #2f363d!important;
+  color: #fff!important;
+}
+
+hr {
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.text-muted, pre, samp {
+  color: #b1afaf!important;
+}
+
+label{
+  color: #fff;
+}
