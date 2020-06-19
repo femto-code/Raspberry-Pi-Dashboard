@@ -1,6 +1,6 @@
-# Raspberry Pi Dashboard
+# <div align="center">Raspberry Pi Dashboard</div>
 
-> View RPi system information and hardware statistics on a webpage in your web browser! Written in plain HTML5, CSS3, JavaScript and PHP (backend). No extra programs required.
+> <div align="center">View RPi system information and hardware statistics on a webpage in your web browser! Written in plain HTML5, CSS3, JavaScript and PHP (backend). No extra programs required!</div>
 
 ![Intro](img/intro.png?raw=true "Components of this project")
 
@@ -9,9 +9,14 @@
 - Live surveillance of RPi hardware (CPU Temperature, frequency, loads etc.)
 - State Mail to send an email containing a summary
 - Power (shutdown/reboot) Raspberry Pi with schedule options ([setup instructions](https://github.com/femto-code/Rasberry-Pi-Dashboard#setup-project))
-- Web-App capable with mobile integration and responsive design
+- Web-App capable with mobile integration thanks to responsive design
+- Dark Mode
 
 ![Preview](img/preview.png?raw=true "Preview of dashboard in a web browser")
+
+| Mobile Light Theme                                | Mobile Dark Theme                               |
+|:-------------------------------------------------:|:-----------------------------------------------:|
+| ![](img/m2.png?raw=true)                          |                ![](img/m1.png?raw=true)         |
 
 ## Installation
 
