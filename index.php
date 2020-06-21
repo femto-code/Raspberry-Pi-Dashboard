@@ -23,6 +23,7 @@
 <meta name="theme-color" content="#0099ff">
 
 <link rel="stylesheet" href="css/bootstrap-4.5.0.min.css">
+<link rel="stylesheet" href="css/darkmode.css" id="dmcss" type="text/css" disabled>
 
 <link rel="stylesheet" href="custom/custom.css"><!-- Custom Styles -->
 
@@ -84,7 +85,7 @@ $p = $df / $ds * 100;
 //
 
 $spannung=substr(exec("vcgencmd measure_volts core"),5);
-if(strpos($spannung,"failed")!==false) $spannung=$spannung."<br><font style='font-size: 15px;' color='red'>Reading of core voltage failed. Please run <b>sudo usermod -aG video www-data</b> in a terminal to solve the problem.</font>";
+if(strpos($spannung,"failed")!==false) $spannung=$spannung."<br><font style='font-size: 15px;' class='text-danger'>Reading of core voltage failed. Please run <b>sudo usermod -aG video www-data</b> in a terminal to solve the problem.</font>";
 
 ?>
 
@@ -270,7 +271,7 @@ if(strpos($spannung,"failed")!==false) $spannung=$spannung."<br><font style='fon
 				<div class="card text-center border-info">
 				  <div class="card-body">
 						<h5 class="card-title"><i data-feather="globe"></i>&nbsp;Web Server</h5>
-            <p class="card-text">Software: <b><?php echo $_SERVER["SERVER_SOFTWARE"];?></b><br>Address: <b><?php echo $_SERVER["SERVER_ADDR"];?></b><br>PHP version: <b><?php echo phpversion();?></b><br>User: <b><?php system("whoami"); ?></b><br>Protocol: <b><?php echo $_SERVER["SERVER_PROTOCOL"]; ?></b></p>
+            <p class="card-text" id="webinfo">Software: <b><?php echo $_SERVER["SERVER_SOFTWARE"];?></b><br>Address: <b><?php echo $_SERVER["SERVER_ADDR"];?></b><br>PHP version: <b><?php echo phpversion();?></b><br>User: <b><?php system("whoami"); ?></b><br>Protocol: <b><?php echo $_SERVER["SERVER_PROTOCOL"]; ?></b></p>
 						<p class="card-text"><small class="text-muted">Updated <span><?php echo date("H:i:s");?> (at page load)</span></small></p>
 				  </div>
 				</div>
@@ -290,7 +291,7 @@ if(strpos($spannung,"failed")!==false) $spannung=$spannung."<br><font style='fon
 			<div class="card text-center border-info">
 			  <div class="card-body">
 					<h5 class="card-title"><i data-feather="zap"></i>&nbsp;Voltage</h5>
-					<p style="font-size: 20px" class="card-text"><?php echo $spannung; ?></p>
+					<p style="font-size: 20px" class="card-text text-muted"><?php echo $spannung; ?></p>
 					<p class="card-text"><small class="text-muted">Updated <span><?php echo date("H:i:s");?> (at page load)</span></small></p>
 			  </div>
 			</div>
@@ -301,7 +302,7 @@ if(strpos($spannung,"failed")!==false) $spannung=$spannung."<br><font style='fon
 		<div class="card text-center border-info">
 		  <div class="card-header">Kernel</div>
 		  <div class="card-body">
-				<p class="card-text"><?php echo php_uname(); ?></p>
+				<p class="card-text text-muted"><?php echo php_uname(); ?></p>
 				<p class="card-text"><small class="text-muted">Updated <span><?php echo date("H:i:s");?> (at page load)</span></small></p>
 		  </div>
 		</div>
@@ -311,7 +312,7 @@ if(strpos($spannung,"failed")!==false) $spannung=$spannung."<br><font style='fon
 			  <div class="card-header">Model</div>
 			  <div class="card-body">
 					<samp><?php echo exec("cat /sys/firmware/devicetree/base/model");?></samp>
-					<samp><?php $ot=shell_exec("vcgencmd version");if(strpos($ot,"failed")!==false){echo "<font color='red'>Execution of system command failed. Please run <b>sudo usermod -aG video www-data</b> in a terminal to solve this problem.</font>";}else{echo $ot;}?></samp>
+					<samp><?php $ot=shell_exec("vcgencmd version");if(strpos($ot,"failed")!==false){echo "<font class='text-danger'>Execution of system command failed. Please run <b>sudo usermod -aG video www-data</b> in a terminal to solve this problem.</font>";}else{echo $ot;}?></samp>
 					<p class="card-text"><small class="text-muted">Updated <span><?php echo date("H:i:s");?> (at page load)</span></small></p>
 			  </div>
 			</div>
@@ -465,7 +466,11 @@ if(strpos($spannung,"failed")!==false) $spannung=$spannung."<br><font style='fon
         </button>
       </div>
       <div class="modal-body">
-        
+        <div class="custom-control custom-switch">
+          <input type="checkbox" onchange="toggleDarkMode()" class="custom-control-input" id="dm">
+          <label class="custom-control-label" for="dm">Dark Mode</label>
+        </div>
+        <hr>
 				<div id="accordion">
 				  <div class="card">
 					<div class="card-header" id="headingOne">
@@ -478,7 +483,7 @@ if(strpos($spannung,"failed")!==false) $spannung=$spannung."<br><font style='fon
 
 					<div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordion">
 					  <div class="card-body">
-						<h3><font color='green'>&#10003;</font> Version 0.1</h3>
+						<h3><font class='text-success'>&#10003;</font> Version 0.1</h3>
 						First release published to Github<ul><li>Issues and feature requests are welcome!</li><li><a href='https://github.com/femto-code/Rasberry-Pi-Dashboard/releases'>Stay updated here</a></li><li><i><a href="CHANGELOG.md">CHANGELOG</a></i></li></ul>
 						<small>RPi Dashboard v0.1 (Jun 2020)</small>
 					  </div>
@@ -540,17 +545,17 @@ if(strpos($spannung,"failed")!==false) $spannung=$spannung."<br><font style='fon
 
 </div>
 
-<!--Ende Modal(s)-->
+<!--End Modal(s)-->
 
 <!-- Footer -->
 <footer style="line-height: 40px; background-color: #f5f5f5; margin-top: 10px;">
 	<div class="container text-center">
-		RPi Dashboard v0.1 (Jun 2020) &middot; <font style="color: green">You will get notifications for updates!</font>
+		RPi Dashboard v0.1 <font class="text-muted">(Jun 2020)</font> &middot; <font class="text-success">See the <a href="https://github.com/femto-code/Rasberry-Pi-Dashboard/releases">Github releases</a> for updates!</font>
 		<hr style="margin-top: 0; margin-bottom: 0;">
-		© 2018 - 2020 : Florian (<a href="javascript:send_supportmail()">Support Mail</a>) - <button class="btn btn-secondary" onclick="$('#exampleModal').modal('show');">Info</button>
+		© 2018 - 2020 : Florian (<a href="javascript:send_supportmail()">Support Mail</a>) - <button class="btn btn-secondary" onclick="$('#exampleModal').modal('show');">Settings</button>
 	</div>
 </footer>
-<!-- Ende Footer -->
+<!-- End Footer -->
 
 <script src="js/jquery-3.5.1.min.js"></script>
 <script src="js/popper-1.16.0.min.js"></script>
@@ -582,7 +587,7 @@ function authorize(pass) {
 	
 	var act=document.querySelector('input[name="pwrOptions"]:checked').value;
   if (pass.length == 0) { 
-    document.getElementById("rmd").innerHTML = "<font color='red'>Please enter a valid password!</font>";
+    document.getElementById("rmd").innerHTML = "<font class='text-danger'>Please enter a valid password!</font>";
     return;
   } else {
     var xmlhttp = new XMLHttpRequest();
@@ -590,13 +595,13 @@ function authorize(pass) {
       if (this.readyState == 4 && this.status == 200) {
         console.log(this.responseText);
         if(this.responseText.indexOf("true") > -1){
-          document.getElementById("rmd").innerHTML = "<font color='green'>Authorization completed!</font>";
+          document.getElementById("rmd").innerHTML = "<font class='text-success'>Authorization completed!</font>";
           var res=this.responseText.split("_");
           outputShutdown(res[1],act);
         }else if(this.responseText=="wrongCredentials"){
-          document.getElementById("rmd").innerHTML = "<font color='red'>Authorization failed!</font>";
+          document.getElementById("rmd").innerHTML = "<font class='text-danger'>Authorization failed!</font>";
         }else{
-          document.getElementById("rmd").innerHTML = "<font color='red'>Error!</font>";
+          document.getElementById("rmd").innerHTML = "<font class='text-danger'>Error!</font>";
         }
       }
     };
@@ -773,9 +778,9 @@ function updatedb(){
 			radialObj.animate(parseInt(result.cputemp));
 			//console.log(parseInt(result.cputemp));
 			if ( parseInt(result.cputemp) < warn_cpu_temp){
-				document.getElementById("tempstate").innerHTML="<i data-feather='thermometer'></i>&nbsp;Temperature <font color='green'>(OK)</font>";
+				document.getElementById("tempstate").innerHTML="<i data-feather='thermometer'></i>&nbsp;Temperature <font class='text-success'>(OK)</font>";
 			}else{
-				document.getElementById("tempstate").innerHTML="<i data-feather='thermometer'></i>&nbsp;Temperature <font color='orange'>(WARNING)</font>";
+				document.getElementById("tempstate").innerHTML="<i data-feather='thermometer'></i>&nbsp;Temperature <font class='text-warning'>(WARNING)</font>";
 				warn++;
 			}
 			//CPU-Frequenz
@@ -794,10 +799,10 @@ function updatedb(){
 			addData(chart, "5 min", array[1]);
 			addData(chart, "15 min", array[2]);
 			if (array[0] >= warn_loads_size){
-				document.getElementById("cput").innerHTML="CPU <font color='orange'>(WARNING)</font>";
+				document.getElementById("cput").innerHTML="CPU <font class='text-warning'>(WARNING)</font>";
 				warn++;
 			}else{
-				document.getElementById("cput").innerHTML="CPU <font color='green'>(OK)</font>";
+				document.getElementById("cput").innerHTML="CPU <font class='text-success'>(OK)</font>";
 			}
 			// RAM
 			document.getElementById("memused").innerHTML=result.memunavail;
@@ -810,19 +815,19 @@ function updatedb(){
 			document.getElementById("ram2").style.width = result.memperc + "%";
 			document.getElementById("ram2").innerHTML = result.memperc + " %";
 			if (result.memperc >= warn_ram_space){
-				document.getElementById("ramt").innerHTML='Memory <font color="orange">(WARNING)</font>';
+				document.getElementById("ramt").innerHTML='Memory <font class="text-warning">(WARNING)</font>';
 				warn++;
 			}else{
-				document.getElementById("ramt").innerHTML='Memory <font color="green">(OK)</font>';
+				document.getElementById("ramt").innerHTML='Memory <font class="text-success">(OK)</font>';
 			}
 			//Swap
 			document.getElementById("swapsys").innerHTML="Swap: <b>"+result.swapperc+"</b> % ("+result.swapused+" MB of "+result.swaptotal+" MB)";
 			//Overall
 			if (warn > 0){
-				document.getElementById("overallstate").innerHTML="<font color='red'><i data-feather='alert-circle'></i>&nbsp;A problem occured</font>";
+				document.getElementById("overallstate").innerHTML="<font class='text-danger'><i data-feather='alert-circle'></i>&nbsp;A problem occured</font>";
 				warnuser(); // TODO: rework notification that does not disturb to much
 			}else{
-				document.getElementById("overallstate").innerHTML="<font color='green'><i data-feather='check-circle'></i>&nbsp;System runs normally</font>";
+				document.getElementById("overallstate").innerHTML="<font class='text-success'><i data-feather='check-circle'></i>&nbsp;System runs normally</font>";
 				modal.style.display = "none"; // remove warning modal
 			}
 			feather.replace()
@@ -855,7 +860,7 @@ function togglep(force){
 		clearInterval(updinterval);
 		timer=false;
 		console.log("Timer gestoppt");
-		$('#overallstate').html('<font color="grey">Live Update disabled</font>');
+		$('#overallstate').html('<font class="text-muted">Live Update disabled</font>');
 		return '<i data-feather="play"></i>';
 	}
 }
@@ -909,6 +914,23 @@ $('#exampleModalCenter').on('shown.bs.modal', function (e) {
     document.getElementById("currentState").innerHTML='<div class="alert alert-success" role="alert">Currently there is no other shutdown planned.</div>';
   }
 });
+
+function toggleDarkMode() {
+  var state = $("#dm").prop("checked");
+  if(state){
+    $("#dmcss").prop("disabled", false);
+  }else{
+    $("#dmcss").prop("disabled", true);
+  }
+  localStorage.setItem("darkmode", state);
+}
+$("#dmcss").prop("disabled", (localStorage.getItem("darkmode") == 'false' || localStorage.getItem("darkmode") == null));
+if( localStorage.getItem("darkmode") == 'false' || localStorage.getItem("darkmode") == null ){
+  $("#webinfo").removeClass("text-muted");
+}else{
+  $("#webinfo").addClass("text-muted");
+}
+$("#dm").prop("checked", (localStorage.getItem("darkmode") == 'true'));
 </script>
 <script src="js/feather.min.js"></script>
 <script>feather.replace()</script>
