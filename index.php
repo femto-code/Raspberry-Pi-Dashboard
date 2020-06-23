@@ -39,21 +39,20 @@ function preload(){
 	}else{
 		togglep(false);
 	}
-  setTimeout(function(){ document.getElementById("preload").style.display = "none"; }, 500);
+  setTimeout(function(){ $(".preload-screen").fadeOut("slow"); }, 500);
   checkShutdown();
 }
 </script>
 
 <style>
-#preload{
-	width:100%;
-	height:100%;
-	top:0px;
-	left:0px;
-	background-color:#fff;
-	position:absolute;
-	z-index:9 !important;
-	display:block;
+.preload-screen {
+	position: fixed;
+	left: 0px;
+	top: 0px;
+	width: 100%;
+	height: 100%;
+	z-index: 9999;
+	background: url(img/load.gif) center no-repeat #fff;
 }
 .doughnut-chart-container {
   height: 360px;
@@ -176,7 +175,7 @@ if(strpos($spannung,"failed")!==false) $spannung=$spannung."<br><font style='fon
 </head>
 <body onload="preload()" style="background-color: #eee">
 <noscript style="z-index: 10!important; position: absolute; top: 0; background-color: #FF8080; width: 98%; padding: 3%;"> JavaScript is disabled. This site needs JS in order to work properly - please activate!</noscript>
-<span id="preload"><img src="img/load.gif" class="default-img"><span class="default-loadmsg">Dashboard is loading...</span></span>
+<div class="preload-screen"></div>
 
 <nav class="navbar navbar-expand-lg fixed-top navbar-dark bg-dark shadow-sm">
   <img class="rounded float-left" src="img/rpi_logo.png" alt="Responsive image" height="30px" width="auto">&nbsp;<!--50px height navbar default-->
