@@ -45,6 +45,14 @@ function preload(){
 </script>
 
 <style>
+@media screen and (max-width: 530px) {
+  #notf {
+    display: block;
+  }
+  #dot{
+    display:none;
+  }
+}
 .preload-screen {
 	position: fixed;
 	left: 0px;
@@ -211,7 +219,7 @@ if(strpos($spannung,"failed")!==false) $spannung=$spannung."<br><font style='fon
 			  </div>
 			</div>	
 	  </div>
-	  <div class="col-sm-3">
+	  <div class="col-sm-3 pt-1 pt-md-0">
 			<div class="card shadow-sm">
         <div class="card-header border-primary text-primary"><i data-feather="command"></i>&nbsp;System</div>
 			  <div class="card-body">
@@ -220,7 +228,7 @@ if(strpos($spannung,"failed")!==false) $spannung=$spannung."<br><font style='fon
 			</div>	
 	  </div>
 	</div>
-	<div class="row" style="padding-top: 10px;">
+	<div class="row pt-3">
 	  <div class="col-sm-5">
 			<div class="card text-center border-info shadow-sm">
 			  <div class="card-body">
@@ -230,7 +238,7 @@ if(strpos($spannung,"failed")!==false) $spannung=$spannung."<br><font style='fon
 			  </div>
 			</div>
 	  </div>
-	  <div class="col-sm-3">
+	  <div class="col-sm-3 pt-1 pt-md-0">
 			<div class="card text-center border-danger shadow-sm">
 			  <div class="card-body">
 				<h5 id="tempstate" class="card-title"></h5>
@@ -240,7 +248,7 @@ if(strpos($spannung,"failed")!==false) $spannung=$spannung."<br><font style='fon
 			  </div>
 			</div>
 	  </div>
-	  <div class="col-sm-4">
+	  <div class="col-sm-4 pt-1 pt-md-0">
 			<div class="card text-center border-warning shadow-sm">
 			  <div class="card-body">
 					<h5 class="card-title"><i data-feather="cpu"></i>&nbsp;<span id="ramt"></span></h5>
@@ -256,8 +264,8 @@ if(strpos($spannung,"failed")!==false) $spannung=$spannung."<br><font style='fon
 	  </div>
 	</div>
 	<hr class="my-4"><!-- Static infos, that won't updated live -->
-    <div class="row" style="padding-top: 10px;">
-		  <div class="col-sm-6">
+    <div class="row pt-3">
+		  <div class="col-sm-6 pt-1 pt-md-0">
 				<div class="card text-center border-info">
 				  <div class="card-body">
 						<h5 class="card-title"><i data-feather="hard-drive"></i>&nbsp;Hardware</h5>
@@ -266,7 +274,7 @@ if(strpos($spannung,"failed")!==false) $spannung=$spannung."<br><font style='fon
 				  </div>
 				</div>
 		  </div>
-		  <div class="col-sm-6">
+		  <div class="col-sm-6 pt-1 pt-md-0">
 				<div class="card text-center border-info">
 				  <div class="card-body">
 						<h5 class="card-title"><i data-feather="globe"></i>&nbsp;Web Server</h5>
@@ -276,8 +284,8 @@ if(strpos($spannung,"failed")!==false) $spannung=$spannung."<br><font style='fon
 				</div>
 		  </div>
 	</div>
-	<div class="row" style="padding-top: 10px;">
-	  <div class="col-sm-6">
+	<div class="row pt-3">
+	  <div class="col-sm-6 pt-1 pt-md-0">
 			<div class="card text-center border-info">
 			  <div class="card-body">
 					<h5 class="card-title"><i data-feather="database"></i>&nbsp;SD Card</h5>
@@ -286,7 +294,7 @@ if(strpos($spannung,"failed")!==false) $spannung=$spannung."<br><font style='fon
 			  </div>
 			</div>
 	  </div>
-	  <div class="col-sm-6">
+	  <div class="col-sm-6 pt-1 pt-md-0">
 			<div class="card text-center border-info">
 			  <div class="card-body">
 					<h5 class="card-title"><i data-feather="zap"></i>&nbsp;Voltage</h5>
@@ -296,8 +304,8 @@ if(strpos($spannung,"failed")!==false) $spannung=$spannung."<br><font style='fon
 			</div>
 	  </div>
 	</div>
-	<div class="row" style="padding-top: 10px;">
-	  <div class="col-sm-6">
+	<div class="row pt-3">
+	  <div class="col-sm-6 pt-1 pt-md-0">
 		<div class="card text-center border-info">
 		  <div class="card-header">Kernel</div>
 		  <div class="card-body">
@@ -306,7 +314,7 @@ if(strpos($spannung,"failed")!==false) $spannung=$spannung."<br><font style='fon
 		  </div>
 		</div>
 	  </div>
-	  <div class="col-sm-6">
+	  <div class="col-sm-6 pt-1 pt-md-0">
 			<div class="card text-center border-info">
 			  <div class="card-header">Model</div>
 			  <div class="card-body">
@@ -317,8 +325,8 @@ if(strpos($spannung,"failed")!==false) $spannung=$spannung."<br><font style='fon
 			</div>
 	  </div>
 	</div>
-	<div class="row" style="padding-top: 10px;">
-	  <div class="col-sm-6">
+	<div class="row pt-3">
+	  <div class="col-sm-6 pt-1 pt-md-0">
 			<div class="card text-center border-info">
 			  <div class="card-header">Partitions / Storage</div>
 			  <div class="card-body">
@@ -327,7 +335,7 @@ if(strpos($spannung,"failed")!==false) $spannung=$spannung."<br><font style='fon
 			  </div>
 			</div>
 	  </div>
-	  <div class="col-sm-6">
+	  <div class="col-sm-6 pt-1 pt-md-0">
 			<div class="card text-center border-info">
 			  <div class="card-header">Operating System</div>
 			  <div class="card-body">
@@ -337,8 +345,8 @@ if(strpos($spannung,"failed")!==false) $spannung=$spannung."<br><font style='fon
 			</div>
 	  </div>
 	</div>
-	<div class="row" style="padding-top: 10px;">
-	  <div class="col-sm-6">
+	<div class="row pt-3">
+	  <div class="col-sm-6 pt-1 pt-md-0">
 		<div class="card text-center border-info">
 		  <div class="card-header">Hostnamectl</div>
 		  <div class="card-body">
@@ -347,7 +355,7 @@ if(strpos($spannung,"failed")!==false) $spannung=$spannung."<br><font style='fon
 		  </div>
 		</div>
 	  </div>
-	  <div class="col-sm-6">
+	  <div class="col-sm-6 pt-1 pt-md-0">
 			<div class="card text-center border-info">
 			  <div class="card-header">Processor</div>
 			  <div class="card-body">
@@ -549,9 +557,9 @@ if(strpos($spannung,"failed")!==false) $spannung=$spannung."<br><font style='fon
 <!-- Footer -->
 <footer style="line-height: 40px; background-color: #f5f5f5; margin-top: 10px;">
 	<div class="container text-center">
-		RPi Dashboard v0.2 <font class="text-muted">(Jun 2020)</font> &middot; <font class="text-success">See the <a href="https://github.com/femto-code/Rasberry-Pi-Dashboard/releases">Github releases</a> for updates!</font>
+		RPi Dashboard v0.2 <font class="text-muted">(Jun 2020)</font> <span id="dot">&middot;</span> <font id="notf" class="text-success">See the <a href="https://github.com/femto-code/Rasberry-Pi-Dashboard/releases">Github releases</a> for updates!</font>
 		<hr style="margin-top: 0; margin-bottom: 0;">
-		© 2018 - 2020 : Florian (<a href="javascript:send_supportmail()">Support Mail</a>) - <button class="btn btn-secondary" onclick="$('#exampleModal').modal('show');">Settings</button>
+		femto-code (<a href="javascript:send_supportmail()">Support</a>) &middot; <button class="btn btn-secondary" onclick="$('#exampleModal').modal('show');">?</button><br><font class="text-muted">&copy; 2018 - 2020</font>
 	</div>
 </footer>
 <!-- End Footer -->
