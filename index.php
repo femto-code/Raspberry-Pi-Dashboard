@@ -490,9 +490,9 @@ if(strpos($spannung,"failed")!==false) $spannung=$spannung."<br><font style='fon
 
 					<div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordion">
 					  <div class="card-body">
-						<h3><font class='text-success'>&#10003;</font> Version 0.2</h3>
-						<ul><li>Dark Theme</li><li>Rework of power options</li><li><a href='https://github.com/femto-code/Rasberry-Pi-Dashboard/releases'>Stay updated here</a></li><li><i><a href="CHANGELOG.md">All changes</a></i></li></ul>
-						<small>RPi Dashboard v0.2 (Jun 2020)</small>
+						<h3><font class='text-success'>&#10003;</font> Version 0.3</h3>
+						<ul><li>New loading screen</li><li>Small design adjustments</li><li><a href='https://github.com/femto-code/Rasberry-Pi-Dashboard/releases'>Stay updated here</a></li><li><i><a href="CHANGELOG.md">All changes</a></i></li></ul>
+						<small>RPi Dashboard v0.3 (Jul 2020)</small>
 					  </div>
 					</div>
 				  </div>
@@ -557,7 +557,7 @@ if(strpos($spannung,"failed")!==false) $spannung=$spannung."<br><font style='fon
 <!-- Footer -->
 <footer style="line-height: 40px; background-color: #f5f5f5; margin-top: 10px;">
 	<div class="container text-center">
-		RPi Dashboard v0.2 <font class="text-muted">(Jun 2020)</font> <span id="dot">&middot;</span> <font id="notf" class="text-success">See the <a href="https://github.com/femto-code/Rasberry-Pi-Dashboard/releases">Github releases</a> for updates!</font>
+		RPi Dashboard v0.3 <font class="text-muted">(Jul 2020)</font> <span id="dot">&middot;</span> <font id="notf" class="text-success">See the <a href="https://github.com/femto-code/Rasberry-Pi-Dashboard/releases">Github releases</a> for updates!</font>
 		<hr style="margin-top: 0; margin-bottom: 0;">
 		femto-code (<a href="javascript:send_supportmail()">Support</a>) &middot; <button class="btn btn-secondary" onclick="$('#exampleModal').modal('show');">?</button><br><font class="text-muted">&copy; 2018 - 2020</font>
 	</div>
