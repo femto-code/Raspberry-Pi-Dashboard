@@ -309,7 +309,7 @@ if(strpos($spannung,"failed")!==false) $spannung=$spannung."<br><font style='fon
 		<div class="card text-center border-info">
 		  <div class="card-header">Kernel</div>
 		  <div class="card-body">
-				<p class="card-text text-muted"><?php echo php_uname(); ?></p>
+				<p class="card-text" id="kernel"><?php echo php_uname(); ?></p>
 				<p class="card-text"><small class="text-muted">Updated <span><?php echo date("H:i:s");?> (at page load)</span></small></p>
 		  </div>
 		</div>
@@ -934,8 +934,10 @@ function toggleDarkMode() {
 $("#dmcss").prop("disabled", (localStorage.getItem("darkmode") == 'false' || localStorage.getItem("darkmode") == null));
 if( localStorage.getItem("darkmode") == 'false' || localStorage.getItem("darkmode") == null ){
   $("#webinfo").removeClass("text-muted");
+  $("#kernel").removeClass("text-muted");
 }else{
   $("#webinfo").addClass("text-muted");
+  $("#kernel").addClass("text-muted");
 }
 $("#dm").prop("checked", (localStorage.getItem("darkmode") == 'true'));
 </script>
