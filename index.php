@@ -278,25 +278,25 @@ if($auth){
   <?php
   if($auth){
   ?>
-    <div class="row pt-3">
-		  <div class="col-sm-6 pt-1 pt-md-0">
-				<div class="card text-center border-info">
-				  <div class="card-body">
-						<h5 class="card-title"><i data-feather="hard-drive"></i>&nbsp;Hardware</h5>
-						<?php print "<pre>"; echo shell_exec("lsusb"); print "</pre>"; ?>
-						<p class="card-text"><small class="text-muted">Updated <span><?php echo date("H:i:s");?> (at page load)</span></small></p>
-				  </div>
-				</div>
-		  </div>
-		  <div class="col-sm-6 pt-1 pt-md-0">
-				<div class="card text-center border-info">
-				  <div class="card-body">
-						<h5 class="card-title"><i data-feather="globe"></i>&nbsp;Web Server</h5>
-            <p class="card-text" id="webinfo">Software: <b><?php echo $_SERVER["SERVER_SOFTWARE"];?></b><br>Address: <b><?php echo $_SERVER["SERVER_ADDR"];?></b><br>PHP version: <b><?php echo phpversion();?></b><br>User: <b><?php system("whoami"); ?></b><br>Protocol: <b><?php echo $_SERVER["SERVER_PROTOCOL"]; ?></b></p>
-						<p class="card-text"><small class="text-muted">Updated <span><?php echo date("H:i:s");?> (at page load)</span></small></p>
-				  </div>
-				</div>
-		  </div>
+  <div class="row pt-3">
+    <div class="col-sm-6 pt-1 pt-md-0">
+      <div class="card text-center border-info">
+        <div class="card-body">
+          <h5 class="card-title"><i data-feather="hard-drive"></i>&nbsp;Hardware</h5>
+          <?php print "<pre>"; echo shell_exec("lsusb"); print "</pre>"; ?>
+          <p class="card-text"><small class="text-muted">Updated <span><?php echo date("H:i:s");?> (at page load)</span></small></p>
+        </div>
+      </div>
+    </div>
+    <div class="col-sm-6 pt-1 pt-md-0">
+      <div class="card text-center border-info">
+        <div class="card-body">
+          <h5 class="card-title"><i data-feather="globe"></i>&nbsp;Web Server</h5>
+          <p class="card-text" id="webinfo">Software: <b><?php echo $_SERVER["SERVER_SOFTWARE"];?></b><br>Address: <b><?php echo $_SERVER["SERVER_ADDR"];?></b><br>PHP version: <b><?php echo phpversion();?></b><br>User: <b><?php system("whoami"); ?></b><br>Protocol: <b><?php echo $_SERVER["SERVER_PROTOCOL"]; ?></b></p>
+          <p class="card-text"><small class="text-muted">Updated <span><?php echo date("H:i:s");?> (at page load)</span></small></p>
+        </div>
+      </div>
+    </div>
 	</div>
 	<div class="row pt-3">
 	  <div class="col-sm-6 pt-1 pt-md-0">
@@ -391,7 +391,7 @@ if($auth){
 ?>
 </div>
 
-<!-- Modal 1 -->
+<!-- Shutdown/Reboot options modal -->
 <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered" role="document">
     <div class="modal-content">
@@ -404,12 +404,12 @@ if($auth){
         <div id="currentState"></div>
 				<form action="javascript:void(0);">
 					<div class="form-check form-check-inline">
-					<input class="form-check-input" type="radio" name="pwrOptions" id="inlineRadio1" value="1">
-					<label class="form-check-label" for="inlineRadio1">Shutdown</label>
+					  <input class="form-check-input" type="radio" name="pwrOptions" id="inlineRadio1" value="1">
+					  <label class="form-check-label" for="inlineRadio1">Shutdown</label>
 					</div>
 					<div class="form-check form-check-inline">
-					<input class="form-check-input" type="radio" name="pwrOptions" id="inlineRadio2" value="2" checked>
-					<label class="form-check-label" for="inlineRadio2">Reboot</label>
+					  <input class="form-check-input" type="radio" name="pwrOptions" id="inlineRadio2" value="2" checked>
+					  <label class="form-check-label" for="inlineRadio2">Reboot</label>
 					</div>
 					<hr>
           <nav>
@@ -429,40 +429,35 @@ if($auth){
               </select>
             </div>
             <div class="tab-pane fade show" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
-              
               <label for="customRange2">Delay by <b><span id="rinp">?</span></b> min</label>
               <input type="range" id="time2" class="custom-range" min="1" max="60" id="customRange2" onchange="document.getElementById('rinp').innerHTML=this.value;tselect=2">
-              
             </div>
             <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
               <input id="time3" class="form-control" type="time" placeholder="Select exact time" onchange="tselect=3">
             </div>
           </div>
           <hr>
-
 					<div class="form-group">
-					<label for="inputPassword2" class="sr-only">Password</label>
-					      <div class="input-group">
-					        <div class="input-group-prepend">
-					          <div class="input-group-text"><i data-feather="key"></i></div>
-					        </div>
-					        <input type="password" class="form-control" id="inputPassword2" placeholder="Password">
-					      </div>
-					</div>
+					  <label for="inputPassword2" class="sr-only">Password</label>
+            <div class="input-group">
+              <div class="input-group-prepend">
+                <div class="input-group-text"><i data-feather="key"></i></div>
+              </div>
+              <input type="password" class="form-control" id="inputPassword2" placeholder="Password">
+            </div>
+          </div>
 				  <div id="rmd"></div>
 				</form>
-				<!---->
       </div>
       <div class="modal-footer">
 				<button class="btn btn-primary" onclick="authorize(document.getElementById('inputPassword2').value);">Confirm identity</button>
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
-        <!--<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalCenter2">Reboot</button>-->
       </div>
     </div>
   </div>
 </div>
 
-<!-- Modal 2 -->
+<!-- Restart modal -->
 <div class="modal fade" id="exampleModalCenter2" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenter2Title" aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered" role="document">
     <div class="modal-content">
@@ -485,15 +480,13 @@ if($auth){
     </div>
   </div>
 </div>
-<!--Modal 3 -->
+<!-- About/Help Modal -->
 <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
         <h5 class="modal-title" id="exampleModalLabel">Help & Docs</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
       </div>
       <div class="modal-body">
         <div class="custom-control custom-switch">
@@ -503,53 +496,43 @@ if($auth){
         <hr>
 				<div id="accordion">
 				  <div class="card">
-					<div class="card-header" id="headingOne">
-					  <h5 class="mb-0">
-						<button class="btn btn-link" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-						  About this version of RPi Dashboard
-						</button>
-					  </h5>
-					</div>
-
-					<div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordion">
-					  <div class="card-body">
-						<h3><font class='text-success'>&#10003;</font> Version 0.4</h3>
-						<ul><li>New authorization/login modal to secure dashboard</li><li><a href='https://github.com/femto-code/Rasberry-Pi-Dashboard/releases'>Stay updated here</a></li><li><i><a href="CHANGELOG.md">All changes</a></i></li></ul>
-						<small>RPi Dashboard v0.4 (Aug 2020)</small>
-					  </div>
-					</div>
+            <div class="card-header" id="headingOne">
+              <h5 class="mb-0">
+              <button class="btn btn-link" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">About this version of RPi Dashboard</button>
+              </h5>
+            </div>
+            <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordion">
+              <div class="card-body">
+              <h3><font class='text-success'>&#10003;</font> Version 0.4</h3>
+              <ul><li>New authorization/login modal to secure dashboard</li><li><a href='https://github.com/femto-code/Rasberry-Pi-Dashboard/releases'>Stay updated here</a></li><li><i><a href="CHANGELOG.md">All changes</a></i></li></ul>
+              <small>RPi Dashboard v0.4 (Aug 2020)</small>
+              </div>
+            </div>
 				  </div>
 				  <div class="card">
-					<div class="card-header" id="headingTwo">
-					  <h5 class="mb-0">
-						<button class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">Customization</button>
-					  </h5>
-					</div>
-					<div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordion">
-					  <div class="card-body">
-						Under <code>/var/www/html/Raspberry-Pi-Dashboard/custom/</code> there is <kbd>custom.js</kbd>. Within this JS file you can customize a few things of functions and appearance of RPi Dashboard. See the notes inside the file for instructions.
-					  </div>
-					</div>
+            <div class="card-header" id="headingTwo">
+              <h5 class="mb-0">
+              <button class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">Customization</button>
+              </h5>
+            </div>
+            <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordion">
+              <div class="card-body">Under <code>/var/www/html/Raspberry-Pi-Dashboard/custom/</code> there is <kbd>custom.js</kbd>. Within this JS file you can customize a few things of functions and appearance of RPi Dashboard. See the notes inside the file for instructions.</div>
+            </div>
 				  </div>
 				  <div class="card">
-					<div class="card-header" id="headingThree">
-					  <h5 class="mb-0">
-						<button class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
-						  What does 'CPU Load' mean?
-						</button>
-					  </h5>
-					</div>
-					<div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#accordion">
-					  <div class="card-body">
-						<i>Explanation of CPU Loads in Linux at <a href="http://blog.scoutapp.com/articles/2009/07/31/understanding-load-averages">http://blog.scoutapp.com/articles/2009/07/31/understanding-load-averages</a> (recommended article)</i><br>Critical value about 3~4, when all kernel cores are busy.
-					  </div>
-					</div>
+            <div class="card-header" id="headingThree">
+              <h5 class="mb-0">
+                <button class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">What does 'CPU Load' mean?</button>
+              </h5>
+            </div>
+            <div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#accordion">
+              <div class="card-body"><i>Explanation of CPU Loads in Linux at <a href="http://blog.scoutapp.com/articles/2009/07/31/understanding-load-averages">http://blog.scoutapp.com/articles/2009/07/31/understanding-load-averages</a> (recommended article)</i><br>Critical value about 3~4, when all kernel cores are busy.</div>
+            </div>
 				  </div>
 				</div>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-        <!--<button type="button" class="btn btn-primary">Save changes</button>-->
       </div>
     </div>
   </div>
@@ -575,7 +558,7 @@ if($auth){
 
 </div>
 
-<!-- Modal -->
+<!-- Login Modal -->
 <div class="modal fade" id="staticBackdrop" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered">
     <div class="modal-content">
@@ -658,6 +641,7 @@ function authorize(pass) {
           document.getElementById("rmd").innerHTML = "<font class='text-success'>Authorization completed!</font>";
           var res=this.responseText.split("_");
           outputShutdown(res[1],act);
+          $("#exampleModalCenter").modal("hide");
         }else if(this.responseText=="wrongCredentials"){
           document.getElementById("rmd").innerHTML = "<font class='text-danger'>Authorization failed!</font>";
         }else{
@@ -702,17 +686,34 @@ function cancelShutdown() {
   xmlhttp.send();
 }
 
+var dobj={Mon: "Monday", Tue: "Tuesday", Wed: "Wednesday", Thu: "Thursday", Fri: "Friday", Sat: "Saturday", Sun: "Sunday"};
 function outputShutdown(data,act) {
-  // TODO: calc diff in min
   var toParse=data.split(" CEST ")[0];
-  var scheduled=Date.parse(toParse);
-  console.log(scheduled);
+  var day=data.substring(0,3);
+  var s = data.replace(day,dobj[day]);
+  s=s.split(" ")[0]+" "+s.split(" ")[1]+" "+s.split(" ")[2]+", "+s.split(" ")[5]+" "+s.split(" ")[3];
+  scheduled=Date.parse(s);
+  d = new Date(scheduled);
+  var restd = Math.floor((d.getTime() - Date.now()) / (1000 * 60 * 60 * 24));
+  var resth = Math.floor((d.getTime() - Date.now()) / (1000 * 60 * 60)) % 24;
+  var restm = Math.floor((d.getTime() - Date.now()) / (1000 * 60)) % 60;
+  var str="";
+  if(restd>0){
+    str+=restd + " d ";
+  }
+  if(resth > 0){
+    str+=resth + " h ";
+  }
+  if(restm>0){
+    str += restm + " m";
+  }
+  console.log(str);
   var action = (act=="1") ? "shutdown" : "reboot";
   if(act=="unknown"){
     action="shutdown/reboot";
   }
-  //setTimeout(shutdown, 1000);
-  document.getElementById("sys2").innerHTML='<div class="alert alert-warning" role="alert">System is going to '+action+' at '+toParse.split(" ")[3]+'&nbsp;<a href="javascript:cancelShutdown()">Cancel</a></div>';
+  var c =toParse.split(" ");
+  document.getElementById("sys2").innerHTML='<div class="alert alert-warning" role="alert"><button class="btn btn-sm btn-outline-danger" onclick="cancelShutdown()" style="float:right">Cancel</button>Planned to '+action+' at <kbd>'+c[3]+'</kbd> on <kbd>'+c[0]+', '+c[1]+' '+c[2]+'</kbd><br>Remaining time: <kbd>'+str+'</kbd><br></div>';
 }
 
 function shutdown(){
@@ -755,10 +756,10 @@ var chart = new Chart(ctx, {
   data: {
     labels: ["1 min", "5 min", "15 min"],
     datasets: [{
-        label: "Loads",
-        backgroundColor: 'rgb(255, 99, 132)',
-        borderColor: 'rgb(255, 99, 132)',
-        data: [0,0,0],
+      label: "Loads",
+      backgroundColor: 'rgb(255, 99, 132)',
+      borderColor: 'rgb(255, 99, 132)',
+      data: [0,0,0],
     }]
   },
    options: {
@@ -781,12 +782,12 @@ var ctx2 = document.getElementById('space').getContext('2d');
 var chart2 = new Chart(ctx2, {
   type: 'doughnut',
   data: {
-      labels: ["Free", "Used"],
-      datasets: [{
-		label: "Disk usage",
-		backgroundColor: ['rgb(132, 244, 71)','rgb(255, 99, 132)'],
-          data: [<?=round($df,2)?>,<?=round($ds-$df,2)?>],
-      }]
+    labels: ["Free", "Used"],
+    datasets: [{
+      label: "Disk usage",
+      backgroundColor: ['rgb(132, 244, 71)','rgb(255, 99, 132)'],
+      data: [<?=round($df,2)?>,<?=round($ds-$df,2)?>],
+    }]
   },
   options: {}
 });
@@ -806,7 +807,7 @@ function addData(chart, label, data) {
 function removeData(chart) {
   chart.data.labels.pop();
   chart.data.datasets.forEach((dataset) => {
-      dataset.data.pop();
+    dataset.data.pop();
   });
   chart.update();
 }
@@ -825,10 +826,18 @@ function updatedb(){
 		},
 		success: function(result) {
       if(result.auth=="false"){
+        if(timer==true){
+          clearInterval(updinterval);
+          timer=false;
+          console.log("Timer gestoppt");
+          $('#overallstate').html('<font class="text-muted"><i data-feather="loader"></i>&nbsp;Waiting for authentication ...</font>');
+          feather.replace();
+        }
         $('#staticBackdrop').modal('show');
         $("footer").addClass("fixed-bottom");
         return;
       }
+      togglep(false);
 			ebody = 'Loads: ' + result.load + '\r\n' + 'Timestamp: ' + result.timest + '\r\n' + 'Uptime: ' + result.uptime + '\r\n' + 'CPU Temperature: ' + result.cputemp + '\r\n' + 'CPU Frequency: ' + result.cpufreq + '\r\n' + 'RAM total: ' + (result.memavail + result.memunavail) + '\r\n' + 'RAM used: ' + result.memunavail + '\r\n' + 'RAM free: ' + result.memavail + '\r\n' + 'RAM perc: ' + result.memperc + '\r\n' + 'SWAP perc: ' + result.swapperc + '\r\n' + 'SWAP total: ' + result.swaptotal + '\r\n' + 'SWAP used: ' + result.swapused;
 			warn=0;
 			var x = document.getElementsByName("lastupdated");
@@ -852,12 +861,11 @@ function updatedb(){
 				document.getElementById("tempstate").innerHTML="<i data-feather='thermometer'></i>&nbsp;Temperature <font class='text-warning'>(WARNING)</font>";
 				warn++;
 			}
-			//CPU-Frequenz
+			// CPU Frequency
 			document.getElementById("frequency").innerHTML=result.cpufreq;
-			//CPU Loads
+			// CPU Loads
 			var str=result.load+'';
 			var array=str.split(",");
-			//console.info(str);
 			document.getElementById("m1").innerHTML=array[0];
 			document.getElementById("m5").innerHTML=array[1];
 			document.getElementById("m15").innerHTML=array[2];
@@ -889,9 +897,9 @@ function updatedb(){
 			}else{
 				document.getElementById("ramt").innerHTML='Memory <font class="text-success">(OK)</font>';
 			}
-			//Swap
+			// Swap
 			document.getElementById("swapsys").innerHTML="Swap: <b>"+result.swapperc+"</b> % ("+result.swapused+" MB of "+result.swaptotal+" MB)";
-			//Overall
+			// Overall
 			if (warn > 0){
 				document.getElementById("overallstate").innerHTML="<font class='text-danger'><i data-feather='alert-circle'></i>&nbsp;A problem occured</font>";
 				warnuser(); // TODO: rework notification that does not disturb to much
@@ -911,7 +919,6 @@ function togglep(force){
 	if(timer == false){
 		if(force){ y=100; }
 		updinterval=setInterval(function(){
-		//console.log(y);
 			if(y<100){
 				$('.py').width(y+'%');
 				y+=10;
@@ -978,6 +985,12 @@ $("#lpwd").keyup(function (event) {
     loginToServer();
   }
 });
+$("#inputPassword2").keyup(function (event) {
+  if (event.keyCode === 13) {
+    event.preventDefault();
+    authorize(document.getElementById('inputPassword2').value);
+  }
+});
 </script>
 
 <script src="js/radialIndicator-2.0.0.min.js"></script>
@@ -1022,7 +1035,7 @@ window.onclick = function(event) {
 $('#exampleModalCenter').on('shown.bs.modal', function (e) {
   checkShutdown();
   if(shutdownCurrent){
-    document.getElementById("currentState").innerHTML='<div class="alert alert-danger" role="alert">Existing shutdown will be overwritten.</div>';
+    document.getElementById("currentState").innerHTML='<div class="alert alert-danger" role="alert">Existing shutdown will be overwritten.&nbsp;<button class="btn btn-sm btn-outline-danger" onclick="cancelShutdown();$(\'#exampleModalCenter\').modal(\'hide\');">Remove</button></div>';
   }else{
     document.getElementById("currentState").innerHTML='<div class="alert alert-success" role="alert">Currently there is no other shutdown planned.</div>';
   }
