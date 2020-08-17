@@ -1,3 +1,9 @@
+<?php
+session_start();
+error_reporting (E_ALL);
+ini_set ('display_errors', 'On');
+$auth=(isset($_SESSION["rpidbauth"])) ? true : false;
+?>
 <!doctype html>
 <html>
 <head>
@@ -37,7 +43,9 @@ function preload(){
 		console.info("Live Update was disabled through site parameters.");
 		document.getElementById("pctl").innerHTML='<i data-feather="play"></i>';
 	}else{
+    <?php if($auth){ ?>
 		togglep(false);
+    <?php } ?>
 	}
   setTimeout(function(){ $(".preload-screen").fadeOut("slow"); }, 500);
   checkShutdown();
@@ -45,6 +53,9 @@ function preload(){
 </script>
 
 <style>
+.hidden{
+  display: none;
+}
 @media screen and (max-width: 530px) {
   #notf {
     display: block;
@@ -72,27 +83,27 @@ function preload(){
 <script src="custom/custom.js"></script>
 
 <?php
-error_reporting (E_ALL);
-ini_set ('display_errors', 'On');
-//Speicher
-$df = disk_free_space("/");
-$df = $df / 1000;//KB
-$df = $df / 1000;//MB
-$df = $df / 1000;//GB
+if($auth){
+  // Disk space
+  $df = disk_free_space("/");
+  $df = $df / 1000;//KB
+  $df = $df / 1000;//MB
+  $df = $df / 1000;//GB
 
-$ds = disk_total_space("/");
-$ds = $ds / 1000;//KB
-$ds = $ds / 1000;//MB
-$ds = $ds / 1000;//GB
+  $ds = disk_total_space("/");
+  $ds = $ds / 1000;//KB
+  $ds = $ds / 1000;//MB
+  $ds = $ds / 1000;//GB
 
-$df_rund = round($df, 2);
-$ds_rund = round($ds, 2);
+  $df_rund = round($df, 2);
+  $ds_rund = round($ds, 2);
 
-$p = $df / $ds * 100;
-//
+  $p = $df / $ds * 100;
+  //
 
-$spannung=substr(exec("vcgencmd measure_volts core"),5);
-if(strpos($spannung,"failed")!==false) $spannung=$spannung."<br><font style='font-size: 15px;' class='text-danger'>Reading of core voltage failed. Please run <b>sudo usermod -aG video www-data</b> in a terminal to solve the problem.</font>";
+  $spannung=substr(exec("vcgencmd measure_volts core"),5);
+  if(strpos($spannung,"failed")!==false) $spannung=$spannung."<div class='alert alert-danger' role='alert'>Reading of core voltage failed. Please run<br><kbd>sudo usermod -aG video www-data</kbd><br>in a terminal to solve this problem.</div>";
+}
 
 ?>
 
@@ -182,7 +193,7 @@ if(strpos($spannung,"failed")!==false) $spannung=$spannung."<br><font style='fon
 
 </head>
 <body onload="preload()" style="background-color: #eee">
-<noscript style="z-index: 10!important; position: absolute; top: 0; background-color: #FF8080; width: 98%; padding: 3%;"> JavaScript is disabled. This site needs JS in order to work properly - please activate!</noscript>
+<noscript style="z-index: 99999!important; position: absolute; top: 0; width: 98%; padding: 3%;"><div class="alert alert-danger" role="alert">JavaScript is disabled in your browser. This site <b>requires</b> JS in order to work properly - please activate!</div></noscript>
 <div class="preload-screen"></div>
 
 <nav class="navbar navbar-expand-lg fixed-top navbar-dark bg-dark shadow-sm">
@@ -204,7 +215,7 @@ if(strpos($spannung,"failed")!==false) $spannung=$spannung."<br><font style='fon
 </nav>
 
 <div style="margin-top:70px" class="container">
-	<div class="row">
+	<div class="row<?php if(!$auth){ echo " hidden"; } ?>">
 	  <div class="col-sm-9">
 			<div class="card shadow-sm">
 	      <div class="card-header border-primary text-primary"><i data-feather="align-justify"></i>&nbsp;Overview</div>
@@ -228,7 +239,7 @@ if(strpos($spannung,"failed")!==false) $spannung=$spannung."<br><font style='fon
 			</div>	
 	  </div>
 	</div>
-	<div class="row pt-3">
+	<div class="row pt-3<?php if(!$auth){ echo " hidden"; } ?>">
 	  <div class="col-sm-5">
 			<div class="card text-center border-info shadow-sm">
 			  <div class="card-body">
@@ -263,7 +274,10 @@ if(strpos($spannung,"failed")!==false) $spannung=$spannung."<br><font style='fon
 			</div>
 	  </div>
 	</div>
-	<hr class="my-4"><!-- Static infos, that won't updated live -->
+  <hr id="ldiv" class="my-4<?php if(!$auth){ echo " hidden"; } ?>"><!-- Static infos, that won't be updated -->
+  <?php
+  if($auth){
+  ?>
     <div class="row pt-3">
 		  <div class="col-sm-6 pt-1 pt-md-0">
 				<div class="card text-center border-info">
@@ -319,7 +333,7 @@ if(strpos($spannung,"failed")!==false) $spannung=$spannung."<br><font style='fon
 			  <div class="card-header">Model</div>
 			  <div class="card-body">
 					<samp><?php echo exec("cat /sys/firmware/devicetree/base/model");?></samp>
-					<samp><?php $ot=shell_exec("vcgencmd version");if(strpos($ot,"failed")!==false){echo "<font class='text-danger'>Execution of system command failed. Please run <b>sudo usermod -aG video www-data</b> in a terminal to solve this problem.</font>";}else{echo $ot;}?></samp>
+					<samp><?php $ot=shell_exec("vcgencmd version");if(strpos($ot,"failed")!==false){echo "<div class='alert alert-danger' role='alert'>Execution of system command failed. Please run<br><kbd>sudo usermod -aG video www-data</kbd><br>in a terminal to solve this problem.</div>";}else{echo $ot;}?></samp>
 					<p class="card-text"><small class="text-muted">Updated <span><?php echo date("H:i:s");?> (at page load)</span></small></p>
 			  </div>
 			</div>
@@ -365,7 +379,16 @@ if(strpos($spannung,"failed")!==false) $spannung=$spannung."<br><font style='fon
 			</div>
 	  </div>
 	</div>
-  
+
+<?php
+}else{
+?>
+<div style="text-align:center" id="lock_section"><i style="width: 100px;height:100px;color:#aaa" data-feather="lock"></i><br>You are not authorized!</div>
+
+<?php
+
+}
+?>
 </div>
 
 <!-- Modal 1 -->
@@ -490,9 +513,9 @@ if(strpos($spannung,"failed")!==false) $spannung=$spannung."<br><font style='fon
 
 					<div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordion">
 					  <div class="card-body">
-						<h3><font class='text-success'>&#10003;</font> Version 0.3</h3>
-						<ul><li>New loading screen</li><li>Small design adjustments</li><li><a href='https://github.com/femto-code/Rasberry-Pi-Dashboard/releases'>Stay updated here</a></li><li><i><a href="CHANGELOG.md">All changes</a></i></li></ul>
-						<small>RPi Dashboard v0.3 (Jul 2020)</small>
+						<h3><font class='text-success'>&#10003;</font> Version 0.4</h3>
+						<ul><li>New authorization/login modal to secure dashboard</li><li><a href='https://github.com/femto-code/Rasberry-Pi-Dashboard/releases'>Stay updated here</a></li><li><i><a href="CHANGELOG.md">All changes</a></i></li></ul>
+						<small>RPi Dashboard v0.4 (Aug 2020)</small>
 					  </div>
 					</div>
 				  </div>
@@ -552,12 +575,42 @@ if(strpos($spannung,"failed")!==false) $spannung=$spannung."<br><font style='fon
 
 </div>
 
+<!-- Modal -->
+<div class="modal fade" id="staticBackdrop" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="staticBackdropLabel">Authentication</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class='alert alert-info' role='alert'>Please login to access server information!</div>
+        <form onkeydown="return event.key != 'Enter';">
+          <div class="input-group mb-3">
+            <div class="input-group-prepend">
+              <span class="input-group-text" id="myPsw">Password</span>
+            </div>
+            <input type="password" class="form-control" placeholder="" aria-label="Password" aria-describedby="myPsw" id="lpwd">
+            <div class="invalid-feedback">Wrong password!</div>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary" onclick="loginToServer()" id="lbtn">Login</button>
+      </div>
+    </div>
+  </div>
+</div>
+
 <!--End Modal(s)-->
 
 <!-- Footer -->
 <footer style="line-height: 40px; background-color: #f5f5f5; margin-top: 10px;">
 	<div class="container text-center">
-		RPi Dashboard v0.3 <font class="text-muted">(Jul 2020)</font> <span id="dot">&middot;</span> <font id="notf" class="text-success">See the <a href="https://github.com/femto-code/Rasberry-Pi-Dashboard/releases">Github releases</a> for updates!</font>
+		RPi Dashboard v0.4 <font class="text-muted">(Aug 2020)</font> <span id="dot">&middot;</span> <font id="notf" class="text-success">See the <a href="https://github.com/femto-code/Rasberry-Pi-Dashboard/releases">Github releases</a> for updates!</font>
 		<hr style="margin-top: 0; margin-bottom: 0;">
 		femto-code (<a href="javascript:send_supportmail()">Support</a>) &middot; <button class="btn btn-secondary" onclick="$('#exampleModal').modal('show');">?</button><br><font class="text-muted">&copy; 2018 - 2020</font>
 	</div>
@@ -659,7 +712,7 @@ function outputShutdown(data,act) {
     action="shutdown/reboot";
   }
   //setTimeout(shutdown, 1000);
-  document.getElementById("sys2").innerHTML+='<div class="alert alert-warning" role="alert">System is going to '+action+' at '+toParse.split(" ")[3]+'&nbsp;<a href="javascript:cancelShutdown()">Cancel</a></div>';
+  document.getElementById("sys2").innerHTML='<div class="alert alert-warning" role="alert">System is going to '+action+' at '+toParse.split(" ")[3]+'&nbsp;<a href="javascript:cancelShutdown()">Cancel</a></div>';
 }
 
 function shutdown(){
@@ -721,7 +774,9 @@ var chart = new Chart(ctx, {
     }
   }
 });
-
+<?php
+if($auth){
+?>
 var ctx2 = document.getElementById('space').getContext('2d');
 var chart2 = new Chart(ctx2, {
   type: 'doughnut',
@@ -735,6 +790,9 @@ var chart2 = new Chart(ctx2, {
   },
   options: {}
 });
+<?php
+}
+?>
 Chart.defaults.global.legend.display = false;
 
 function addData(chart, label, data) {
@@ -766,9 +824,13 @@ function updatedb(){
 			console.error(jqXHR + " | " + textStatus + " | " + errorThrown);
 		},
 		success: function(result) {
+      if(result.auth=="false"){
+        $('#staticBackdrop').modal('show');
+        $("footer").addClass("fixed-bottom");
+        return;
+      }
 			ebody = 'Loads: ' + result.load + '\r\n' + 'Timestamp: ' + result.timest + '\r\n' + 'Uptime: ' + result.uptime + '\r\n' + 'CPU Temperature: ' + result.cputemp + '\r\n' + 'CPU Frequency: ' + result.cpufreq + '\r\n' + 'RAM total: ' + (result.memavail + result.memunavail) + '\r\n' + 'RAM used: ' + result.memunavail + '\r\n' + 'RAM free: ' + result.memavail + '\r\n' + 'RAM perc: ' + result.memperc + '\r\n' + 'SWAP perc: ' + result.swapperc + '\r\n' + 'SWAP total: ' + result.swaptotal + '\r\n' + 'SWAP used: ' + result.swapused;
 			warn=0;
-			//document.getElementsByName("lastupdated").innerHTML=result.timest;
 			var x = document.getElementsByName("lastupdated");
 			var i;
 			for (i = 0; i < x.length; i++) {
@@ -778,9 +840,9 @@ function updatedb(){
 				x[i].innerHTML=result.timest;
 				//console.log(x.length);
 			}
-			//Uptime
+			// Uptime
 			document.getElementById("uptime").innerHTML=result.uptime;
-			//CPU-Temperatur
+			// CPU Temperature
 			document.getElementById("temperature").innerHTML=result.cputemp;
 			radialObj.animate(parseInt(result.cputemp));
 			//console.log(parseInt(result.cputemp));
@@ -871,7 +933,51 @@ function togglep(force){
 		return '<i data-feather="play"></i>';
 	}
 }
-
+$('#staticBackdrop').on('hidden.bs.modal', function (e) {
+  updatedb();
+  $("footer").removeClass("fixed-bottom");
+  $("#lpwd").prop("disabled","");
+  $("#lbtn").prop("disabled","");
+  $("#lpwd").val("").removeClass("is-valid is-invalid");
+  $("#lbtn").html("Login").addClass("btn-primary").removeClass("btn-success");
+});
+function loginToServer(){
+  var value=$("#lpwd").val();
+  if(value.length==0){ return; }
+  $("#lpwd").prop("disabled","true");
+  $("#lbtn").prop("disabled","true");
+  $("#lbtn").html("Checking...");
+  var xmlhttp = new XMLHttpRequest();
+  xmlhttp.onreadystatechange = function() {
+    if (this.readyState == 4 && this.status == 200) {
+      console.log(this.responseText);
+      if(this.responseText=="correctCredentials"){
+        $("#lpwd").addClass("is-valid").removeClass("is-invalid");
+        $("#lbtn").html("Updating now...").addClass("btn-success").removeClass("btn-primary");
+        setTimeout(() => {
+          $(".row").removeClass("hidden");
+          $("#ldiv").removeClass("hidden");
+          $("#lock_section").html("<i style='width: 100px;height:100px;color:#aaa' data-feather='unlock'></i><br><font class='text-success'>You are authorized!<br><a href='javascript:location.reload()'>Reload</a> the page to load the full page content.</font>")
+          $('#staticBackdrop').modal('hide');
+        }, 1000);
+      }else{
+        $("#lpwd").prop("disabled","");
+        $("#lpwd").addClass("is-invalid");
+        $("#lbtn").html("Try again");
+        $("#lbtn").prop("disabled","");
+      }
+    }
+  };
+  xmlhttp.open("POST", "backend/serv.php", true);
+  xmlhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+  xmlhttp.send("login=true&pw="+value);
+}
+$("#lpwd").keyup(function (event) {
+  if (event.keyCode === 13) {
+    event.preventDefault();
+    loginToServer();
+  }
+});
 </script>
 
 <script src="js/radialIndicator-2.0.0.min.js"></script>
@@ -914,7 +1020,7 @@ window.onclick = function(event) {
 }
 
 $('#exampleModalCenter').on('shown.bs.modal', function (e) {
-  // TODO: First call checkShutdown()
+  checkShutdown();
   if(shutdownCurrent){
     document.getElementById("currentState").innerHTML='<div class="alert alert-danger" role="alert">Existing shutdown will be overwritten.</div>';
   }else{

@@ -1,6 +1,27 @@
 <?php
+session_start();
 error_reporting (E_ALL);
 ini_set ('display_errors', 'On');
+
+// Change password here as MD5 encryption
+$correctPassword = "63a9f0ea7bb98050796b649e85481845";
+
+if(isset($_GET["logout"])){
+  session_destroy();
+  exit();
+}
+if(isset($_POST["login"])){
+  if(isset($_POST["pw"])){
+    $pw=md5($_POST["pw"]);
+    if($pw==$correctPassword){
+      echo "correctCredentials";
+      $_SESSION["rpidbauth"]="1";
+    }else{
+      echo "wrongCredentials";
+    }
+  }
+  exit();
+}
 if(isset($_GET["checkShutdown"])){
   system("date --date @$(head -1 /run/systemd/shutdown/scheduled |cut -c6-15)");
   exit;

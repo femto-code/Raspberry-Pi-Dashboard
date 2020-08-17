@@ -8,6 +8,7 @@
 ## Features
 
 - Live surveillance of RPi hardware (CPU Temperature, frequency, loads etc.)
+- Protected access with password login (default: root) ([configure password](https://github.com/femto-code/Rasberry-Pi-Dashboard#configure-password))
 - State Mail to send an email containing a summary
 - Power (shutdown/reboot) Raspberry Pi with schedule options ([setup instructions](https://github.com/femto-code/Rasberry-Pi-Dashboard#setup-project))
 - Web-App capable with mobile integration thanks to responsive design
@@ -35,6 +36,13 @@
 - DONE!
 - Open web browser with URL: `http://IP_OF_YOUR_RPI/Raspberry-Pi-Dashboard`
 - [OPTIONAL] rename the folder to shorten the address input: `mv /var/www/html/Raspberry-Pi-Dashboard /var/www/html/{subfolder_name}` (Note: replace {subfolder_name} with your wish to enter the web page)
+
+### Configure password
+
+>You should change the default password (which is **root**) and a choose a more secure one by following these steps:
+1. Go to [https://www.md5-generator.de/](https://www.md5-generator.de/) and generate the MD5 encyrpted passphrase.
+2. Open `serv.php` on line 7 and adjust the passphrase with the generated one from step 1.
+3. Remember password and enjoy!
 
 ### Enabling remote shutdown/reboot (OPTIONAL)
 > Recommended only, if your RPi is not accessible over the Internet!
