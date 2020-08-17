@@ -712,7 +712,7 @@ function outputShutdown(data,act) {
     action="shutdown/reboot";
   }
   //setTimeout(shutdown, 1000);
-  document.getElementById("sys2").innerHTML+='<div class="alert alert-warning" role="alert">System is going to '+action+' at '+toParse.split(" ")[3]+'&nbsp;<a href="javascript:cancelShutdown()">Cancel</a></div>';
+  document.getElementById("sys2").innerHTML='<div class="alert alert-warning" role="alert">System is going to '+action+' at '+toParse.split(" ")[3]+'&nbsp;<a href="javascript:cancelShutdown()">Cancel</a></div>';
 }
 
 function shutdown(){
@@ -1020,7 +1020,7 @@ window.onclick = function(event) {
 }
 
 $('#exampleModalCenter').on('shown.bs.modal', function (e) {
-  // TODO: First call checkShutdown()
+  checkShutdown();
   if(shutdownCurrent){
     document.getElementById("currentState").innerHTML='<div class="alert alert-danger" role="alert">Existing shutdown will be overwritten.</div>';
   }else{
