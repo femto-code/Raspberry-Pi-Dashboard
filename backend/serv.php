@@ -1,6 +1,23 @@
 <?php
+session_start();
 error_reporting (E_ALL);
 ini_set ('display_errors', 'On');
+if(isset($_GET["logout"])){
+  session_destroy();
+  exit();
+}
+if(isset($_POST["login"])){
+  if(isset($_POST["pw"])){
+    $pw=$_POST["pw"];
+    if($pw=="root"){
+      echo "correctCredentials";
+      $_SESSION["rpidbauth"]="1";
+    }else{
+      echo "wrongCredentials";
+    }
+  }
+  exit();
+}
 if(isset($_GET["checkShutdown"])){
   system("date --date @$(head -1 /run/systemd/shutdown/scheduled |cut -c6-15)");
   exit;

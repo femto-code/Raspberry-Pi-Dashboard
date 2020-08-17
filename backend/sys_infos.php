@@ -1,6 +1,13 @@
 <?php
 error_reporting(E_ALL);
 ini_set ('display_errors', 'On');
+// Authorization
+session_start();
+if(!isset($_SESSION["rpidbauth"])){
+  $output = array('auth' => 'false');
+	echo json_encode($output);
+  exit();
+}
 // Uptime
 $uptime = shell_exec("cat /proc/uptime");
 $uptime = explode(" ", $uptime);
@@ -127,7 +134,7 @@ if(isset($_GET["statemail"])){
 	echo $ausgabe;
 
 }else{
-	$output = array('timest' => $timed, 'uptime' => $uptime_string, 'cputemp' => $cputemp, 'cpufreq' => $cpufreq, 'load' => $getLoad, 'memperc' => $memperc, 'memavail' => $mavail, 'memunavail' => $munavail, 'swapperc' => $swapperc, 'swaptotal' => $swaptotal, 'swapused' => $swapused);
+	$output = array('auth' => 'true', 'timest' => $timed, 'uptime' => $uptime_string, 'cputemp' => $cputemp, 'cpufreq' => $cpufreq, 'load' => $getLoad, 'memperc' => $memperc, 'memavail' => $mavail, 'memunavail' => $munavail, 'swapperc' => $swapperc, 'swaptotal' => $swaptotal, 'swapused' => $swapused);
 	echo json_encode($output);
 }
 
