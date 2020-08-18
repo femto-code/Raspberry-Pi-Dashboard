@@ -42,10 +42,6 @@ function preload(){
 	if(window.location.search == "?live=disabled"){
 		console.info("Live Update was disabled through site parameters.");
 		document.getElementById("pctl").innerHTML='<i data-feather="play"></i>';
-	}else{
-    <?php if($auth){ ?>
-		togglep(false);
-    <?php } ?>
 	}
   setTimeout(function(){ $(".preload-screen").fadeOut("slow"); }, 500);
   checkShutdown();
