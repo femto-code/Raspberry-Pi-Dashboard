@@ -136,10 +136,11 @@ if($auth){
 	      <div class="card-header border-primary text-primary"><i data-feather="align-justify"></i>&nbsp;Overview</div>
 			  <div class="card-body">
 					<h5 id="sys1" class="card-title"><span id="overallstate"></span></h5>
+          <p id="sys11" class="card-text"></p>
 					<p id="sys2" class="card-text"></p>
 					<hr>
 					<p><i data-feather="clock"></i><!--<img src="img/time-icon.png">-->&nbsp;Uptime: <b><span id="uptime"></span></b><?php if($auth){ ?>&nbsp;(started <?=$uptstr;?>)<?php } ?></p>
-		      <table style="width:100%"><tbody><tr><td style="width:10%"><button type="button" id="pctl" onclick="y=100; this.innerHTML=togglep(true);feather.replace();" class="btn btn-secondary btn-sm"><i data-feather="x"></i></button></td><td style="width:90%">
+		      <table style="width:100%"><tbody><tr><td style="width:10%"><button type="button" id="pctl" onclick="y=100; this.innerHTML=togglep(true);feather.replace();" class="btn btn-secondary btn-sm"><i data-feather="pause"></i></button></td><td style="width:90%">
 		      <div class="progress" style="margin-top: 1px; height: 2px;"><div class="progress-bar py" role="progressbar" style="width: 0%;" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div></div></td></tr></tbody></table>
 					<p class="card-text"><small class="text-muted">Updated <span name="lastupdated">now</span></small></p>
 			  </div>
@@ -720,6 +721,7 @@ function updatedb(){
 			console.error(jqXHR + " | " + textStatus + " | " + errorThrown);
 		},
 		success: function(result) {
+      document.getElementById("sys11").innerHTML="";
       if(result.auth=="false"){
         if(timer==true){
           clearInterval(updinterval);
@@ -753,7 +755,8 @@ function updatedb(){
 			if ( parseInt(result.cputemp) < warn_cpu_temp){
 				document.getElementById("tempstate").innerHTML="<i data-feather='thermometer'></i>&nbsp;Temperature <font class='text-success'>(OK)</font>";
 			}else{
-				document.getElementById("tempstate").innerHTML="<i data-feather='thermometer'></i>&nbsp;Temperature <font class='text-warning'>(WARNING)</font>";
+        document.getElementById("tempstate").innerHTML="<i data-feather='thermometer'></i>&nbsp;Temperature <font class='text-warning'>(WARNING)</font>";
+        addWarning("CPU Temperature","thermometer");
 				warn++;
 			}
 			// CPU Frequency
@@ -771,8 +774,9 @@ function updatedb(){
 			addData(chart, "5 min", array[1]);
 			addData(chart, "15 min", array[2]);
 			if (array[0] >= warn_loads_size){
-				document.getElementById("cput").innerHTML="CPU <font class='text-warning'>(WARNING)</font>";
-				warn++;
+        document.getElementById("cput").innerHTML="CPU <font class='text-warning'>(WARNING)</font>";
+        addWarning("CPU Loads","activity");
+        warn++;
 			}else{
 				document.getElementById("cput").innerHTML="CPU <font class='text-success'>(OK)</font>";
 			}
@@ -787,7 +791,8 @@ function updatedb(){
 			document.getElementById("ram2").style.width = result.memperc + "%";
 			document.getElementById("ram2").innerHTML = result.memperc + " %";
 			if (result.memperc >= warn_ram_space){
-				document.getElementById("ramt").innerHTML='Memory <font class="text-warning">(WARNING)</font>';
+        document.getElementById("ramt").innerHTML='Memory <font class="text-warning">(WARNING)</font>';
+        addWarning("Memory","cpu");
 				warn++;
 			}else{
 				document.getElementById("ramt").innerHTML='Memory <font class="text-success">(OK)</font>';
@@ -796,7 +801,8 @@ function updatedb(){
 			document.getElementById("swapsys").innerHTML="Swap: <b>"+result.swapperc+"</b> % ("+result.swapused+" MB of "+result.swaptotal+" MB)";
 			// Overall
 			if (warn > 0){
-				document.getElementById("overallstate").innerHTML="<font class='text-danger'><i data-feather='alert-circle'></i>&nbsp;A problem occured</font>";
+        var s = (warn>1) ? "s" : "";
+				document.getElementById("overallstate").innerHTML="<font class='text-danger'><i data-feather='alert-circle'></i>&nbsp;"+warn+" problem"+s+" occured</font>";
 				warnuser(warn);
 			}else{
 				document.getElementById("overallstate").innerHTML="<font class='text-success'><i data-feather='check-circle'></i>&nbsp;System runs normally</font>";
@@ -824,13 +830,15 @@ function togglep(force){
 		}, (((upd_time_interval*1000)-1.5)/10));
 		timer=true;
 		console.log("Timer started");
-		$('#overallstate').html('<font class="text-info">Will be updated ...</font>');
-		return '<i data-feather="x"></i>';
+		$('#overallstate').html('<font class="text-info"><i data-feather="chevrons-right"></i>&nbsp;Will be updated ...</font>');
+    feather.replace();
+		return '<i data-feather="pause"></i>';
 	}else{
 		clearInterval(updinterval);
 		timer=false;
 		console.log("Timer gestoppt");
-		$('#overallstate').html('<font class="text-muted">Live Update disabled</font>');
+		$('#overallstate').html('<font class="text-muted"><i data-feather="clock"></i>&nbsp;Live Update disabled</font>');
+    feather.replace();
 		return '<i data-feather="play"></i>';
 	}
 }
@@ -911,7 +919,11 @@ var radialObj = $('#indicatorContainer').data('radialIndicator');
 function warnuser(c) {
   var str=(c>1) ? "are" : "is";
   var str2=(c>1) ? "s" : "";
-  mdtoast('<i data-feather="alert-circle"></i>&nbsp;There '+str+'&nbsp;<b>'+c+'</b>&nbsp;problem'+str2+'!', { type: 'error'});
+  mdtoast('<i data-feather="alert-circle"></i>&nbsp;There '+str+'&nbsp;<b>'+c+'</b>&nbsp;problem'+str2+', please check!', { type: 'error'});
+  feather.replace();
+}
+function addWarning(problem, icon){
+  document.getElementById("sys11").innerHTML+='<div class="bg-danger card text-white text-center shadow m-1" style="max-width: 18rem;"><h5 style="margin-top: .75rem;" class="card-title"><i data-feather="'+icon+'"></i>&nbsp;'+problem+'</h5></div>';
   feather.replace();
 }
 
@@ -920,7 +932,7 @@ $('#exampleModalCenter').on('shown.bs.modal', function (e) {
   if(shutdownCurrent){
     document.getElementById("currentState").innerHTML='<div class="alert alert-danger" role="alert"><i data-feather="alert-circle"></i>&nbsp;Existing shutdown will be overwritten.&nbsp;<button class="btn btn-sm btn-outline-danger" onclick="cancelShutdown();$(\'#exampleModalCenter\').modal(\'hide\');">Remove</button></div>';
   }else{
-    document.getElementById("currentState").innerHTML='<div class="alert alert-success" role="alert"><i data-feather="check-circle"></i>&nbsp;Currently there is no other shutdown planned.</div>';
+    document.getElementById("currentState").innerHTML='<div class="alert alert-success" role="alert"><i data-feather="check-circle"></i>&nbsp;Currently there is no other power event planned.</div>';
   }
   feather.replace();
 });
