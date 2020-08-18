@@ -30,6 +30,7 @@ $auth=(isset($_SESSION["rpidbauth"])) ? true : false;
 
 <link rel="stylesheet" href="css/bootstrap-4.5.0.min.css">
 <link rel="stylesheet" href="css/darkmode.css" id="dmcss" type="text/css" disabled>
+<link rel="stylesheet" href="css/mdtoast.min.css">
 
 <link rel="stylesheet" href="custom/custom.css"><!-- Custom Styles -->
 
@@ -80,6 +81,8 @@ function preload(){
 
 <?php
 if($auth){
+  $upt=new DateTime(shell_exec('uptime -s'));
+  $uptstr = $upt->format('d.m.Y H:i:s');
   // Disk space
   $df = disk_free_space("/");
   $df = $df / 1000;//KB
@@ -102,90 +105,6 @@ if($auth){
 }
 
 ?>
-
-<style>
-/*body {font-family: Arial, Helvetica, sans-serif;}*/
-
-/* The Modal (background) */
-.modali {
-  display: none; /* Hidden by default */
-  position: fixed; /* Stay in place */
-  z-index: 1; /* Sit on top */
-  left: 0;
-  top: 0;
-  width: 100%; /* Full width */
-  height: 100%; /* Full height */
-  overflow: auto; /* Enable scroll if needed */
-  background-color: rgb(0,0,0); /* Fallback color */
-  background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
-  -webkit-animation-name: fadeIn; /* Fade in the background */
-  -webkit-animation-duration: 0.4s;
-  animation-name: fadeIn;
-  animation-duration: 0.4s
-}
-
-/* Modal Content */
-.modali-content {
-  position: fixed;
-  bottom: 0;
-  background-color: #fefefe;
-  width: 100%;
-  -webkit-animation-name: slideIn;
-  -webkit-animation-duration: 0.4s;
-  animation-name: slideIn;
-  animation-duration: 0.4s
-}
-
-/* The Close Button */
-.iclose {
-  color: white;
-  float: right;
-  font-size: 28px;
-  font-weight: bold;
-}
-
-.iclose:hover,
-.iclose:focus {
-  color: #000;
-  text-decoration: none;
-  cursor: pointer;
-}
-
-.modali-header {
-  padding: 2px 16px;
-  background-color: red;
-  color: white;
-}
-
-.modali-body {padding: 2px 16px;}
-
-.modali-footer {
-  padding: 2px 16px;
-  background-color: #5cb85c;
-  color: white;
-}
-
-/* Add Animation */
-@-webkit-keyframes slideIn {
-  from {bottom: -300px; opacity: 0} 
-  to {bottom: 0; opacity: 1}
-}
-
-@keyframes slideIn {
-  from {bottom: -300px; opacity: 0}
-  to {bottom: 0; opacity: 1}
-}
-
-@-webkit-keyframes fadeIn {
-  from {opacity: 0} 
-  to {opacity: 1}
-}
-
-@keyframes fadeIn {
-  from {opacity: 0} 
-  to {opacity: 1}
-}
-</style>
 
 </head>
 <body onload="preload()" style="background-color: #eee">
@@ -219,7 +138,7 @@ if($auth){
 					<h5 id="sys1" class="card-title"><span id="overallstate"></span></h5>
 					<p id="sys2" class="card-text"></p>
 					<hr>
-					<p><i data-feather="clock"></i><!--<img src="img/time-icon.png">-->&nbsp;Uptime: <b><span id="uptime"></span></b>&nbsp;(started <?php system('uptime -s')?>)</p>
+					<p><i data-feather="clock"></i><!--<img src="img/time-icon.png">-->&nbsp;Uptime: <b><span id="uptime"></span></b><?php if($auth){ ?>&nbsp;(started <?=$uptstr;?>)<?php } ?></p>
 		      <table style="width:100%"><tbody><tr><td style="width:10%"><button type="button" id="pctl" onclick="y=100; this.innerHTML=togglep(true);feather.replace();" class="btn btn-secondary btn-sm"><i data-feather="x"></i></button></td><td style="width:90%">
 		      <div class="progress" style="margin-top: 1px; height: 2px;"><div class="progress-bar py" role="progressbar" style="width: 0%;" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div></div></td></tr></tbody></table>
 					<p class="card-text"><small class="text-muted">Updated <span name="lastupdated">now</span></small></p>
@@ -532,26 +451,6 @@ if($auth){
       </div>
     </div>
   </div>
-</div>
-
-<!-- Warn Modal -->
-<div id="myModal" class="modali">
-
-  <!-- Modal content -->
-  <div class="modali-content">
-    <div class="modali-header">
-      <span class="iclose">&times;</span>
-      <h3><b>!</b> A problem occured.</h3>
-    </div>
-    <!--<div class="modal-body">
-      <p>Some text in the Modal Body</p>
-      <p>Some other text...</p>
-    </div>
-    <div class="modal-footer">
-      <h3>Modal Footer</h3>
-    </div>-->
-  </div>
-
 </div>
 
 <!-- Login Modal -->
@@ -898,10 +797,9 @@ function updatedb(){
 			// Overall
 			if (warn > 0){
 				document.getElementById("overallstate").innerHTML="<font class='text-danger'><i data-feather='alert-circle'></i>&nbsp;A problem occured</font>";
-				warnuser(); // TODO: rework notification that does not disturb to much
+				warnuser(warn);
 			}else{
 				document.getElementById("overallstate").innerHTML="<font class='text-success'><i data-feather='check-circle'></i>&nbsp;System runs normally</font>";
-				modal.style.display = "none"; // remove warning modal
 			}
 			feather.replace()
 		}
@@ -1010,31 +908,21 @@ var radialObj = $('#indicatorContainer').data('radialIndicator');
 //radialObj.animate(25);
 
 
-// Warn Modal
-var modal = document.getElementById('myModal');
-// Get the <span> element that closes the modal
-var span = document.getElementsByClassName("iclose")[0];
-function warnuser() {
-  modal.style.display = "block";
-}
-// When the user clicks on <span> (x), close the modal
-span.onclick = function() {
-  modal.style.display = "none";
-}
-// When the user clicks anywhere outside of the modal, close it
-window.onclick = function(event) {
-  if (event.target == modal) {
-    modal.style.display = "none";
-  }
+function warnuser(c) {
+  var str=(c>1) ? "are" : "is";
+  var str2=(c>1) ? "s" : "";
+  mdtoast('<i data-feather="alert-circle"></i>&nbsp;There '+str+'&nbsp;<b>'+c+'</b>&nbsp;problem'+str2+'!', { type: 'error'});
+  feather.replace();
 }
 
 $('#exampleModalCenter').on('shown.bs.modal', function (e) {
   checkShutdown();
   if(shutdownCurrent){
-    document.getElementById("currentState").innerHTML='<div class="alert alert-danger" role="alert">Existing shutdown will be overwritten.&nbsp;<button class="btn btn-sm btn-outline-danger" onclick="cancelShutdown();$(\'#exampleModalCenter\').modal(\'hide\');">Remove</button></div>';
+    document.getElementById("currentState").innerHTML='<div class="alert alert-danger" role="alert"><i data-feather="alert-circle"></i>&nbsp;Existing shutdown will be overwritten.&nbsp;<button class="btn btn-sm btn-outline-danger" onclick="cancelShutdown();$(\'#exampleModalCenter\').modal(\'hide\');">Remove</button></div>';
   }else{
-    document.getElementById("currentState").innerHTML='<div class="alert alert-success" role="alert">Currently there is no other shutdown planned.</div>';
+    document.getElementById("currentState").innerHTML='<div class="alert alert-success" role="alert"><i data-feather="check-circle"></i>&nbsp;Currently there is no other shutdown planned.</div>';
   }
+  feather.replace();
 });
 
 function toggleDarkMode() {
@@ -1058,6 +946,7 @@ $("#dm").prop("checked", (localStorage.getItem("darkmode") == 'true'));
 </script>
 <script src="js/feather.min.js"></script>
 <script>feather.replace()</script>
+<script src="js/mdtoast.min.js"></script>
 
 </body>
 </html>

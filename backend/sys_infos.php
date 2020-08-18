@@ -31,11 +31,11 @@ if ($h > 0) {
 	$uptime_string .= $h . $hw;
 }
 if ($m > 0) {
-	$mw = $m > 1 ? ' minutes ' : ' minute ';
+	$mw = $m > 1 ? ' mins ' : ' min ';
 	$uptime_string .= $m . $mw;
 }
 if ($s > 0) {
-	$sw = $s > 1 ? ' seconds ' : ' second ';
+	$sw = $s > 1 ? ' secs ' : ' sec ';
 	$uptime_string .= $s . $sw;
 }
 // CPU temperature
