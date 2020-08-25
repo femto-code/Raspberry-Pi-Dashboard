@@ -318,7 +318,7 @@ if($auth){
       <div class="modal-body">
 				<!---->
         <div id="currentState"></div>
-				<form action="javascript:void(0);">
+				<form id="pwrform" action="javascript:void(0);">
 					<div class="form-check form-check-inline">
 					  <input class="form-check-input" type="radio" name="pwrOptions" id="inlineRadio1" value="1">
 					  <label class="form-check-label" for="inlineRadio1">Shutdown</label>
@@ -353,7 +353,7 @@ if($auth){
             </div>
           </div>
           <hr>
-					<div class="form-group">
+					<div id="pwrauth" class="form-group">
 					  <label for="inputPassword2" class="sr-only">Password</label>
             <div class="input-group">
               <div class="input-group-prepend">
@@ -362,11 +362,10 @@ if($auth){
               <input type="password" class="form-control" id="inputPassword2" placeholder="Password">
             </div>
           </div>
-				  <div id="rmd"></div>
 				</form>
       </div>
       <div class="modal-footer">
-				<button class="btn btn-primary" onclick="authorize(document.getElementById('inputPassword2').value);">Confirm identity</button>
+				<button id="confbtn" class="btn btn-primary" onclick="authorize();">Confirm identity</button>
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
       </div>
     </div>
@@ -503,8 +502,15 @@ if($auth){
 
 <script>
 tselect=1;
-function authorize(pass) {
-  console.log(pass);
+function authorize() {
+  if(document.getElementById('inputPassword2')==null){
+    pass="alreadyauthorized";
+  }else{
+    pass=document.getElementById('inputPassword2').value;
+  }
+  $("#confbtn").html("Checking...");
+  $("#pwrform input, select").prop("disabled","true");
+  $("#confbtn").prop("disabled","true");
   var e = document.getElementById("time"+tselect);
   if( (tselect==1) || (tselect==2) ){
     
@@ -526,7 +532,7 @@ function authorize(pass) {
 	
 	var act=document.querySelector('input[name="pwrOptions"]:checked').value;
   if (pass.length == 0) { 
-    document.getElementById("rmd").innerHTML = "<font class='text-danger'>Please enter a valid password!</font>";
+    document.getElementById("currentState").innerHTML = "<font class='text-danger'>Please enter a valid password!</font>";
     return;
   } else {
     var xmlhttp = new XMLHttpRequest();
@@ -534,14 +540,23 @@ function authorize(pass) {
       if (this.readyState == 4 && this.status == 200) {
         console.log(this.responseText);
         if(this.responseText.indexOf("true") > -1){
-          document.getElementById("rmd").innerHTML = "<font class='text-success'>Authorization completed!</font>";
+          document.getElementById("currentState").innerHTML = "<div class='alert alert-success' role='alert'><i data-feather='check-circle'></i>&nbsp;Authorization completed!</font>";
+          $("#confbtn").html("<i data-feather='check-circle'></i>&nbsp;Saved");
+          feather.replace();
           var res=this.responseText.split("_");
           outputShutdown(res[1],act);
-          $("#exampleModalCenter").modal("hide");
+          setTimeout(function(){
+            $("#exampleModalCenter").modal("hide");
+            document.getElementById("pwrform").reset();
+            $("#pwrform input, select").prop("disabled","");
+            $("#confbtn").prop("disabled","");
+            document.getElementById("currentState").innerHTML = "";
+             $("#confbtn").html("Confirm identity");
+          },3000);
         }else if(this.responseText=="wrongCredentials"){
-          document.getElementById("rmd").innerHTML = "<font class='text-danger'>Authorization failed!</font>";
+          document.getElementById("currentState").innerHTML = "<div class='alert alert-success' role='alert'><i data-feather='x-circle'></i>&nbsp;Authorization failed!</div>";
         }else{
-          document.getElementById("rmd").innerHTML = "<font class='text-danger'>Error!</font>";
+          document.getElementById("currentState").innerHTML = "<div class='alert alert-success' role='alert'><i data-feather='x-circle'></i>&nbsp;Error!</div>";
         }
       }
     };
@@ -549,30 +564,48 @@ function authorize(pass) {
     xmlhttp.send();
   }
 }
-function checkShutdown() {
+function checkShutdown(callback) {
+  document.getElementById("currentState").innerHTML='<div class="alert alert-info" role="alert"><i data-feather="chevrons-right"></i>&nbsp;Checking for power events...</div>';
   var xmlhttp = new XMLHttpRequest();
   xmlhttp.onreadystatechange = function() {
     if (this.readyState == 4 && this.status == 200) {
       if(this.responseText==""){
         document.getElementById("sys2").innerHTML="";
         shutdownCurrent=false;
-        return;
+      }else{
+        shutdownCurrent=true;
+        outputShutdown(this.responseText,"unknown");
       }
-      shutdownCurrent=true;
-      outputShutdown(this.responseText,"unknown");
+      if(callback !== undefined){
+        callback();
+      }else{
+        if(shutdownCurrent){
+          document.getElementById("currentState").innerHTML='<div class="alert alert-danger" role="alert"><i data-feather="alert-circle"></i>&nbsp;Existing shutdown will be overwritten.&nbsp;<button class="btn btn-sm btn-outline-danger" onclick="cancelShutdown();$(\'#exampleModalCenter\').modal(\'hide\');">Remove</button></div>';
+        }else{
+          document.getElementById("currentState").innerHTML='<div class="alert alert-success" role="alert"><i data-feather="check-circle"></i>&nbsp;Currently there is no other power event planned.</div>';
+        }
+        feather.replace();
+      }
     }
   };
   xmlhttp.open("GET", "backend/serv.php?checkShutdown", true);
   xmlhttp.send();
 }
 
-function cancelShutdown() {
+function cancelShutdown(force) {
+  if(force == undefined){
+    mdtoast('<i data-feather="help-circle"></i>&nbsp;Confirm to cancel', { type: 'warning', interaction: true, actionText: "Confirm", action: function(){ cancelShutdown(true); }, duration: 3000});
+    feather.replace();
+    return;
+  }
   var xmlhttp = new XMLHttpRequest();
   xmlhttp.onreadystatechange = function() {
     if (this.readyState == 4 && this.status == 200) {
       console.log(this.responseText);
       if(this.responseText==""){
         console.log("Cancel response is empty");
+        mdtoast('<i data-feather="check-circle"></i>&nbsp;Power event was cancelled!', { type: 'success'});
+        feather.replace();
         checkShutdown();
         return;
       }
@@ -603,6 +636,7 @@ function outputShutdown(data,act) {
   if(restm>0){
     str += restm + " m";
   }
+  if(str==""){ str="<font class='text-danger'>&lt; 1 min</font>"; }
   console.log(str);
   var action = (act=="1") ? "shutdown" : "reboot";
   if(act=="unknown"){
@@ -824,7 +858,8 @@ function togglep(force){
 				y+=10;
 			}else{
 				$('.py').width(y+'%');
-				updatedb();
+        updatedb();
+        checkShutdown();
 				y=0;
 			}
 		}, (((upd_time_interval*1000)-1.5)/10));
@@ -893,6 +928,27 @@ $("#inputPassword2").keyup(function (event) {
     authorize(document.getElementById('inputPassword2').value);
   }
 });
+function checkLauth(){
+  document.getElementById("pwrauth").innerHTML="<div class='alert alert-info' role='alert'><i data-feather='chevrons-right'></i>&nbsp;Checking authorization ...</div>";
+  feather.replace();
+  var xmlhttp = new XMLHttpRequest();
+  xmlhttp.onreadystatechange = function() {
+    if (this.readyState == 4 && this.status == 200) {
+      console.log(this.responseText);
+      if(this.responseText=="invalid"){
+        $("#pwrauth").html('<label for="inputPassword2" class="sr-only">Password</label><div class="input-group"><div class="input-group-prepend"><div class="input-group-text"><i data-feather="key"></i></div></div><input type="password" class="form-control" id="inputPassword2" placeholder="Password"></div>');
+      }else{
+        $("#pwrauth").html('<div class="alert alert-success" role="alert"><i data-feather="check-circle"></i>&nbsp;Authenticated</div>');
+      }
+      feather.replace();
+    }
+  };
+  xmlhttp.open("POST", "backend/serv.php", true);
+  xmlhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+  setTimeout(() => {
+    xmlhttp.send("check=true");
+  }, 1000);
+}
 </script>
 
 <script src="js/radialIndicator-2.0.0.min.js"></script>
@@ -928,13 +984,15 @@ function addWarning(problem, icon){
 }
 
 $('#exampleModalCenter').on('shown.bs.modal', function (e) {
-  checkShutdown();
-  if(shutdownCurrent){
-    document.getElementById("currentState").innerHTML='<div class="alert alert-danger" role="alert"><i data-feather="alert-circle"></i>&nbsp;Existing shutdown will be overwritten.&nbsp;<button class="btn btn-sm btn-outline-danger" onclick="cancelShutdown();$(\'#exampleModalCenter\').modal(\'hide\');">Remove</button></div>';
-  }else{
-    document.getElementById("currentState").innerHTML='<div class="alert alert-success" role="alert"><i data-feather="check-circle"></i>&nbsp;Currently there is no other power event planned.</div>';
-  }
-  feather.replace();
+  checkShutdown(function(){
+    if(shutdownCurrent){
+      document.getElementById("currentState").innerHTML='<div class="alert alert-danger" role="alert"><i data-feather="alert-circle"></i>&nbsp;Existing shutdown will be overwritten.&nbsp;<button class="btn btn-sm btn-outline-danger" onclick="cancelShutdown();$(\'#exampleModalCenter\').modal(\'hide\');">Remove</button></div>';
+    }else{
+      document.getElementById("currentState").innerHTML='<div class="alert alert-success" role="alert"><i data-feather="check-circle"></i>&nbsp;Currently there is no other power event planned.</div>';
+    }
+    feather.replace();
+  });
+  checkLauth();
 });
 
 function toggleDarkMode() {
