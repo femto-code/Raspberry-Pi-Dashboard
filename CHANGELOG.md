@@ -7,6 +7,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 Open for your feature [requests](https://github.com/femto-code/Rasberry-Pi-Dashboard/pulls) or [issues](https://github.com/femto-code/Rasberry-Pi-Dashboard/issues)!
 [https://github.com/femto-code/Rasberry-Pi-Dashboard](https://github.com/femto-code/Rasberry-Pi-Dashboard)
 
+## [0.5] - 2020-08-25
+- Better warnings about system hardware with new modern Toast library
+- See the remaining time until the next shutdown/reboot right on the dashboard
+
+### Changed
+- design improvements
+
 ## [0.4] - 2020-08-17
 - new authorization/login modal to secure dashboard
 - small shutdown/reboot improvements
