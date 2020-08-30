@@ -761,9 +761,9 @@ function updatedb(){
           clearInterval(updinterval);
           timer=false;
           console.log("Timer gestoppt");
-          $('#overallstate').html('<font class="text-muted"><i data-feather="loader"></i>&nbsp;Waiting for authentication ...</font>');
-          feather.replace();
         }
+        $('#overallstate').html('<font class="text-muted"><i data-feather="loader"></i>&nbsp;Waiting for authentication ...</font>');
+        feather.replace();
         $('#staticBackdrop').modal('show');
         $("footer").addClass("fixed-bottom");
         return;
