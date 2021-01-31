@@ -29,6 +29,7 @@ $auth=(isset($_SESSION["rpidbauth"])) ? true : false;
 <meta name="theme-color" content="#0099ff">
 
 <link rel="stylesheet" href="css/bootstrap-4.6.0.min.css">
+<link rel="stylesheet" href="css/bootstrap-icons.css">
 <link rel="stylesheet" href="css/darkmode.css" id="dmcss" type="text/css" disabled>
 <link rel="stylesheet" href="css/mdtoast.min.css">
 
@@ -42,7 +43,7 @@ function preload(){
 	updatedb();
 	if(window.location.search == "?live=disabled"){
 		console.info("Live Update was disabled through site parameters.");
-		document.getElementById("pctl").innerHTML='<i data-feather="play"></i>';
+		document.getElementById("pctl").innerHTML='<i class="bi bi-play"></i>';
 	}
   setTimeout(function(){ $(".preload-screen").fadeOut("slow"); }, 500);
   checkShutdown();
@@ -133,14 +134,14 @@ if($auth){
 	<div class="row<?php if(!$auth){ echo " hidden"; } ?>">
 	  <div class="col-sm-9">
 			<div class="card shadow-sm">
-	      <div class="card-header border-primary text-primary"><i data-feather="align-justify"></i>&nbsp;Overview</div>
+	      <div class="card-header border-primary text-primary"><i class="bi bi-info-circle"></i>&nbsp;Overview</div>
 			  <div class="card-body">
 					<h5 id="sys1" class="card-title"><span id="overallstate"></span></h5>
           <p id="sys11" class="card-text"></p>
 					<p id="sys2" class="card-text"></p>
 					<hr>
-					<p><i data-feather="clock"></i><!--<img src="img/time-icon.png">-->&nbsp;Uptime: <b><span id="uptime"></span></b><?php if($auth){ ?>&nbsp;(started <?=$uptstr;?>)<?php } ?></p>
-		      <table style="width:100%"><tbody><tr><td style="width:10%"><button type="button" id="pctl" onclick="y=100; this.innerHTML=togglep(true);feather.replace();" class="btn btn-secondary btn-sm"><i data-feather="pause"></i></button></td><td style="width:90%">
+					<p><i class="bi bi-clock-history"></i><!--<img src="img/time-icon.png">-->&nbsp;Uptime: <b><span id="uptime"></span></b><?php if($auth){ ?>&nbsp;(started <?=$uptstr;?>)<?php } ?></p>
+		      <table style="width:100%"><tbody><tr><td style="width:10%"><button type="button" id="pctl" onclick="y=100; this.innerHTML=togglep(true);" class="btn btn-secondary btn-sm"><i class="bi bi-pause"></i></button></td><td style="width:90%">
 		      <div class="progress" style="margin-top: 1px; height: 2px;"><div class="progress-bar py" role="progressbar" style="width: 0%;" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div></div></td></tr></tbody></table>
 					<p class="card-text"><small class="text-muted">Updated <span name="lastupdated">now</span></small></p>
 			  </div>
@@ -148,9 +149,9 @@ if($auth){
 	  </div>
 	  <div class="col-sm-3 pt-1 pt-md-0">
 			<div class="card shadow-sm">
-        <div class="card-header border-primary text-primary"><i data-feather="command"></i>&nbsp;System</div>
+        <div class="card-header border-primary text-primary"><i class="bi bi-command"></i>&nbsp;System</div>
 			  <div class="card-body">
-					<button type="button" data-toggle="modal" data-target="#exampleModalCenter" class="btn btn-outline-primary"><i data-feather="power"></i>&nbsp;Power</button>
+					<button type="button" data-toggle="modal" data-target="#exampleModalCenter" class="btn btn-outline-primary"><i class="bi bi-power"></i>&nbsp;Power</button>
 			  </div>
 			</div>	
 	  </div>
@@ -159,7 +160,7 @@ if($auth){
 	  <div class="col-sm-5">
 			<div class="card text-center border-info shadow-sm">
 			  <div class="card-body">
-					<h5 class="card-title"><i data-feather="activity"></i>&nbsp;<span id="cput"></span></h5>
+					<h5 class="card-title"><i class="bi bi-cpu"></i>&nbsp;<span id="cput"></span></h5>
 					<p class="card-text"><canvas id="myChart"></canvas>1 min: <b><span id="m1"></span></b> &#183; 5 min: <b><span id="m5"></span></b> &#183; 15 min: <b><span id="m15"></span></b><br>CPU clock: <b><span id="frequency"></span> MHz</b></p>
 					<p class="card-text"><small class="text-muted">Updated <span name="lastupdated">now</span></small></p>
 			  </div>
@@ -178,7 +179,7 @@ if($auth){
 	  <div class="col-sm-4 pt-1 pt-md-0">
 			<div class="card text-center border-warning shadow-sm">
 			  <div class="card-body">
-					<h5 class="card-title"><i data-feather="cpu"></i>&nbsp;<span id="ramt"></span></h5>
+					<h5 class="card-title"><i class="bi bi-hdd-network"></i>&nbsp;<span id="ramt"></span></h5>
 					<div class="progress">
 					  <div class="progress-bar bg-success" id="ram1" role="progressbar" style="" aria-valuenow="" aria-valuemin="0" aria-valuemax="100"></div>
 					  <div class="progress-bar bg-danger" id="ram2" role="progressbar" style="" aria-valuenow="" aria-valuemin="0" aria-valuemax="100"></div>
@@ -198,7 +199,7 @@ if($auth){
     <div class="col-sm-6 pt-1 pt-md-0">
       <div class="card text-center border-info">
         <div class="card-body">
-          <h5 class="card-title"><i data-feather="hard-drive"></i>&nbsp;Hardware</h5>
+          <h5 class="card-title"><i class="bi bi-hdd-rack"></i>&nbsp;Hardware</h5>
           <?php print "<pre>"; echo shell_exec("lsusb"); print "</pre>"; ?>
           <p class="card-text"><small class="text-muted">Updated <span><?php echo date("H:i:s");?> (at page load)</span></small></p>
         </div>
@@ -207,7 +208,7 @@ if($auth){
     <div class="col-sm-6 pt-1 pt-md-0">
       <div class="card text-center border-info">
         <div class="card-body">
-          <h5 class="card-title"><i data-feather="globe"></i>&nbsp;Web Server</h5>
+          <h5 class="card-title"><i class="bi bi-globe"></i>&nbsp;Web Server</h5>
           <p class="card-text" id="webinfo">Software: <b><?php echo $_SERVER["SERVER_SOFTWARE"];?></b><br>Address: <b><?php echo $_SERVER["SERVER_ADDR"];?></b><br>PHP version: <b><?php echo phpversion();?></b><br>User: <b><?php system("whoami"); ?></b><br>Protocol: <b><?php echo $_SERVER["SERVER_PROTOCOL"]; ?></b></p>
           <p class="card-text"><small class="text-muted">Updated <span><?php echo date("H:i:s");?> (at page load)</span></small></p>
         </div>
@@ -218,7 +219,7 @@ if($auth){
 	  <div class="col-sm-6 pt-1 pt-md-0">
 			<div class="card text-center border-info">
 			  <div class="card-body">
-					<h5 class="card-title"><i data-feather="database"></i>&nbsp;SD Card</h5>
+					<h5 class="card-title"><i class="bi bi-hdd"></i>&nbsp;SD Card</h5>
 					<p class="card-text"><canvas height="100" class="doughnut-chart-container" id="space"></canvas>Total: <b><?php echo $ds_rund;?> GB</b> &#183; Free: <b><?php echo $df_rund;?> GB</b> &#183; Used: <b><?php echo round($ds-$df,2);?> GB</b></p>
 					<p class="card-text"><small class="text-muted">Updated <span><?php echo date("H:i:s");?> (at page load)</span></small></p>
 			  </div>
@@ -227,7 +228,7 @@ if($auth){
 	  <div class="col-sm-6 pt-1 pt-md-0">
 			<div class="card text-center border-info">
 			  <div class="card-body">
-					<h5 class="card-title"><i data-feather="zap"></i>&nbsp;Voltage</h5>
+					<h5 class="card-title"><i class="bi bi-lightning"></i>&nbsp;Voltage</h5>
 					<p style="font-size: 20px" class="card-text text-muted"><?php echo $spannung; ?></p>
 					<p class="card-text"><small class="text-muted">Updated <span><?php echo date("H:i:s");?> (at page load)</span></small></p>
 			  </div>
@@ -299,7 +300,7 @@ if($auth){
 <?php
 }else{
 ?>
-<div style="text-align:center" id="lock_section"><i style="width: 100px;height:100px;color:#aaa" data-feather="lock"></i><br>You are not authorized!</div>
+<div style="text-align:center" id="lock_section"><i style="width: 100px;height:100px;color:#aaa" class="bi bi-shield-lock"></i><br>You are not authorized!</div>
 
 <?php
 
@@ -312,7 +313,7 @@ if($auth){
   <div class="modal-dialog modal-dialog-centered" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLongTitle"><i data-feather="power"></i>&nbsp;Shutdown / Reboot RPi</h5>
+        <h5 class="modal-title" id="exampleModalLongTitle"><i class="bi bi-power"></i>&nbsp;Shutdown / Reboot RPi</h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
       </div>
       <div class="modal-body">
@@ -357,7 +358,7 @@ if($auth){
 					  <label for="inputPassword2" class="sr-only">Password</label>
             <div class="input-group">
               <div class="input-group-prepend">
-                <div class="input-group-text"><i data-feather="key"></i></div>
+                <div class="input-group-text"><i class="bi bi-key"></i></div>
               </div>
               <input type="password" class="form-control" id="inputPassword2" placeholder="Password">
             </div>
@@ -540,9 +541,8 @@ function authorize() {
       if (this.readyState == 4 && this.status == 200) {
         console.log(this.responseText);
         if(this.responseText.indexOf("true") > -1){
-          document.getElementById("currentState").innerHTML = "<div class='alert alert-success' role='alert'><i data-feather='check-circle'></i>&nbsp;Authorization completed!</font>";
-          $("#confbtn").html("<i data-feather='check-circle'></i>&nbsp;Saved");
-          feather.replace();
+          document.getElementById("currentState").innerHTML = "<div class='alert alert-success' role='alert'><i class='bi bi-check2-circle'></i>&nbsp;Authorization completed!</font>";
+          $("#confbtn").html("<i class='bi bi-check2-circle'></i>&nbsp;Saved");
           var res=this.responseText.split("_");
           outputShutdown(res[1],act);
           setTimeout(function(){
@@ -554,9 +554,9 @@ function authorize() {
              $("#confbtn").html("Confirm identity");
           },3000);
         }else if(this.responseText=="wrongCredentials"){
-          document.getElementById("currentState").innerHTML = "<div class='alert alert-success' role='alert'><i data-feather='x-circle'></i>&nbsp;Authorization failed!</div>";
+          document.getElementById("currentState").innerHTML = "<div class='alert alert-success' role='alert'><i class='bi bi-x-circle'></i>&nbsp;Authorization failed!</div>";
         }else{
-          document.getElementById("currentState").innerHTML = "<div class='alert alert-success' role='alert'><i data-feather='x-circle'></i>&nbsp;Error!</div>";
+          document.getElementById("currentState").innerHTML = "<div class='alert alert-success' role='alert'><i class='bi bi-x-circle'></i>&nbsp;Error!</div>";
         }
       }
     };
@@ -565,7 +565,7 @@ function authorize() {
   }
 }
 function checkShutdown(callback) {
-  document.getElementById("currentState").innerHTML='<div class="alert alert-info" role="alert"><i data-feather="chevrons-right"></i>&nbsp;Checking for power events...</div>';
+  document.getElementById("currentState").innerHTML='<div class="alert alert-info" role="alert"><i class="bi bi-chevron-double-right"></i>&nbsp;Checking for power events...</div>';
   var xmlhttp = new XMLHttpRequest();
   xmlhttp.onreadystatechange = function() {
     if (this.readyState == 4 && this.status == 200) {
@@ -580,11 +580,10 @@ function checkShutdown(callback) {
         callback();
       }else{
         if(shutdownCurrent){
-          document.getElementById("currentState").innerHTML='<div class="alert alert-danger" role="alert"><i data-feather="alert-circle"></i>&nbsp;Existing shutdown will be overwritten.&nbsp;<button class="btn btn-sm btn-outline-danger" onclick="cancelShutdown();$(\'#exampleModalCenter\').modal(\'hide\');">Remove</button></div>';
+          document.getElementById("currentState").innerHTML='<div class="alert alert-danger" role="alert"><i class="bi bi-exclamation-circle"></i>&nbsp;Existing shutdown will be overwritten.&nbsp;<button class="btn btn-sm btn-outline-danger" onclick="cancelShutdown();$(\'#exampleModalCenter\').modal(\'hide\');">Remove</button></div>';
         }else{
-          document.getElementById("currentState").innerHTML='<div class="alert alert-success" role="alert"><i data-feather="check-circle"></i>&nbsp;Currently there is no other power event planned.</div>';
+          document.getElementById("currentState").innerHTML='<div class="alert alert-success" role="alert"><i class="bi bi-check2-circle"></i>&nbsp;Currently there is no other power event planned.</div>';
         }
-        feather.replace();
       }
     }
   };
@@ -594,8 +593,7 @@ function checkShutdown(callback) {
 
 function cancelShutdown(force) {
   if(force == undefined){
-    mdtoast('<i data-feather="help-circle"></i>&nbsp;Confirm to cancel', { type: 'warning', interaction: true, actionText: "Confirm", action: function(){ cancelShutdown(true); }, duration: 3000});
-    feather.replace();
+    mdtoast('<i class="bi bi-question-circle"></i>&nbsp;Confirm to cancel', { type: 'warning', interaction: true, actionText: "Confirm", action: function(){ cancelShutdown(true); }, duration: 3000});
     return;
   }
   var xmlhttp = new XMLHttpRequest();
@@ -604,8 +602,7 @@ function cancelShutdown(force) {
       console.log(this.responseText);
       if(this.responseText==""){
         console.log("Cancel response is empty");
-        mdtoast('<i data-feather="check-circle"></i>&nbsp;Power event was cancelled!', { type: 'success'});
-        feather.replace();
+        mdtoast('<i class="bi bi-check2-circle"></i>&nbsp;Power event was cancelled!', { type: 'success'});
         checkShutdown();
         return;
       }
@@ -762,8 +759,7 @@ function updatedb(){
           timer=false;
           console.log("Timer gestoppt");
         }
-        $('#overallstate').html('<font class="text-muted"><i data-feather="loader"></i>&nbsp;Waiting for authentication ...</font>');
-        feather.replace();
+        $('#overallstate').html('<font class="text-muted"><i class="bi bi-hourglass-split"></i>&nbsp;Waiting for authentication ...</font>');
         $('#staticBackdrop').modal('show');
         $("footer").addClass("fixed-bottom");
         return;
@@ -787,9 +783,9 @@ function updatedb(){
 			radialObj.animate(parseInt(result.cputemp));
 			//console.log(parseInt(result.cputemp));
 			if ( parseInt(result.cputemp) < warn_cpu_temp){
-				document.getElementById("tempstate").innerHTML="<i data-feather='thermometer'></i>&nbsp;Temperature <font class='text-success'>(OK)</font>";
+				document.getElementById("tempstate").innerHTML="<i class='bi bi-thermometer-half'></i>&nbsp;Temperature <font class='text-success'>(OK)</font>";
 			}else{
-        document.getElementById("tempstate").innerHTML="<i data-feather='thermometer'></i>&nbsp;Temperature <font class='text-warning'>(WARNING)</font>";
+        document.getElementById("tempstate").innerHTML="<i class='bi bi-thermometer-half'></i>&nbsp;Temperature <font class='text-warning'>(WARNING)</font>";
         addWarning("CPU Temperature","thermometer");
 				warn++;
 			}
@@ -836,12 +832,11 @@ function updatedb(){
 			// Overall
 			if (warn > 0){
         var s = (warn>1) ? "s" : "";
-				document.getElementById("overallstate").innerHTML="<font class='text-danger'><i data-feather='alert-circle'></i>&nbsp;"+warn+" problem"+s+" occured</font>";
+				document.getElementById("overallstate").innerHTML="<font class='text-danger'><i class='bi bi-exclamation-circle'></i>&nbsp;"+warn+" problem"+s+" occured</font>";
 				warnuser(warn);
 			}else{
-				document.getElementById("overallstate").innerHTML="<font class='text-success'><i data-feather='check-circle'></i>&nbsp;System runs normally</font>";
+				document.getElementById("overallstate").innerHTML="<font class='text-success'><i class='bi bi-exclamation-circle'></i>&nbsp;System runs normally</font>";
 			}
-			feather.replace()
 		}
 	});
 }
@@ -865,16 +860,14 @@ function togglep(force){
 		}, (((upd_time_interval*1000)-1.5)/10));
 		timer=true;
 		console.log("Timer started");
-		$('#overallstate').html('<font class="text-info"><i data-feather="chevrons-right"></i>&nbsp;Will be updated ...</font>');
-    feather.replace();
-		return '<i data-feather="pause"></i>';
+		$('#overallstate').html('<font class="text-info"><i class="bi bi-chevron-double-right"></i>&nbsp;Will be updated ...</font>');
+		return '<i class="bi bi-pause"></i>';
 	}else{
 		clearInterval(updinterval);
 		timer=false;
 		console.log("Timer gestoppt");
-		$('#overallstate').html('<font class="text-muted"><i data-feather="clock"></i>&nbsp;Live Update disabled</font>');
-    feather.replace();
-		return '<i data-feather="play"></i>';
+		$('#overallstate').html('<font class="text-muted"><i class="bi bi-clock"></i>&nbsp;Live Update disabled</font>');
+		return '<i class="bi bi-play"></i>';
 	}
 }
 $('#staticBackdrop').on('hidden.bs.modal', function (e) {
@@ -901,7 +894,7 @@ function loginToServer(){
         setTimeout(() => {
           $(".row").removeClass("hidden");
           $("#ldiv").removeClass("hidden");
-          $("#lock_section").html("<i style='width: 100px;height:100px;color:#aaa' data-feather='unlock'></i><br><font class='text-success'>You are authorized!<br><a href='javascript:location.reload()'>Reload</a> the page to load the full page content.</font>")
+          $("#lock_section").html("<i class='bi bi-unlock' style='width: 100px;height:100px;color:#aaa'></i><br><font class='text-success'>You are authorized!<br><a href='javascript:location.reload()'>Reload</a> the page to load the full page content.</font>")
           $('#staticBackdrop').modal('hide');
         }, 1000);
       }else{
@@ -929,18 +922,16 @@ $("#inputPassword2").keyup(function (event) {
   }
 });
 function checkLauth(){
-  document.getElementById("pwrauth").innerHTML="<div class='alert alert-info' role='alert'><i data-feather='chevrons-right'></i>&nbsp;Checking authorization ...</div>";
-  feather.replace();
+  document.getElementById("pwrauth").innerHTML="<div class='alert alert-info' role='alert'><i class='bi bi-chevron-double-right'></i>&nbsp;Checking authorization ...</div>";
   var xmlhttp = new XMLHttpRequest();
   xmlhttp.onreadystatechange = function() {
     if (this.readyState == 4 && this.status == 200) {
       console.log(this.responseText);
       if(this.responseText=="invalid"){
-        $("#pwrauth").html('<label for="inputPassword2" class="sr-only">Password</label><div class="input-group"><div class="input-group-prepend"><div class="input-group-text"><i data-feather="key"></i></div></div><input type="password" class="form-control" id="inputPassword2" placeholder="Password"></div>');
+        $("#pwrauth").html('<label for="inputPassword2" class="sr-only">Password</label><div class="input-group"><div class="input-group-prepend"><div class="input-group-text"><i class="bi bi-key"></i></div></div><input type="password" class="form-control" id="inputPassword2" placeholder="Password"></div>');
       }else{
-        $("#pwrauth").html('<div class="alert alert-success" role="alert"><i data-feather="check-circle"></i>&nbsp;Authenticated</div>');
+        $("#pwrauth").html('<div class="alert alert-success" role="alert"><i class="bi bi-check2-circle"></i>&nbsp;Authenticated</div>');
       }
-      feather.replace();
     }
   };
   xmlhttp.open("POST", "backend/serv.php", true);
@@ -975,22 +966,19 @@ var radialObj = $('#indicatorContainer').data('radialIndicator');
 function warnuser(c) {
   var str=(c>1) ? "are" : "is";
   var str2=(c>1) ? "s" : "";
-  mdtoast('<i data-feather="alert-circle"></i>&nbsp;There '+str+'&nbsp;<b>'+c+'</b>&nbsp;problem'+str2+', please check!', { type: 'error'});
-  feather.replace();
+  mdtoast('<i class="bi bi-exclamation-circle"></i>&nbsp;There '+str+'&nbsp;<b>'+c+'</b>&nbsp;problem'+str2+', please check!', { type: 'error'});
 }
 function addWarning(problem, icon){
-  document.getElementById("sys11").innerHTML+='<div class="bg-danger card text-white text-center shadow m-1" style="max-width: 18rem;"><h5 style="margin-top: .75rem;" class="card-title"><i data-feather="'+icon+'"></i>&nbsp;'+problem+'</h5></div>';
-  feather.replace();
+  document.getElementById("sys11").innerHTML+='<div class="bg-danger card text-white text-center shadow m-1" style="max-width: 18rem;"><h5 style="margin-top: .75rem;" class="card-title"><i class="bi bi-'+icon+'"></i>&nbsp;'+problem+'</h5></div>';
 }
 
 $('#exampleModalCenter').on('shown.bs.modal', function (e) {
   checkShutdown(function(){
     if(shutdownCurrent){
-      document.getElementById("currentState").innerHTML='<div class="alert alert-danger" role="alert"><i data-feather="alert-circle"></i>&nbsp;Existing shutdown will be overwritten.&nbsp;<button class="btn btn-sm btn-outline-danger" onclick="cancelShutdown();$(\'#exampleModalCenter\').modal(\'hide\');">Remove</button></div>';
+      document.getElementById("currentState").innerHTML='<div class="alert alert-danger" role="alert"><i class="bi bi-exclamation-circle"></i>&nbsp;Existing shutdown will be overwritten.&nbsp;<button class="btn btn-sm btn-outline-danger" onclick="cancelShutdown();$(\'#exampleModalCenter\').modal(\'hide\');">Remove</button></div>';
     }else{
-      document.getElementById("currentState").innerHTML='<div class="alert alert-success" role="alert"><i data-feather="check-circle"></i>&nbsp;Currently there is no other power event planned.</div>';
+      document.getElementById("currentState").innerHTML='<div class="alert alert-success" role="alert"><i class="bi bi-check2-circle"></i>&nbsp;Currently there is no other power event planned.</div>';
     }
-    feather.replace();
   });
   checkLauth();
 });
@@ -1014,8 +1002,6 @@ if( localStorage.getItem("darkmode") == 'false' || localStorage.getItem("darkmod
 }
 $("#dm").prop("checked", (localStorage.getItem("darkmode") == 'true'));
 </script>
-<script src="js/feather.min.js"></script>
-<script>feather.replace()</script>
 <script src="js/mdtoast.min.js"></script>
 
 </body>
