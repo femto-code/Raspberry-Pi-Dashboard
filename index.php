@@ -28,7 +28,7 @@ $auth=(isset($_SESSION["rpidbauth"])) ? true : false;
 <meta name="msapplication-TileImage" content="rpidb_ico/ms-icon-144x144.png">
 <meta name="theme-color" content="#0099ff">
 
-<link rel="stylesheet" href="css/bootstrap-4.5.0.min.css">
+<link rel="stylesheet" href="css/bootstrap-4.6.0.min.css">
 <link rel="stylesheet" href="css/darkmode.css" id="dmcss" type="text/css" disabled>
 <link rel="stylesheet" href="css/mdtoast.min.css">
 
@@ -496,8 +496,8 @@ if($auth){
 <!-- End Footer -->
 
 <script src="js/jquery-3.5.1.min.js"></script>
-<script src="js/popper-1.16.0.min.js"></script>
-<script src="js/bootstrap-4.5.0.min.js"></script>
+<script src="js/popper-1.16.1.min.js"></script>
+<script src="js/bootstrap-4.6.0.min.js"></script>
 
 
 <script>
