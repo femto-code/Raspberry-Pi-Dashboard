@@ -5,7 +5,7 @@ ini_set ('display_errors', 'On');
 $auth=(isset($_SESSION["rpidbauth"])) ? true : false;
 ?>
 <!doctype html>
-<html>
+<html lang="en">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -23,7 +23,7 @@ $auth=(isset($_SESSION["rpidbauth"])) ? true : false;
 <link rel="icon" type="image/png" sizes="32x32" href="rpidb_ico/favicon-32x32.png">
 <link rel="icon" type="image/png" sizes="96x96" href="rpidb_ico/favicon-96x96.png">
 <link rel="icon" type="image/png" sizes="16x16" href="rpidb_ico/favicon-16x16.png">
-<link rel="manifest" href="rpidb_ico/rpidb_manifest.json">
+<link rel="manifest" href="rpidb_ico/rpidb_manifest.webmanifest">
 <meta name="msapplication-TileColor" content="#0099ff">
 <meta name="msapplication-TileImage" content="rpidb_ico/ms-icon-144x144.png">
 <meta name="theme-color" content="#0099ff">
@@ -51,6 +51,10 @@ function preload(){
 </script>
 
 <style>
+@import url('https://fonts.googleapis.com/css2?family=Rubik:wght@320&display=swap');
+body{
+  font-family: 'Rubik', sans-serif;
+}
 .hidden{
   display: none;
 }
@@ -374,11 +378,11 @@ if($auth){
 </div>
 
 <!-- Restart modal -->
-<div class="modal fade" id="exampleModalCenter2" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenter2Title" aria-hidden="true">
+<div class="modal fade" id="exampleModalCenter2" tabindex="-1" role="dialog" aria-labelledby="restartModalTitle" aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLongTitle">System is being restarted...</h5>
+        <h5 class="modal-title" id="restartModalTitle">System is being restarted...</h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
@@ -835,7 +839,7 @@ function updatedb(){
 				document.getElementById("overallstate").innerHTML="<font class='text-danger'><i class='bi bi-exclamation-circle'></i>&nbsp;"+warn+" problem"+s+" occured</font>";
 				warnuser(warn);
 			}else{
-				document.getElementById("overallstate").innerHTML="<font class='text-success'><i class='bi bi-exclamation-circle'></i>&nbsp;System runs normally</font>";
+				document.getElementById("overallstate").innerHTML="<font class='text-success'><i class='bi bi-check2-circle'></i>&nbsp;System runs normally</font>";
 			}
 		}
 	});
