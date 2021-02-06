@@ -61,22 +61,22 @@ function authorize() {
     return;
   } else {
     var vReq = new ntwReq("backend/serv.php?p=" + pass+"&a="+act+"&time="+time, function (data) {
-      console.log(this.responseText);
-      if(this.responseText.indexOf("true") > -1){
+      console.log(data.responseText);
+      if(data.responseText.indexOf("true") > -1){
         document.getElementById("currentState").innerHTML = "<div class='alert alert-success' role='alert'><i class='bi bi-check2-circle'></i>&nbsp;Authorization completed!</font>";
         $("#confbtn").html("<i class='bi bi-check2-circle'></i>&nbsp;Saved");
-        var res=this.responseText.split("_");
-        outputShutdown(res[1],act);
+        var res=JSON.parse(data.responseText.split("true_")[1]);
+        outputShutdown(res.date,res.act);
         setTimeout(function(){
           $("#exampleModalCenter").modal("hide");
           document.getElementById("pwrform").reset();
           $("#pwrform input, select").prop("disabled","");
           $("#confbtn").prop("disabled","");
           document.getElementById("currentState").innerHTML = "";
-           $("#confbtn").html("Confirm identity");
+          $("#confbtn").html("Confirm identity");
         },3000);
-      }else if(this.responseText=="wrongCredentials"){
-        document.getElementById("currentState").innerHTML = "<div class='alert alert-success' role='alert'><i class='bi bi-x-circle'></i>&nbsp;Authorization failed!</div>";
+      }else if(data.responseText=="wrongCredentials"){
+        document.getElementById("currentState").innerHTML = "<div class='alert alert-danger' role='alert'><i class='bi bi-x-circle'></i>&nbsp;Authorization failed!</div>";
       }else{
         document.getElementById("currentState").innerHTML = "<div class='alert alert-success' role='alert'><i class='bi bi-x-circle'></i>&nbsp;Error!</div>";
       }
@@ -88,12 +88,14 @@ function authorize() {
 function checkShutdown(callback) {
   document.getElementById("currentState").innerHTML='<div class="alert alert-info" role="alert"><i class="bi bi-chevron-double-right"></i>&nbsp;Checking for power events...</div>';
   var vReq = new ntwReq("backend/serv.php?checkShutdown", function (data) {
-    if(this.responseText==""){
+    console.log(data.responseText);
+    var res=JSON.parse(data.responseText);
+    if( (res.act=="") || (res.date==null) ){
       document.getElementById("sys2").innerHTML="";
       shutdownCurrent=false;
     }else{
       shutdownCurrent=true;
-      outputShutdown(this.responseText,"unknown");
+      outputShutdown(res.date,res.act);
     }
     if(callback !== undefined){
       callback();
@@ -115,8 +117,8 @@ function cancelShutdown(force) {
     return;
   }
   var vReq = new ntwReq("backend/serv.php?cancelShutdown", function (data) {
-    console.log(this.responseText);
-    if(this.responseText==""){
+    console.log(data.responseText);
+    if(data.responseText==""){
       console.log("Cancel response is empty");
       mdtoast('<i class="bi bi-check2-circle"></i>&nbsp;Power event was cancelled!', { type: 'success'});
       checkShutdown();
@@ -129,12 +131,21 @@ function cancelShutdown(force) {
 
 var dobj={Mon: "Monday", Tue: "Tuesday", Wed: "Wednesday", Thu: "Thursday", Fri: "Friday", Sat: "Saturday", Sun: "Sunday"};
 function outputShutdown(data,act) {
-  var toParse=data.split(" CEST ")[0];
-  var day=data.substring(0,3);
-  var s = data.replace(day,dobj[day]);
-  s=s.split(" ")[0]+" "+s.split(" ")[1]+" "+s.split(" ")[2]+", "+s.split(" ")[5]+" "+s.split(" ")[3];
-  scheduled=Date.parse(s);
-  d = new Date(scheduled);
+  if(typeof data !== "number"){ // for compatibility reasons
+    data=data.replace("\n","");
+    console.log("Trying to process old info...");
+    var day=data.substring(0,3);
+    var s = data.replace(day,dobj[day]);
+    console.log(s);
+    s=s.split(" ")[0]+", "+s.split(" ")[3]+" "+s.split(" ")[1]+", "+s.split(" ")[6]+" "+s.split(" ")[4];
+    console.log(s);
+    scheduled=Date.parse(s);
+    d = new Date(scheduled);
+  }else{
+    d = new Date(data);
+  }
+  
+  
   var restd = Math.floor((d.getTime() - Date.now()) / (1000 * 60 * 60 * 24));
   var resth = Math.floor((d.getTime() - Date.now()) / (1000 * 60 * 60)) % 24;
   var restm = Math.floor((d.getTime() - Date.now()) / (1000 * 60)) % 60;
@@ -150,12 +161,7 @@ function outputShutdown(data,act) {
   }
   if(str==""){ str="<font class='text-danger'>&lt; 1 min</font>"; }
   console.log(str);
-  var action = (act=="1") ? "shutdown" : "reboot";
-  if(act=="unknown"){
-    action="shutdown/reboot";
-  }
-  var c =toParse.split(" ");
-  document.getElementById("sys2").innerHTML='<div class="alert alert-warning" role="alert"><button class="btn btn-sm btn-outline-danger" onclick="cancelShutdown()" style="float:right">Cancel</button>Planned to '+action+' at <kbd>'+c[3]+'</kbd> on <kbd>'+c[0]+', '+c[1]+' '+c[2]+'</kbd><br>Remaining time: <kbd>'+str+'</kbd><br></div>';
+  document.getElementById("sys2").innerHTML='<div class="alert alert-warning" role="alert"><button class="btn btn-sm btn-outline-danger" onclick="cancelShutdown()" style="float:right">Cancel</button>Scheduled power event: <kbd>'+act+'</kbd><br>Remaining time: <kbd>'+str+'</kbd><br></div>';
 }
 
 function shutdown(){

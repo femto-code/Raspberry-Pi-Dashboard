@@ -31,8 +31,27 @@ if(isset($_POST["login"])){
   }
   exit();
 }
+function getShutdownEventsInfo(){
+  // system("date --date @$(head -1 /run/systemd/shutdown/scheduled |cut -c6-15)");
+  // old command which is not very comfortable in order to retrieve which event is scheduled (poweroff vs reboot)
+  // For now use old one for compatibility reasons which I dont know so far
+  $return=array();
+  $output2=shell_exec("busctl get-property org.freedesktop.login1 /org/freedesktop/login1 org.freedesktop.login1.Manager ScheduledShutdown");
+  if($output2==""){
+    $output=shell_exec("date --date @$(head -1 /run/systemd/shutdown/scheduled |cut -c6-15)");
+    $return["date"]=$output;
+    $return["act"]="unknown";
+  }else{
+    $strings=explode(" ", $output2);
+    // The output specifies the shutdown time as microseconds since the Unix epoch -> divide by 1000
+    //echo gettype($strings[2]);
+    $return["date"]=round(floatval($strings[2]) / 1000); // Unix milliseconds
+    $return["act"]=explode("\"", $strings[1])[1];
+  }
+  return $return;
+}
 if(isset($_GET["checkShutdown"])){
-  system("date --date @$(head -1 /run/systemd/shutdown/scheduled |cut -c6-15)");
+  echo json_encode(getShutdownEventsInfo());
   exit();
 }else if(isset($_GET["cancelShutdown"])){
   system('sudo /sbin/shutdown -c');
@@ -58,6 +77,6 @@ if( ($pass != $correctPassword) && (time()-$_SESSION["rpidbauth"] > 5 * 60) ){
 	}else{
 		echo "false";
   }
-  system("date --date @$(head -1 /run/systemd/shutdown/scheduled |cut -c6-15)");
+  echo json_encode(getShutdownEventsInfo());
 }
 ?>
