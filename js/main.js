@@ -1,4 +1,3 @@
-
 // General XMLHttpRequest(s) TODO: Compatibility check
 class ntwReq {
   constructor(url, successfct, timeoutfct) {
@@ -26,7 +25,7 @@ function preload(){
   checkShutdown();
 }
 
-tselect=1;
+var tselect=1;
 function authorize() {
   if(document.getElementById('inputPassword2')==null){
     pass="alreadyauthorized";
@@ -191,7 +190,7 @@ function send_supportmail(){
 }
 
 
-
+// General chart functions and globals
 Chart.defaults.global.legend.display = false;
 
 function addData(chart, label, data) {
@@ -451,21 +450,58 @@ $('#exampleModalCenter').on('shown.bs.modal', function (e) {
   checkLauth();
 });
 
+// Dark Mode Switch and Init
 function toggleDarkMode() {
   var state = $("#dm").prop("checked");
-  if(state){
-    $("#dmcss").prop("disabled", false);
-  }else{
-    $("#dmcss").prop("disabled", true);
-  }
+  darkmode(state);
+  $("#dmauto").prop("checked", false);
   localStorage.setItem("darkmode", state);
 }
-$("#dmcss").prop("disabled", (localStorage.getItem("darkmode") == 'false' || localStorage.getItem("darkmode") == null));
-if( localStorage.getItem("darkmode") == 'false' || localStorage.getItem("darkmode") == null ){
-  $("#webinfo").removeClass("text-muted");
-  $("#kernel").removeClass("text-muted");
-}else{
-  $("#webinfo").addClass("text-muted");
-  $("#kernel").addClass("text-muted");
+function toggleAutoDarkMode(predef) {
+  var state;
+  var save;
+  if(predef!==undefined){
+    state = predef;
+    console.log("predef",predef);
+  }else{
+    state = $("#dmauto").prop("checked");
+  }
+  if(state){
+    if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+      darkmode(true);
+    } else {
+      darkmode(false);
+    }
+    window.matchMedia('(prefers-color-scheme: dark)').addListener(e => {
+      if (e.matches) {
+        darkmode(true);
+      } else {
+        darkmode(false);
+      }
+    });
+    save = "auto";
+  }else{
+    save = $("#dm").prop("checked");
+    darkmode(save);
+  }
+  localStorage.setItem("darkmode", save);
+}
+function darkmode(state) {
+  if (state == undefined) {
+    return !$("#dmcss").attr("disabled");
+  }
+  if (state == true) {
+    $("#dmcss").prop("disabled", false);
+    $("#webinfo").addClass("text-muted");
+    $("#kernel").addClass("text-muted");
+  } else if (state == false) {
+    $("#dmcss").prop("disabled", true);
+    $("#webinfo").removeClass("text-muted");
+    $("#kernel").removeClass("text-muted");
+  }
 }
 $("#dm").prop("checked", (localStorage.getItem("darkmode") == 'true'));
+$("#dmauto").prop("checked", (localStorage.getItem("darkmode") == 'auto'));
+darkmode( (localStorage.getItem("darkmode") != 'false' && localStorage.getItem("darkmode") != null) );
+// Formerly: call to disable darkmode by setting disabled prop to (?) -> logical A + B -> now we need the opposite /(A+B) = /A * /B -> works :D
+toggleAutoDarkMode((localStorage.getItem("darkmode")=="auto"));

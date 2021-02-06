@@ -400,6 +400,10 @@ if($auth){
           <input type="checkbox" onchange="toggleDarkMode()" class="custom-control-input" id="dm">
           <label class="custom-control-label" for="dm">Dark Mode</label>
         </div>
+        <div class="custom-control custom-switch">
+          <input type="checkbox" onchange="toggleAutoDarkMode()" class="custom-control-input" id="dmauto">
+          <label class="custom-control-label" for="dmauto">According to system settings (overrides first option)</label>
+        </div>
         <hr>
 				<div id="accordion">
 				  <div class="card">
