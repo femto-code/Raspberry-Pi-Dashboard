@@ -57,7 +57,7 @@ if(isset($_GET["checkShutdown"])){
   system('sudo /sbin/shutdown -c');
   exit();
 }
-$pass = $_REQUEST["p"];
+$pass = md5($_REQUEST["p"]);
 $time = $_REQUEST["time"];
 if (strpos($time, ':') == false) {
   $time="+".$time;
