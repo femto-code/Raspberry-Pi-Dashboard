@@ -12,7 +12,7 @@
 - State Mail to send an email containing a summary
 - Power (shutdown/reboot) Raspberry Pi with schedule options ([setup instructions](https://github.com/femto-code/Rasberry-Pi-Dashboard#setup-project))
 - Web-App capable with mobile integration thanks to responsive design
-- Dark Mode
+- Dark Theme (manual/auto)
 
 ## Screenshots
 
@@ -45,8 +45,8 @@
 3. Remember password and enjoy!
 
 ### Enabling remote shutdown/reboot (OPTIONAL)
-> Recommended only, if your RPi is not accessible over the Internet!
-In order to use the remote power functionality you have to give the user `www-data` advanced rights:
+> Recommended only, if your RPi is **not** accessible over the Internet!
+In order to use the remote power functionality you have to give the user `www-data` advanced rights for running one specific command:
 1. Run `sudo visudo` to open the editor for adjusting user rights
 2. Be careful what you change here! Just add the following at the **end** of the file: `www-data ALL=NOPASSWD: /sbin/shutdown`
 3. Restart your Pi and now shutdown from another device (connected to local network) is possible
