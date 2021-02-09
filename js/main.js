@@ -256,7 +256,7 @@ function updatedb(){
 			document.getElementById("uptime").innerHTML=result.uptime;
 			// CPU Temperature
 			document.getElementById("temperature").innerHTML=result.cputemp;
-			radialObj.animate(parseInt(result.cputemp));
+			radialObj.animate(Math.round(result.cputemp));
 			//console.log(parseInt(result.cputemp));
 			if ( parseInt(result.cputemp) < warn_cpu_temp){
 				document.getElementById("tempstate").innerHTML="<i class='bi bi-thermometer-half'></i>&nbsp;Temperature <font class='text-success'>(OK)</font>";
@@ -420,11 +420,12 @@ function checkLauth(){
 $('#indicatorContainer').radialIndicator({
 	barColor: {
     0: '#dfffbf',
-    45: '#00ff00',
-    60: '#ff4000',
-    70: '#cc0000',
+    50: '#45b438',
+    65: '#ff4000',
+    78: '#cc0000',
 		100: '#000'
   },
+  //barBgColor: '#888888',
   initValue: 0,
   minValue: 0,
   maxValue: 100,

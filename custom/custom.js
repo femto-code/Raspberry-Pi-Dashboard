@@ -6,7 +6,7 @@
 
 
 // Temperature in °C, which is the critical value and throws a warning - default: 60
-warn_cpu_temp = 60;
+warn_cpu_temp = 65;
 
 // Usage of working memory in %, which is the critical value and throws a warning - default: 80
 warn_ram_space = 80;
