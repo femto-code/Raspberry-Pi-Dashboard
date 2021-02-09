@@ -33,8 +33,6 @@ $auth=(isset($_SESSION["rpidbauth"])) ? true : false;
 <link rel="stylesheet" href="css/darkmode.css" id="dmcss" type="text/css" disabled>
 <link rel="stylesheet" href="css/mdtoast.min.css">
 
-<link rel="stylesheet" href="custom/custom.css"><!-- Custom Styles -->
-
 <title>RPi Dashboard</title>
 
 <style>
@@ -498,6 +496,33 @@ if($auth){
 <script src="js/Chart-2.9.3.min.js"></script>
 <script src="js/mdtoast.min.js"></script>
 <script src="js/radialIndicator-2.0.0.min.js"></script>
+
+<script>
+
+/* Custom part
+ * Here, you can make specific settings to adjust dashboard behaviour.
+ * 
+ */
+
+
+// Temperature in °C, which is the critical value and throws a warning - default: 60
+warn_cpu_temp = 65;
+
+// Usage of working memory in %, which is the critical value and throws a warning - default: 80
+warn_ram_space = 80;
+
+// time interval of update in seconds (recommended: 10 - 60 sec) - Pay attention: Do not set too low. - default: 15
+upd_time_interval = 15;
+
+// CPU workload of last minute, which is the critical value and throws a warning - default: 2
+warn_loads_size = 2;
+
+
+//***************************
+// DO NOT CHANGE
+console.log("Custom user options: warncputemp="+warn_cpu_temp+" | warn_ram_space="+warn_ram_space+" | upd_time_interval="+upd_time_interval+" | warn_loads_size="+warn_loads_size);
+
+</script>
 
 <script src="js/main.js"></script>
 
