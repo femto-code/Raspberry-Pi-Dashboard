@@ -3,8 +3,10 @@ session_start();
 error_reporting (E_ALL);
 ini_set ('display_errors', 'On');
 
-// Change password here as MD5 encryption
-$correctPassword = "63a9f0ea7bb98050796b649e85481845";
+require "Config.php";
+$config = new Config;
+$config->load("../user-settings.php");
+$correctPassword = $config->get("general.pass");
 
 if(isset($_GET["logout"])){
   session_destroy();

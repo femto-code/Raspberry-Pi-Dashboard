@@ -8,6 +8,9 @@ if(!isset($_SESSION["rpidbauth"])){
 	echo json_encode($output);
   exit();
 }
+require "Config.php";
+$config = new Config;
+$config->load("../user-settings.php");
 // Uptime
 $uptime = shell_exec("cat /proc/uptime");
 $uptime = explode(" ", $uptime);
@@ -123,7 +126,7 @@ if(isset($_GET["statemail"])){
 	$msg .= "SWAP overall: ".$swaptotal." MB\n\n";
 	$msg .= "SWAP used: ".$swapused." MB\n\n";
 
-	$command='python /var/www/html/Raspberry-Pi-Dashboard/statemail.py "Status Mail of RPi" "'.$msg.'"';
+	$command='python /var/www/html/'.$config->get("general.folder").'/statemail.py "Status Mail of RPi" "'.$msg.'"';
 	//echo $command;
 	$output=shell_exec($command);
 	echo "<pre>$output</pre><br>";

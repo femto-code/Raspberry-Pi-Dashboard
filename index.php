@@ -3,6 +3,10 @@ session_start();
 error_reporting (E_ALL);
 ini_set ('display_errors', 'On');
 $auth=(isset($_SESSION["rpidbauth"])) ? true : false;
+
+require "backend/Config.php";
+$config = new Config;
+$config->load("user-settings.php");
 ?>
 <!doctype html>
 <html lang="en">
@@ -66,8 +70,6 @@ body{
   float: left;
 }
 </style>
-
-<script src="custom/custom.js"></script>
 
 <?php
 if($auth){
@@ -390,7 +392,7 @@ if($auth){
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Help & Docs</h5>
+        <h5 class="modal-title" id="exampleModalLabel"><i class="bi bi-gear"></i>&nbsp;Options & About</h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
       </div>
       <div class="modal-body">
@@ -403,6 +405,37 @@ if($auth){
           <label class="custom-control-label" for="dmauto">According to system settings (overrides first option)</label>
         </div>
         <hr>
+        <h4 class="mb-0">Threshold values</h4>
+        <small class="text-muted">Throwing a warning</small>
+        <form>
+          <div class="form-row">
+            <div class="col">
+              <input type="number" class="form-control" placeholder="default: 60" aria-describedby="critCpuTempHelp" min="20" max="80">
+              <small id="critCpuTempHelp" class="form-text text-muted">CPU Temperature (°C) - default: 60°C</small>
+            </div>
+            <div class="col">
+              <input type="number" class="form-control" placeholder="default: 80" aria-describedby="critRamSizeHelp" min="0" max="100">
+              <small id="critRamSizeHelp" class="form-text text-muted">RAM Load (%) - default: 80%</small>
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="col-6">
+              <input type="number" class="form-control" placeholder="default: 2" aria-describedby="critCpuLoadHelp" min="1" max="4">
+              <small id="critCpuLoadHelp" class="form-text text-muted">CPU workload (last min) - default: 2</small>
+            </div>
+          </div>
+          <div class="form-group row">
+            <label for="inputRefreshRate" class="col-sm-6 col-form-label">Refresh rate (sec)</label>
+            <div class="col-sm-6">
+              <input type="number" class="form-control" placeholder="default: 15" id="inputRefreshRate" aria-describedby="dbRefreshHelp" min="5" max="600">
+            </div>
+            <small id="dbRefreshHelp" class="col form-text text-muted">Refresh interval of live data update section (recommended: 10 - 60 sec) - Pay attention: Do not set too low. - default: 15</small>
+          </div>
+          <button type="button" class="btn btn-outline-success">Apply</button>
+          <button type="button" class="btn btn-outline-secondary">Discard changes</button>
+          <button type="button" class="btn btn-outline-primary">Defaults</button>
+        </form>
+        <hr />
 				<div id="accordion">
 				  <div class="card">
             <div class="card-header" id="headingOne">
@@ -498,30 +531,11 @@ if($auth){
 <script src="js/radialIndicator-2.0.0.min.js"></script>
 
 <script>
-
-/* Custom part
- * Here, you can make specific settings to adjust dashboard behaviour.
- * 
- */
-
-
-// Temperature in °C, which is the critical value and throws a warning - default: 60
-warn_cpu_temp = 65;
-
-// Usage of working memory in %, which is the critical value and throws a warning - default: 80
-warn_ram_space = 80;
-
-// time interval of update in seconds (recommended: 10 - 60 sec) - Pay attention: Do not set too low. - default: 15
-upd_time_interval = 15;
-
-// CPU workload of last minute, which is the critical value and throws a warning - default: 2
-warn_loads_size = 2;
-
-
-//***************************
-// DO NOT CHANGE
+warn_cpu_temp = <?=$config->get("thresholds.warn_cpu_temp")?>;
+warn_ram_space = <?=$config->get("thresholds.warn_ram_space")?>;
+upd_time_interval = <?=$config->get("thresholds.upd_time_interval")?>;
+warn_loads_size = <?=$config->get("thresholds.warn_loads_size")?>;
 console.log("Custom user options: warncputemp="+warn_cpu_temp+" | warn_ram_space="+warn_ram_space+" | upd_time_interval="+upd_time_interval+" | warn_loads_size="+warn_loads_size);
-
 </script>
 
 <script src="js/main.js"></script>
