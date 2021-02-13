@@ -59,26 +59,28 @@ if(isset($_GET["checkShutdown"])){
   system('sudo /sbin/shutdown -c');
   exit();
 }
-$pass = md5($_REQUEST["p"]);
-$time = $_REQUEST["time"];
-if (strpos($time, ':') == false) {
-  $time="+".$time;
-}
-if( ($pass != $correctPassword) && (time()-$_SESSION["rpidbauth"] > 5 * 60) ){
-	echo "wrongCredentials";
-}else{
-  if($pass==$correctPassword){
-    $_SESSION["rpidbauth"]=time();
+if(isset($_REQUEST["p"])){
+  $pass = md5($_REQUEST["p"]);
+  $time = $_REQUEST["time"];
+  if (strpos($time, ':') == false) {
+    $time="+".$time;
   }
-	if($_REQUEST["a"]=="1"){
-		echo "true_";
-		system('sudo /sbin/shutdown -h '.$time);
-	}else if($_REQUEST["a"]=="2"){
-		echo "true_";
-		system("sudo /sbin/shutdown -r ".$time);
-	}else{
-		echo "false";
+  if( ($pass != $correctPassword) && (time()-$_SESSION["rpidbauth"] > 5 * 60) ){
+  	echo "wrongCredentials";
+  }else{
+    if($pass==$correctPassword){
+      $_SESSION["rpidbauth"]=time();
+    }
+  	if($_REQUEST["a"]=="1"){
+  		echo "true_";
+  		system('sudo /sbin/shutdown -h '.$time);
+  	}else if($_REQUEST["a"]=="2"){
+  		echo "true_";
+  		system("sudo /sbin/shutdown -r ".$time);
+  	}else{
+  		echo "false_";
+    }
+    echo json_encode(getShutdownEventsInfo());
   }
-  echo json_encode(getShutdownEventsInfo());
 }
 ?>

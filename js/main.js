@@ -70,7 +70,13 @@ function authorize() {
         document.getElementById("currentState").innerHTML = "<div class='alert alert-success' role='alert'><i class='bi bi-check2-circle'></i>&nbsp;Authorization completed!</font>";
         $("#confbtn").html("<i class='bi bi-check2-circle'></i>&nbsp;Saved");
         var res=JSON.parse(data.responseText.split("true_")[1]);
-        outputShutdown(res.date,res.act);
+        if( (res.act=="") || (res.date==null) ){
+          if (confirm(("There was an error with shutdown. Please check that user www-data has necessary rights to perform this action.\nShow help?"))){
+            location.href='https://github.com/femto-code/Raspberry-Pi-Dashboard#enabling-remote-shutdownreboot-optional';
+          }
+        }else{
+          outputShutdown(res.date,res.act);
+        }
         setTimeout(function(){
           $("#exampleModalCenter").modal("hide");
           document.getElementById("pwrform").reset();
@@ -84,6 +90,8 @@ function authorize() {
         $("#confbtn").prop("disabled","");
         $("#inputPassword2").addClass("is-invalid");
         $("#confbtn").html("Confirm identity");
+      }else if(data.responseText.indexOf("false") > -1){
+        alert('There was an error with shutdown: Parameter error. Please report an issue.');
       }
     }, function () {
       
@@ -123,12 +131,13 @@ function cancelShutdown(force) {
   }
   var vReq = new ntwReq("backend/serv.php?cancelShutdown", function (data) {
     console.log(data.responseText);
-    if(data.responseText==""){
-      console.log("Cancel response is empty");
-      mdtoast('<i class="bi bi-check2-circle"></i>&nbsp;Power event was cancelled!', { type: 'success'});
-      checkShutdown();
-      return;
-    }
+    checkShutdown(function(){
+      if(shutdownCurrent){
+        alert('There was an error with shutdown cancel. Please report an issue.');
+      }else{
+        mdtoast('<i class="bi bi-check2-circle"></i>&nbsp;Power event was cancelled!', { type: 'success'});
+      }
+    });
   }, function () {
     
   });
