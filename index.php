@@ -310,7 +310,7 @@ if($auth){
       <div class="modal-body">
 				<!---->
         <div id="currentState"></div>
-				<form id="pwrform" action="javascript:void(0);">
+				<form id="pwrform" onkeydown="return event.key != 'Enter';">
 					<div class="form-check form-check-inline">
 					  <input class="form-check-input" type="radio" name="pwrOptions" id="inlineRadio1" value="1">
 					  <label class="form-check-label" for="inlineRadio1">Shutdown</label>
@@ -349,11 +349,14 @@ if($auth){
 					  <label for="inputPassword2" class="sr-only">Password</label>
             <div class="input-group">
               <div class="input-group-prepend">
-                <div class="input-group-text"><i class="bi bi-key"></i></div>
+                <div class="input-group-text" id="myPsw2"><i class="bi bi-key"></i></div>
               </div>
-              <input type="password" class="form-control" id="inputPassword2" placeholder="Password">
+              <input type="password" class="form-control" id="inputPassword2" placeholder="Password" aria-label="Password" aria-describedby="myPsw2">
+              <div class="invalid-feedback">Invalid password!</div>
             </div>
           </div>
+          <div id="pwrCheck" class='alert alert-info' role='alert'><i class='bi bi-chevron-double-right'></i>&nbsp;Checking authorization ...</div>
+          <div id="pwrCheck2" class="hidden alert alert-success" role="alert"><i class="bi bi-check2-circle"></i>&nbsp;Authenticated</div>
 				</form>
       </div>
       <div class="modal-footer">
@@ -485,20 +488,20 @@ if($auth){
   <div class="modal-dialog modal-dialog-centered">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="staticBackdropLabel">Authentication</h5>
+        <h5 class="modal-title" id="staticBackdropLabel"><i class="bi bi-shield-lock"></i>&nbsp;Authentication</h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
       <div class="modal-body">
-        <div class='alert alert-info' role='alert'>Please login to access server information!</div>
+        <div class='alert alert-info' role='alert'>Please enter password to access dashboard!</div>
         <form onkeydown="return event.key != 'Enter';">
           <div class="input-group mb-3">
             <div class="input-group-prepend">
               <span class="input-group-text" id="myPsw">Password</span>
             </div>
             <input type="password" class="form-control" placeholder="" aria-label="Password" aria-describedby="myPsw" id="lpwd">
-            <div class="invalid-feedback">Wrong password!</div>
+            <div class="invalid-feedback">Invalid password!</div>
           </div>
         </form>
       </div>
