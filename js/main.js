@@ -27,7 +27,7 @@ function preload(){
 
 var tselect=1;
 function authorize() {
-  if(document.getElementById('inputPassword2')==null){
+  if(!$("#inputPassword2").is(":visible")){
     pass="alreadyauthorized";
   }else{
     pass=document.getElementById('inputPassword2').value;
@@ -57,7 +57,11 @@ function authorize() {
 	
 	var act=document.querySelector('input[name="pwrOptions"]:checked').value;
   if (pass.length == 0) { 
-    document.getElementById("currentState").innerHTML = "<font class='text-danger'>Please enter a valid password!</font>";
+    console.log("pass is empty");
+    $("#inputPassword2").addClass("is-invalid");
+    $("#pwrform input, select").prop("disabled","");
+    $("#confbtn").prop("disabled","");
+    $("#confbtn").html("Confirm identity");
     return;
   } else {
     var vReq = new ntwReq("backend/serv.php?p=" + pass+"&a="+act+"&time="+time, function (data) {
@@ -72,13 +76,14 @@ function authorize() {
           document.getElementById("pwrform").reset();
           $("#pwrform input, select").prop("disabled","");
           $("#confbtn").prop("disabled","");
-          document.getElementById("currentState").innerHTML = "";
+          $("#inputPassword2").addClass("is-valid");
           $("#confbtn").html("Confirm identity");
-        },3000);
+        },1000);
       }else if(data.responseText=="wrongCredentials"){
-        document.getElementById("currentState").innerHTML = "<div class='alert alert-danger' role='alert'><i class='bi bi-x-circle'></i>&nbsp;Authorization failed!</div>";
-      }else{
-        document.getElementById("currentState").innerHTML = "<div class='alert alert-success' role='alert'><i class='bi bi-x-circle'></i>&nbsp;Error!</div>";
+        $("#pwrform input, select").prop("disabled","");
+        $("#confbtn").prop("disabled","");
+        $("#inputPassword2").addClass("is-invalid");
+        $("#confbtn").html("Confirm identity");
       }
     }, function () {
       
@@ -354,9 +359,9 @@ $('#staticBackdrop').on('hidden.bs.modal', function (e) {
   $("#lpwd").val("").removeClass("is-valid is-invalid");
   $("#lbtn").html("Login").addClass("btn-primary").removeClass("btn-success");
 });
-function loginToServer(){
+function loginToServer(){ // TODO: Add logout option
   var value=$("#lpwd").val();
-  if(value.length==0){ return; }
+  if(value.length==0){ $("#lpwd").addClass("is-invalid");return; }
   $("#lpwd").prop("disabled","true");
   $("#lbtn").prop("disabled","true");
   $("#lbtn").html("Checking...");
@@ -398,16 +403,19 @@ $("#inputPassword2").keyup(function (event) {
   }
 });
 function checkLauth(){
-  document.getElementById("pwrauth").innerHTML="<div class='alert alert-info' role='alert'><i class='bi bi-chevron-double-right'></i>&nbsp;Checking authorization ...</div>";
+  $("#pwrauth").hide();
+  $("#pwrCheck").show();
+  $("#pwrCheck2").hide();
   var xmlhttp = new XMLHttpRequest();
   xmlhttp.onreadystatechange = function() {
     if (this.readyState == 4 && this.status == 200) {
       console.log(this.responseText);
       if(this.responseText=="invalid"){
-        $("#pwrauth").html('<label for="inputPassword2" class="sr-only">Password</label><div class="input-group"><div class="input-group-prepend"><div class="input-group-text"><i class="bi bi-key"></i></div></div><input type="password" class="form-control" id="inputPassword2" placeholder="Password"></div>');
+        $("#pwrauth").show();
       }else{
-        $("#pwrauth").html('<div class="alert alert-success" role="alert"><i class="bi bi-check2-circle"></i>&nbsp;Authenticated</div>');
+        $("#pwrCheck2").show();
       }
+      $("#pwrCheck").hide();
     }
   };
   xmlhttp.open("POST", "backend/serv.php", true);
