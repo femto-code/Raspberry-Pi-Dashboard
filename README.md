@@ -1,7 +1,7 @@
 # <div align="center">Raspberry Pi Dashboard</div>
 
 <div align="center">View and manage your Pi system through your web browser!</div>
-<p align="center"><sub>Written in plain HTML5, CSS3, JavaScript and PHP (backend). No extra programs required!</sub></p>
+<p align="center"><sub>Written in plain HTML5, CSS3, JavaScript and PHP (backend). <b>No extra software required!</b></sub></p>
 
 ![Intro](img/intro.png?raw=true "Components of this project")
 
