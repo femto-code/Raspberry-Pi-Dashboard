@@ -36,12 +36,13 @@
 - DONE!
 - Open web browser with URL: `http://IP_OF_YOUR_RPI/Raspberry-Pi-Dashboard`
 - [OPTIONAL] rename the folder to shorten the address input: `mv /var/www/html/Raspberry-Pi-Dashboard /var/www/html/{subfolder_name}` (Note: replace {subfolder_name} with your wish to enter the web page)
+- [SOON] There will be a user-friendly setup page for configuration. (WIP)
 
 ### Configure password
 
 >You should change the default password (which is **root**) and a choose a more secure one by following these steps:
 1. Go to [https://www.md5-generator.de/](https://www.md5-generator.de/) and generate the MD5 encyrpted passphrase.
-2. Open `serv.php` on line 7 and adjust the passphrase with the generated one from step 1.
+2. Open `user-settings.php` on line 13 and replace the passphrase string with the generated one from step 1.
 3. Remember password and enjoy!
 
 ### Enabling remote shutdown/reboot (OPTIONAL)
