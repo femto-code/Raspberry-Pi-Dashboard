@@ -6,8 +6,12 @@ class Config{
 	
 	protected $default = null;
 	
+	protected $file;
+	
 	public function load($file){		
 		$this->data = require $file;
+		$this->file=$file;
+		//$this->save($this->data);
 	}
 	
 	public function get($key, $default = null){
@@ -30,6 +34,11 @@ class Config{
 	
 	public function exists($key){
 		return $this->get($key) !== $this->default;
+	}
+	
+	public function save($dat){
+		// return ".json_encode($dat).";";
+		file_put_contents($this->file, "<?php\nreturn ".var_export($dat, true).";\n?>");
 	}
 	
 }
