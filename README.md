@@ -14,6 +14,8 @@
 - Web-App capable with mobile integration thanks to responsive design
 - Dark Theme (manual/auto)
 
+>Update your existing dashboard setup by navigating to root folder and running `git pull` in the terminal.
+
 ## Screenshots
 
 ![Preview](img/preview.png?raw=true "Preview of dashboard in a web browser")
