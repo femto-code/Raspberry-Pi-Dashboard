@@ -120,7 +120,7 @@ function checkShutdown(callback) {
       }
     }
   }, function () {
-    
+    alert("Connection error");
   });
 }
 
@@ -232,14 +232,16 @@ function removeData(chart) {
 function updatedb(){
 	$('.p3').width('100%');
 	console.log("Live : Updating...");
+  $('#overallstate').html('<font class="text-muted"><i class="bi bi-hourglass-split"></i>&nbsp;Updating ...</font>');
 	$.ajax({
 		type: "GET",
 		dataType: "json",
 		cache: false,
 		url: "backend/sys_infos.php",
 		error : function(jqXHR, textStatus, errorThrown){
+      $('#overallstate').html('<font class="text-danger"><i class="bi bi-x-circle"></i>&nbsp;Connection lost ...</font>');
 			console.error("Ajax error");
-			console.error(jqXHR + " | " + textStatus + " | " + errorThrown);
+			console.error(jqXHR, textStatus, errorThrown);
 		},
 		success: function(result) {
       document.getElementById("sys11").innerHTML="";
@@ -255,7 +257,7 @@ function updatedb(){
         return;
       }
       if(!timer) togglep(false);
-			ebody = 'Loads: ' + result.load + '\r\n' + 'Timestamp: ' + result.timest + '\r\n' + 'Uptime: ' + result.uptime + '\r\n' + 'CPU Temperature: ' + result.cputemp + '\r\n' + 'CPU Frequency: ' + result.cpufreq + '\r\n' + 'RAM total: ' + (result.memavail + result.memunavail) + '\r\n' + 'RAM used: ' + result.memunavail + '\r\n' + 'RAM free: ' + result.memavail + '\r\n' + 'RAM perc: ' + result.memperc + '\r\n' + 'SWAP perc: ' + result.swapperc + '\r\n' + 'SWAP total: ' + result.swaptotal + '\r\n' + 'SWAP used: ' + result.swapused;
+			//ebody = 'Loads: ' + result.load + '\r\n' + 'Timestamp: ' + result.timest + '\r\n' + 'Uptime: ' + result.uptime + '\r\n' + 'CPU Temperature: ' + result.cputemp + '\r\n' + 'CPU Frequency: ' + result.cpufreq + '\r\n' + 'RAM total: ' + (result.memavail + result.memunavail) + '\r\n' + 'RAM used: ' + result.memunavail + '\r\n' + 'RAM free: ' + result.memavail + '\r\n' + 'RAM perc: ' + result.memperc + '\r\n' + 'SWAP perc: ' + result.swapperc + '\r\n' + 'SWAP total: ' + result.swaptotal + '\r\n' + 'SWAP used: ' + result.swapused;
 			warn=0;
 			var x = document.getElementsByName("lastupdated");
 			var i;
