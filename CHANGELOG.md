@@ -7,6 +7,16 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 Open for your feature [requests](https://github.com/femto-code/Rasberry-Pi-Dashboard/pulls) or [issues](https://github.com/femto-code/Rasberry-Pi-Dashboard/issues)!
 [https://github.com/femto-code/Rasberry-Pi-Dashboard](https://github.com/femto-code/Rasberry-Pi-Dashboard)
 
+## [0.7.2] - 2021-02-14
+### Changed
+- removed user config files (will be replaced by user-friendly settings form in future)
+- improved error handling
+- adjusted cpu temperature color indicators and increased default critical value
+- miscellaneous improvements, updated Readme
+
+### Fixed
+- [IMPORTANT] fixed shutdown not working
+
 ## [0.7.1] - 2021-02-07
 ### Changed
 - changed footer layout
