@@ -8,6 +8,9 @@ class ntwReq {
       }
     };
     this.xmlhttp.open(type, url, true);
+    if(encode){
+      this.xmlhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+    }
     this.xmlhttp.timeout = 4 * 1000;
     this.xmlhttp.ontimeout = timeoutfct;
     if(type=="POST"){
@@ -382,30 +385,24 @@ function loginToServer(){ // TODO: Add logout option
   $("#lpwd").prop("disabled","true");
   $("#lbtn").prop("disabled","true");
   $("#lbtn").html("Checking...");
-  var xmlhttp = new XMLHttpRequest();
-  xmlhttp.onreadystatechange = function() {
-    if (this.readyState == 4 && this.status == 200) {
-      console.log(this.responseText);
-      if(this.responseText=="correctCredentials"){
-        $("#lpwd").addClass("is-valid").removeClass("is-invalid");
-        $("#lbtn").html("Updating now...").addClass("btn-success").removeClass("btn-primary");
-        setTimeout(() => {
-          $(".row").removeClass("hidden");
-          $("#ldiv").removeClass("hidden");
-          $("#lock_section").html("<i class='bi bi-unlock' style='width: 100px;height:100px;color:#aaa'></i><br><font class='text-success'>You are authorized!<br><a href='javascript:location.reload()'>Reload</a> the page to load the full page content.</font>");
-          $('#staticBackdrop').modal('hide');
-        }, 1000);
-      }else{
-        $("#lpwd").prop("disabled","");
-        $("#lpwd").addClass("is-invalid");
-        $("#lbtn").html("Try again");
-        $("#lbtn").prop("disabled","");
-      }
+  var vReq = new ntwReq("backend/serv.php", function (data) {
+    console.log(data.responseText);
+    if(data.responseText=="correctCredentials"){
+      $("#lpwd").addClass("is-valid").removeClass("is-invalid");
+      $("#lbtn").html("Updating now...").addClass("btn-success").removeClass("btn-primary");
+      setTimeout(() => {
+        $(".row").removeClass("hidden");
+        $("#ldiv").removeClass("hidden");
+        $("#lock_section").html("<i class='bi bi-unlock' style='width: 100px;height:100px;color:#aaa'></i><br><font class='text-success'>You are authorized!<br><a href='javascript:location.reload()'>Reload</a> the page to load the full page content.</font>");
+        $('#staticBackdrop').modal('hide');
+      }, 1000);
+    }else{
+      $("#lpwd").prop("disabled","");
+      $("#lpwd").addClass("is-invalid");
+      $("#lbtn").html("Try again");
+      $("#lbtn").prop("disabled","");
     }
-  };
-  xmlhttp.open("POST", "backend/serv.php", true);
-  xmlhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-  xmlhttp.send("login=true&pw="+value);
+  }, null, "POST", true, "login=true&pw="+value);
 }
 $("#lpwd").keyup(function (event) {
   if (event.keyCode === 13) {
@@ -423,22 +420,16 @@ function checkLauth(){
   $("#pwrauth").hide();
   $("#pwrCheck").show();
   $("#pwrCheck2").hide();
-  var xmlhttp = new XMLHttpRequest();
-  xmlhttp.onreadystatechange = function() {
-    if (this.readyState == 4 && this.status == 200) {
-      console.log(this.responseText);
-      if(this.responseText=="invalid"){
+  setTimeout(() => {
+    var vReq = new ntwReq("backend/serv.php", function (data) {
+      console.log(data.responseText);
+      if(data.responseText=="invalid"){
         $("#pwrauth").show();
       }else{
         $("#pwrCheck2").show();
       }
       $("#pwrCheck").hide();
-    }
-  };
-  xmlhttp.open("POST", "backend/serv.php", true);
-  xmlhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-  setTimeout(() => {
-    xmlhttp.send("check=true");
+    }, null, "POST", true, "check=true");
   }, 1000);
 }
 
