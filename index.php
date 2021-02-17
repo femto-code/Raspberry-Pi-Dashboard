@@ -148,7 +148,7 @@ if($auth){
 	  </div>
 	</div>
 	<div class="row pt-3<?php if(!$auth){ echo " hidden"; } ?>">
-	  <div class="col-sm-5">
+	  <div class="col-12 col-sm-6 col-md-5 pt-1 pt-md-0">
 			<div class="card text-center border-info shadow-sm">
 			  <div class="card-body">
 					<h5 class="card-title"><i class="bi bi-cpu"></i>&nbsp;<span id="cput"></span></h5>
@@ -157,7 +157,7 @@ if($auth){
 			  </div>
 			</div>
 	  </div>
-	  <div class="col-sm-3 pt-1 pt-md-0">
+	  <div class="col-12 col-sm-6 col-md-3 pt-1 pt-md-0">
 			<div class="card text-center border-danger shadow-sm">
 			  <div class="card-body">
 				<h5 id="tempstate" class="card-title"></h5>
@@ -167,7 +167,7 @@ if($auth){
 			  </div>
 			</div>
 	  </div>
-	  <div class="col-sm-4 pt-1 pt-md-0">
+	  <div class="col-12 col-sm-6 col-md-4 pt-1 pt-md-0">
 			<div class="card text-center border-warning shadow-sm">
 			  <div class="card-body">
 					<h5 class="card-title"><i class="bi bi-hdd-network"></i>&nbsp;<span id="ramt"></span></h5>
