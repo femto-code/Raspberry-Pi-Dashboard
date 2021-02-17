@@ -83,4 +83,16 @@ if(isset($_REQUEST["p"])){
     echo json_encode(getShutdownEventsInfo());
   }
 }
+if(isset($_REQUEST["updateSettings"])){
+  $allowed=array_keys($config->get("thresholds"));
+  $edit=array('thresholds' => array (), 'general' => array ());
+  foreach ($_POST as $key => $val) {
+    if(in_array($key, $allowed)){
+      $edit["thresholds"]+=array($key => $val);
+    }
+  }
+  $edit["general"]=$config->get("general");
+  echo $config->save($edit);
+  //echo json_encode($edit);
+}
 ?>

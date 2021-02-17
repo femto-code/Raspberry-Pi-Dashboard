@@ -2,10 +2,10 @@
 return array (
   'thresholds' => 
   array (
-    'warn_cpu_temp' => 65,
-    'warn_ram_space' => 80,
-    'warn_loads_size' => 2,
-    'upd_time_interval' => 15,
+    'warn_cpu_temp' => '65',
+    'warn_ram_space' => '80',
+    'warn_loads_size' => '2',
+    'upd_time_interval' => '15',
   ),
   'general' => 
   array (
