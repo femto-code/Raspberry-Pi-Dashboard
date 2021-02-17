@@ -410,33 +410,33 @@ if($auth){
         <hr>
         <h4 class="mb-0">Threshold values</h4>
         <small class="text-muted">Throwing a warning</small>
-        <form>
+        <form id="settingsForm">
           <div class="form-row">
             <div class="col">
-              <input type="number" class="form-control" placeholder="default: 60" aria-describedby="critCpuTempHelp" min="20" max="80">
-              <small id="critCpuTempHelp" class="form-text text-muted">CPU Temperature (°C) - default: 60°C</small>
+              <input type="number" id="warn_cpu_temp" class="form-control" placeholder="default: 60" aria-describedby="critCpuTempHelp" min="20" max="80" value="<?=$config->get("thresholds.warn_cpu_temp")?>">
+              <small id="critCpuTempHelp" class="form-text text-muted">CPU Temperature (°C) - default: 65°C</small>
             </div>
             <div class="col">
-              <input type="number" class="form-control" placeholder="default: 80" aria-describedby="critRamSizeHelp" min="0" max="100">
+              <input type="number" id="warn_ram_space" class="form-control" placeholder="default: 80" aria-describedby="critRamSizeHelp" min="0" max="100" value="<?=$config->get("thresholds.warn_ram_space")?>">
               <small id="critRamSizeHelp" class="form-text text-muted">RAM Load (%) - default: 80%</small>
             </div>
           </div>
           <div class="form-row">
             <div class="col-6">
-              <input type="number" class="form-control" placeholder="default: 2" aria-describedby="critCpuLoadHelp" min="1" max="4">
+              <input type="number" id="warn_loads_size" class="form-control" placeholder="default: 2" aria-describedby="critCpuLoadHelp" min="1" max="4" value="<?=$config->get("thresholds.warn_loads_size")?>">
               <small id="critCpuLoadHelp" class="form-text text-muted">CPU workload (last min) - default: 2</small>
             </div>
           </div>
           <div class="form-group row">
-            <label for="inputRefreshRate" class="col-sm-6 col-form-label">Refresh rate (sec)</label>
+            <label for="upd_time_interval" class="col-sm-6 col-form-label">Refresh rate (sec)</label>
             <div class="col-sm-6">
-              <input type="number" class="form-control" placeholder="default: 15" id="inputRefreshRate" aria-describedby="dbRefreshHelp" min="5" max="600">
+              <input type="number" class="form-control" placeholder="default: 15" id="upd_time_interval" aria-describedby="dbRefreshHelp" min="5" max="600" value="<?=$config->get("thresholds.upd_time_interval")?>">
             </div>
             <small id="dbRefreshHelp" class="col form-text text-muted">Refresh interval of live data update section (recommended: 10 - 60 sec) - Pay attention: Do not set too low. - default: 15</small>
           </div>
-          <button type="button" class="btn btn-outline-success">Apply</button>
-          <button type="button" class="btn btn-outline-secondary">Discard changes</button>
-          <button type="button" class="btn btn-outline-primary">Defaults</button>
+          <button type="button" id="applyBtn" class="btn btn-outline-success">Apply</button>
+          <button type="button" id="discardBtn" class="btn btn-outline-secondary">Discard changes</button>
+          <button type="button" id="defaultsBtn" class="btn btn-outline-primary">Defaults</button>
         </form>
         <hr />
 				<div id="accordion">
@@ -538,6 +538,8 @@ warn_cpu_temp = <?=$config->get("thresholds.warn_cpu_temp")?>;
 warn_ram_space = <?=$config->get("thresholds.warn_ram_space")?>;
 upd_time_interval = <?=$config->get("thresholds.upd_time_interval")?>;
 warn_loads_size = <?=$config->get("thresholds.warn_loads_size")?>;
+var settingsKeys=["warn_cpu_temp", "warn_ram_space", "warn_loads_size", "upd_time_interval"];
+var defaultSettings=[65, 80, 2, 15];
 console.log("Custom user options: warncputemp="+warn_cpu_temp+" | warn_ram_space="+warn_ram_space+" | upd_time_interval="+upd_time_interval+" | warn_loads_size="+warn_loads_size);
 </script>
 
