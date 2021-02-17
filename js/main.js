@@ -1,16 +1,22 @@
 // General XMLHttpRequest(s) TODO: Compatibility check
 class ntwReq {
-  constructor(url, successfct, timeoutfct) {
+  constructor(url, successfct, timeoutfct, type="GET", encode=false, data=null) {
     this.xmlhttp = new XMLHttpRequest();
     this.xmlhttp.onreadystatechange = function () {
       if (this.readyState == 4 && this.status == 200) {
         successfct(this);
       }
     };
-    this.xmlhttp.open("GET", url, true);
+    this.xmlhttp.open(type, url, true);
     this.xmlhttp.timeout = 4 * 1000;
     this.xmlhttp.ontimeout = timeoutfct;
-    this.xmlhttp.send();
+    if(type=="POST"){
+      console.log("POSTING...");
+      this.xmlhttp.send(data);
+    }else{
+      this.xmlhttp.send();
+    }
+    
   }
 }
 
@@ -145,7 +151,7 @@ function cancelShutdown(force) {
 
 var dobj={Mon: "Monday", Tue: "Tuesday", Wed: "Wednesday", Thu: "Thursday", Fri: "Friday", Sat: "Saturday", Sun: "Sunday"};
 function outputShutdown(data,act) {
-  if(typeof data !== "number"){ // for compatibility reasons
+  if(typeof data !== "number"){ // NOTE: for compatibility reasons
     data=data.replace("\n","");
     console.log("Trying to process old info...");
     var day=data.substring(0,3);
@@ -531,3 +537,39 @@ $("#dmauto").prop("checked", (localStorage.getItem("darkmode") == 'auto'));
 darkmode( (localStorage.getItem("darkmode") != 'false' && localStorage.getItem("darkmode") != null) );
 // Formerly: call to disable darkmode by setting disabled prop to (?) -> logical A + B -> now we need the opposite /(A+B) = /A * /B -> works :D
 toggleAutoDarkMode((localStorage.getItem("darkmode")=="auto"));
+
+// Settings Form
+document.querySelector('#applyBtn').onclick = function (e) {
+  e.preventDefault();
+  let sFormData = new FormData();
+  for (var i = 0; i < settingsKeys.length; i++) {
+    var val=document.getElementById(settingsKeys[i]).value;
+    if(val==""){
+      val=defaultSettings[i];
+    }
+    sFormData.append(settingsKeys[i], val);
+  }
+  sFormData.append("updateSettings", true);
+  console.log("settings data "+ sFormData);
+  var vReq = new ntwReq("backend/serv.php", function (data) {
+    if(data.responseText=="1"){
+      mdtoast('<i class="bi bi-check2-circle"></i>&nbsp;Settings were updated!', { type: 'success'});
+    }else{
+      mdtoast('<i class="bi bi-x-circle"></i>&nbsp;There was an error! ('+data.responseText+')', { type: 'error'});
+    }
+  }, null, "POST", false, sFormData);
+};
+document.querySelector('#discardBtn').onclick = function (e) {
+  e.preventDefault();
+  document.getElementById('settingsForm').reset();
+};
+function loadDefaultsToForm() {
+  for (var i = 0; i < settingsKeys.length; i++) {
+    //document.getElementById(settingsKeys[i]).value=defaultSettings[i];
+    document.getElementById(settingsKeys[i]).value="";
+  }
+}
+document.querySelector('#defaultsBtn').onclick = function (e) {
+  e.preventDefault();
+  loadDefaultsToForm();
+};
