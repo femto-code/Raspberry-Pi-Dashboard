@@ -7,6 +7,19 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 Open for your feature [requests](https://github.com/femto-code/Rasberry-Pi-Dashboard/pulls) or [issues](https://github.com/femto-code/Rasberry-Pi-Dashboard/issues)!
 [https://github.com/femto-code/Rasberry-Pi-Dashboard](https://github.com/femto-code/Rasberry-Pi-Dashboard)
 
+## [0.8] - 2021-02-17
+### Added
+- new settings form for saving custom warning thresholds and basic dashboard settings (more paramters will come)
+- further error handling and indicators that inform user about results or when dashboard is updating
+
+### Changed
+- improved Readme with new screenshots
+- added updating information (run <code>git pull</code> in a terminal)
+- minor code improvements
+
+### Fixed
+- [Design] fixed tablet appearance (#9)
+
 ## [0.7.2] - 2021-02-14
 ### Changed
 - removed user config files (will be replaced by user-friendly settings form in future)

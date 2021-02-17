@@ -448,9 +448,9 @@ if($auth){
             </div>
             <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordion">
               <div class="card-body">
-              <h3><font class='text-success'>&#10003;</font> Version 0.7.2</h3>
-              <ul><li>adjusted cpu temperature color indicators and increased default critical value</li><li>improved error handling</li><li>removed user config files (will be replaced by user-friendly settings form in future)</li><li>fixed shutdown not working</li><li>improved footer layout</li><li>reworked shutdown / power event handling (less problems detecting which shutdown event is scheduled)</li><li>added dark theme option to apply to current system settings</li><li>bug fixes, miscellaneous improvements, updated Readme</li><li><a href='https://github.com/femto-code/Rasberry-Pi-Dashboard/releases'>Stay updated here</a></li><li><i><a href="CHANGELOG.md">All changes</a></i></li></ul>
-              <small>changes since RPi Dashboard v0.7 (Feb 2021)</small>
+              <h3><font class='text-success'>&#10003;</font> Version 0.8</h3>
+              <ul><li>new settings form for saving custom warning thresholds and basic dashboard settings (more paramters will come)</li><li>further error handling and indicators that inform user about results or when dashboard is updating</li><li>[Design] fixed tablet appearance (#9)</li><li>added updating information (run <code>git pull</code> in a terminal)</li><li>bug fixes, miscellaneous improvements, updated Readme</li><li><a href='https://github.com/femto-code/Rasberry-Pi-Dashboard/releases'>Stay updated here</a></li><li><i><a href="CHANGELOG.md">All changes</a></i></li></ul>
+              <small>changes since RPi Dashboard v0.8 (Feb 2021)</small>
               </div>
             </div>
 				  </div>
@@ -518,7 +518,7 @@ if($auth){
 <!-- Footer -->
 <footer style="line-height: 40px; background-color: #f5f5f5; margin-top: 10px;">
 	<div class="container text-center">
-		RPi Dashboard v0.7.2 <font class="text-muted">(Feb 2021)</font> <span id="dot">&middot;</span> <font id="notf" class="text-success">See the <a href="https://github.com/femto-code/Rasberry-Pi-Dashboard/releases">Github releases</a> for updates!</font><br />
+		RPi Dashboard v0.8 <font class="text-muted">(Feb 2021)</font> <span id="dot">&middot;</span> <font id="notf" class="text-success">See the <a href="https://github.com/femto-code/Rasberry-Pi-Dashboard/releases">Github releases</a> for updates!</font><br />
     <button class="btn btn-secondary mb-2" onclick="$('#exampleModal').modal('show');"><i class="bi bi-gear"></i>&nbsp;Options</button>
 		<hr style="margin-top: 0; margin-bottom: 0;">
 		femto-code&nbsp;<a href="https://github.com/femto-code"><i class="bi bi-github"></i></a> &middot; <font class="text-muted">2018 - 2021</font>
