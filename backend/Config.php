@@ -39,7 +39,7 @@ class Config{
 	public function save($dat){
 		// return ".json_encode($dat).";";
 		if (is_writable($this->file)) {
-			$res=file_put_contents($this->file, "<?php\nreturn ".var_export($dat, true).";\n?>"); // NOTE: 
+			$res=file_put_contents($this->file, "<?php\nreturn ".var_export($dat, true).";\n?>"); 
 			if($res===false){
 				return "write_error";
 			}else{

@@ -103,7 +103,7 @@ function authorize() {
         alert('There was an error with shutdown: Parameter error. Please report an issue.');
       }
     }, function () {
-      
+      alert("Connection error");
     });
   }
 }
@@ -148,7 +148,7 @@ function cancelShutdown(force) {
       }
     });
   }, function () {
-    
+    alert("Connection error");
   });
 }
 
@@ -167,7 +167,6 @@ function outputShutdown(data,act) {
   }else{
     d = new Date(data);
   }
-  
   
   var restd = Math.floor((d.getTime() - Date.now()) / (1000 * 60 * 60 * 24));
   var resth = Math.floor((d.getTime() - Date.now()) / (1000 * 60 * 60)) % 24;
