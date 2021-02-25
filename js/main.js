@@ -204,8 +204,8 @@ function shutdown(){
 		}else{
 			clearInterval(ival);
 			//console.log("Interval cleared");
-			$( ".b2" ).prop( "disabled", false );
-			$(".b2"). css("background-color","green");
+			$(".b2").prop( "disabled", false);
+			$(".b2").css("background-color","green");
 		}
 	}, 3000);
 }
@@ -238,7 +238,7 @@ function removeData(chart) {
 }
 
 function updatedb(){
-	$('.p3').width('100%');
+  $('.py').addClass("progress-bar-striped progress-bar-animated");
 	console.log("Live : Updating...");
   $('#overallstate').html('<font class="text-muted"><i class="bi bi-hourglass-split"></i>&nbsp;Updating ...</font>');
 	$.ajax({
@@ -337,6 +337,7 @@ function updatedb(){
 			}else{
 				document.getElementById("overallstate").innerHTML="<font class='text-success'><i class='bi bi-check2-circle'></i>&nbsp;System runs normally</font>";
 			}
+      $('.py').removeClass("progress-bar-striped progress-bar-animated");
 		}
 	});
 }
@@ -361,12 +362,14 @@ function togglep(force){
 		timer=true;
 		console.log("Timer started");
 		$('#overallstate').html('<font class="text-info"><i class="bi bi-chevron-double-right"></i>&nbsp;Will be updated ...</font>');
+    $('.py').removeClass("bg-danger");
 		return '<i class="bi bi-pause"></i>';
 	}else{
 		clearInterval(updinterval);
 		timer=false;
 		console.log("Timer gestoppt");
 		$('#overallstate').html('<font class="text-muted"><i class="bi bi-clock"></i>&nbsp;Live Update disabled</font>');
+    $('.py').addClass("bg-danger");
 		return '<i class="bi bi-play"></i>';
 	}
 }

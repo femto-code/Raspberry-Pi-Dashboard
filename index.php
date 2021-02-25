@@ -401,45 +401,54 @@ if($auth){
         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
       </div>
       <div class="modal-body">
-        <div class="custom-control custom-switch">
-          <input type="checkbox" onchange="toggleDarkMode()" class="custom-control-input" id="dm">
-          <label class="custom-control-label" for="dm">Dark Mode</label>
+        <div class="row">
+          <div class="col-12 col-lg-4">
+            <h4 class="mb-0">Appearance</h4>
+            <small class="text-muted">Only on this device</small>
+            <div class="custom-control custom-switch">
+              <input type="checkbox" onchange="toggleDarkMode()" class="custom-control-input" id="dm">
+              <label class="custom-control-label" for="dm">Dark Mode</label>
+            </div>
+            <div class="custom-control custom-switch">
+              <input type="checkbox" onchange="toggleAutoDarkMode()" class="custom-control-input" id="dmauto">
+              <label class="custom-control-label" for="dmauto">According to system settings</label>
+            </div>
+            <hr class="d-block d-lg-none d-xl-none">
+          </div>
+          <div class="col-12 col-lg-8">
+            <h4 class="mb-0">Threshold values</h4>
+            <small class="text-muted">Throwing a warning (permanently saved)</small>
+            <form id="settingsForm">
+              <div class="form-row">
+                <div class="col">
+                  <input type="number" id="warn_cpu_temp" class="form-control" placeholder="default: 60" aria-describedby="critCpuTempHelp" min="20" max="80" value="<?=$config->get("thresholds.warn_cpu_temp")?>">
+                  <small id="critCpuTempHelp" class="form-text text-muted">CPU Temperature (°C) - default: 65°C</small>
+                </div>
+                <div class="col">
+                  <input type="number" id="warn_ram_space" class="form-control" placeholder="default: 80" aria-describedby="critRamSizeHelp" min="0" max="100" value="<?=$config->get("thresholds.warn_ram_space")?>">
+                  <small id="critRamSizeHelp" class="form-text text-muted">RAM Load (%) - default: 80%</small>
+                </div>
+              </div>
+              <div class="form-row">
+                <div class="col-6">
+                  <input type="number" id="warn_loads_size" class="form-control" placeholder="default: 2" aria-describedby="critCpuLoadHelp" min="1" max="4" value="<?=$config->get("thresholds.warn_loads_size")?>">
+                  <small id="critCpuLoadHelp" class="form-text text-muted">CPU workload (last min) - default: 2</small>
+                </div>
+              </div>
+              <div class="form-row mb-2">
+                <label for="upd_time_interval" class="col-sm-6 col-form-label">Refresh rate (sec)</label>
+                <div class="col-sm-6">
+                  <input type="number" class="form-control" placeholder="default: 15" id="upd_time_interval" aria-describedby="dbRefreshHelp" min="5" max="600" value="<?=$config->get("thresholds.upd_time_interval")?>">
+                </div>
+                <small id="dbRefreshHelp" class="col form-text text-muted">Refresh interval of live data update section (recommended: 10 - 60 sec) - Pay attention: Do not set too low. - default: 15</small>
+              </div>
+              <button type="button" id="applyBtn" class="btn btn-outline-success">Apply</button>
+              <button type="button" id="discardBtn" class="btn btn-outline-secondary">Discard changes</button>
+              <button type="button" id="defaultsBtn" class="btn btn-outline-primary">Defaults</button>
+            </form>
+          </div>
         </div>
-        <div class="custom-control custom-switch">
-          <input type="checkbox" onchange="toggleAutoDarkMode()" class="custom-control-input" id="dmauto">
-          <label class="custom-control-label" for="dmauto">According to system settings (overrides first option)</label>
-        </div>
-        <hr>
-        <h4 class="mb-0">Threshold values</h4>
-        <small class="text-muted">Throwing a warning</small>
-        <form id="settingsForm">
-          <div class="form-row">
-            <div class="col">
-              <input type="number" id="warn_cpu_temp" class="form-control" placeholder="default: 60" aria-describedby="critCpuTempHelp" min="20" max="80" value="<?=$config->get("thresholds.warn_cpu_temp")?>">
-              <small id="critCpuTempHelp" class="form-text text-muted">CPU Temperature (°C) - default: 65°C</small>
-            </div>
-            <div class="col">
-              <input type="number" id="warn_ram_space" class="form-control" placeholder="default: 80" aria-describedby="critRamSizeHelp" min="0" max="100" value="<?=$config->get("thresholds.warn_ram_space")?>">
-              <small id="critRamSizeHelp" class="form-text text-muted">RAM Load (%) - default: 80%</small>
-            </div>
-          </div>
-          <div class="form-row">
-            <div class="col-6">
-              <input type="number" id="warn_loads_size" class="form-control" placeholder="default: 2" aria-describedby="critCpuLoadHelp" min="1" max="4" value="<?=$config->get("thresholds.warn_loads_size")?>">
-              <small id="critCpuLoadHelp" class="form-text text-muted">CPU workload (last min) - default: 2</small>
-            </div>
-          </div>
-          <div class="form-group row">
-            <label for="upd_time_interval" class="col-sm-6 col-form-label">Refresh rate (sec)</label>
-            <div class="col-sm-6">
-              <input type="number" class="form-control" placeholder="default: 15" id="upd_time_interval" aria-describedby="dbRefreshHelp" min="5" max="600" value="<?=$config->get("thresholds.upd_time_interval")?>">
-            </div>
-            <small id="dbRefreshHelp" class="col form-text text-muted">Refresh interval of live data update section (recommended: 10 - 60 sec) - Pay attention: Do not set too low. - default: 15</small>
-          </div>
-          <button type="button" id="applyBtn" class="btn btn-outline-success">Apply</button>
-          <button type="button" id="discardBtn" class="btn btn-outline-secondary">Discard changes</button>
-          <button type="button" id="defaultsBtn" class="btn btn-outline-primary">Defaults</button>
-        </form>
+        
         <hr />
 				<div id="accordion">
 				  <div class="card">
@@ -584,6 +593,7 @@ var chart2 = new Chart(ctx2, {
     datasets: [{
       label: "Disk usage",
       backgroundColor: ['rgb(132, 244, 71)','rgb(255, 99, 132)'],
+      borderWidth: 1,
       data: [<?=round($df,2)?>,<?=round($ds-$df,2)?>],
     }]
   },
