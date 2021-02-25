@@ -19,3 +19,13 @@ hr {
 label{
   color: #fff;
 }
+
+.modal-header, .nav-tabs{
+  border-bottom: 1px solid #9e9e9e;
+}
+.modal-footer{
+  border-top: 1px solid #9e9e9e;
+}
+.modal-content{
+  background-color: #4e4e4e;
+}
