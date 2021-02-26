@@ -10,7 +10,7 @@
 - Live surveillance of RPi hardware (CPU Temperature, frequency, loads etc.) with custom warnings
 - Protected access with password login (default: root) ([configure password](https://github.com/femto-code/Rasberry-Pi-Dashboard#configure-password))
 - Power (shutdown/reboot) Raspberry Pi with schedule options ([setup instructions](https://github.com/femto-code/Rasberry-Pi-Dashboard#enabling-remote-shutdownreboot-optional))
-- State Mail to send an email containing a summary (soon)
+- [Work in progress:] State Mail to send an email containing a summary (soon)
 - Web-App capable with mobile integration thanks to responsive design
 - Dark Theme (manual/auto)
 
