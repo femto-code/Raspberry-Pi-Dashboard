@@ -13,6 +13,10 @@ if(isset($_GET["logout"])){
   exit();
 }
 if(isset($_POST["check"])){
+  if(!isset($_SESSION["rpidbauth"])){
+    echo "invalid";
+    exit();
+  }
   $dif=time() - $_SESSION["rpidbauth"];
   if($dif > 60 * 4){
     echo "invalid";
@@ -53,10 +57,20 @@ function getShutdownEventsInfo(){
   return $return;
 }
 if(isset($_GET["checkShutdown"])){
-  echo json_encode(getShutdownEventsInfo());
+  if(!isset($_SESSION["rpidbauth"])){
+    $return=array();
+    $return["act"]="unauthorized";
+    echo json_encode($return);
+  }else{
+    echo json_encode(getShutdownEventsInfo());
+  }
   exit();
 }else if(isset($_GET["cancelShutdown"])){
-  system('sudo /sbin/shutdown -c');
+  if(!isset($_SESSION["rpidbauth"])){
+    echo "unauthorized";
+  }else{
+    system('sudo /sbin/shutdown -c');
+  }  
   exit();
 }
 if(isset($_REQUEST["p"])){

@@ -1,6 +1,9 @@
 // General XMLHttpRequest(s) TODO: Compatibility check
 class ntwReq {
   constructor(url, successfct, timeoutfct, type="GET", encode=false, data=null) {
+    if (!navigator.onLine) {
+      $('#overallstate').html('<font class="text-danger"><i class="bi bi-question-circle"></i>&nbsp;You are offline ...</font>');
+    }
     this.xmlhttp = new XMLHttpRequest();
     this.xmlhttp.onreadystatechange = function () {
       if (this.readyState == 4 && this.status == 200) {
@@ -22,6 +25,12 @@ class ntwReq {
     
   }
 }
+window.addEventListener("offline", function(e) {
+  console.log("offline");
+}, false);
+window.addEventListener("online", function(e) {
+  console.log("online");
+}, false);
 
 function preload(){
 	// Update of all data
@@ -112,7 +121,10 @@ function checkShutdown(callback) {
   var vReq = new ntwReq("backend/serv.php?checkShutdown", function (data) {
     console.log(data.responseText);
     var res=JSON.parse(data.responseText);
-    if( (res.act=="") || (res.date==null) ){
+    if(res.act=="unauthorized"){
+      //alert("You are unauthorized!");
+      shutdownCurrent=false;
+    }else if( (res.act=="") || (res.date==null) ){
       document.getElementById("sys2").innerHTML="";
       shutdownCurrent=false;
     }else{
@@ -140,13 +152,17 @@ function cancelShutdown(force) {
   }
   var vReq = new ntwReq("backend/serv.php?cancelShutdown", function (data) {
     console.log(data.responseText);
-    checkShutdown(function(){
-      if(shutdownCurrent){
-        alert('There was an error with shutdown cancel. Please report an issue.');
-      }else{
-        mdtoast('<i class="bi bi-check2-circle"></i>&nbsp;Power event was cancelled!', { type: 'success'});
-      }
-    });
+    if(data.responseText=="unauthorized"){
+      alert("You are unauthorized!");
+    }else{
+      checkShutdown(function(){
+        if(shutdownCurrent){
+          alert('There was an error with shutdown cancel. Please report an issue.');
+        }else{
+          mdtoast('<i class="bi bi-check2-circle"></i>&nbsp;Power event was cancelled!', { type: 'success'});
+        }
+      });
+    }
   }, function () {
     alert("Connection error");
   });
