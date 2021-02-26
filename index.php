@@ -40,7 +40,19 @@ $config->load("user-settings.php");
 <title>RPi Dashboard</title>
 
 <style>
-@import url('https://fonts.googleapis.com/css2?family=Rubik:wght@320&display=swap');
+/* rubik-300 - latin */
+@font-face {
+  font-family: 'Rubik';
+  font-style: normal;
+  font-weight: 300;
+  src: url('fonts/rubik-v12-latin-300.eot'); /* IE9 Compat Modes */
+  src: local(''),
+    url('fonts/rubik-v12-latin-300.eot?#iefix') format('embedded-opentype'), /* IE6-IE8 */
+    url('fonts/rubik-v12-latin-300.woff2') format('woff2'), /* Super Modern Browsers */
+    url('fonts/rubik-v12-latin-300.woff') format('woff'), /* Modern Browsers */
+    url('fonts/rubik-v12-latin-300.ttf') format('truetype'), /* Safari, Android, iOS */
+    url('fonts/rubik-v12-latin-300.svg#Rubik') format('svg'); /* Legacy iOS */
+}
 body{
   font-family: 'Rubik', sans-serif;
 }
