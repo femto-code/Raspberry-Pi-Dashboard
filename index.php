@@ -102,7 +102,6 @@ if($auth){
   $spannung=substr(exec("vcgencmd measure_volts core"),5);
   if(strpos($spannung,"failed")!==false) $spannung=$spannung."<div class='alert alert-danger' role='alert'>Reading of core voltage failed. Please run<br><kbd>sudo usermod -aG video www-data</kbd><br>in a terminal to solve this problem.</div>";
 }
-
 ?>
 
 </head>
@@ -132,7 +131,7 @@ if($auth){
 
 <div style="margin-top:70px" class="container">
 	<div class="row<?php if(!$auth){ echo " hidden"; } ?>">
-	  <div class="col-sm-9">
+	  <div class="col-sm-8 pt-1 pt-md-0">
 			<div class="card shadow-sm">
 	      <div class="card-header border-primary text-primary"><i class="bi bi-info-circle"></i>&nbsp;Overview</div>
 			  <div class="card-body">
@@ -147,7 +146,7 @@ if($auth){
 			  </div>
 			</div>	
 	  </div>
-	  <div class="col-sm-3 pt-1 pt-md-0">
+	  <div class="col-sm-4 pt-1 pt-md-0">
 			<div class="card shadow-sm">
         <div class="card-header border-primary text-primary"><i class="bi bi-command"></i>&nbsp;System</div>
 			  <div class="card-body">
