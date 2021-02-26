@@ -7,6 +7,27 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 Open for your feature [requests](https://github.com/femto-code/Rasberry-Pi-Dashboard/pulls) or [issues](https://github.com/femto-code/Rasberry-Pi-Dashboard/issues)!
 [https://github.com/femto-code/Rasberry-Pi-Dashboard](https://github.com/femto-code/Rasberry-Pi-Dashboard)
 
+## [0.9] - 2021-02-26
+### Added
+- [Font] added local fonts instead of remote embed (better privacy)
+  - use extra folder
+- [New] logout button
+- show exact user-readable date of upcoming power event
+
+### Changed
+- [Design] improved navbar appearance
+- [Design] tweaked dark mode
+- [Design] grid layout in options modal (on larger screens) and scrollable
+- [Design] chart UI improved
+- [Design] adjusted login modal appearance (removed useless close button)
+- improved error handling on network state or when user is unauthorized
+- replaced favicon and app icons as well as more consistent colors (updated manifest)
+- drop status mail support for now (SOON)
+
+### Fixed
+- [Security] Check user authorization when shutdown action is performed
+- [Design] minor glitches (alignment, ratio)
+
 ## [0.8] - 2021-02-17
 ### Added
 - new settings form for saving custom warning thresholds and basic dashboard settings (more paramters will come)
