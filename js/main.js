@@ -233,6 +233,20 @@ function send_supportmail(){
 	location.href=estring;
 }
 
+function logout(){
+  var vReq = new ntwReq("backend/serv.php?logout", function (data) {
+    console.log(data.responseText);
+    if(timer==true){
+      clearInterval(updinterval);
+      timer=false;
+      console.log("Timer gestoppt");
+    }
+    $('#overallstate').html('<font class="text-muted"><i class="bi bi-hourglass-split"></i>&nbsp;Waiting for authentication ...</font>');
+    $("#staticBackdrop").modal("show");
+  }, function () {
+    alert("Connection error");
+  });
+}
 
 // General chart functions and globals
 Chart.defaults.global.legend.display = false;
