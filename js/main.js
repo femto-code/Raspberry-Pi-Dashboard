@@ -35,7 +35,7 @@ window.addEventListener("online", function(e) {
 function preload(){
 	// Update of all data
 	updatedb();
-	if(window.location.search == "?live=disabled"){
+	if(window.location.search == "?live=disabled"){ // TODO: init param does not work
 		console.info("Live Update was disabled through site parameters.");
 		document.getElementById("pctl").innerHTML='<i class="bi bi-play"></i>';
 	}
@@ -199,7 +199,7 @@ function outputShutdown(data,act) {
   }
   if(str==""){ str="<font class='text-danger'>&lt; 1 min</font>"; }
   console.log(str);
-  document.getElementById("sys2").innerHTML='<div class="alert alert-warning" role="alert"><button class="btn btn-sm btn-outline-danger" onclick="cancelShutdown()" style="float:right">Cancel</button>Scheduled power event: <kbd>'+act+'</kbd><br>Remaining time: <kbd>'+str+'</kbd><br></div>';
+  document.getElementById("sys2").innerHTML='<div class="alert alert-warning" role="alert"><button class="btn btn-sm btn-outline-danger" onclick="cancelShutdown()" style="float:right">Cancel</button>Scheduled power event: <kbd>'+act+'</kbd><br>Date: <kbd>'+d.toLocaleString()+'</kbd><br>Remaining time: <kbd>'+str+'</kbd><br></div>';
 }
 
 function shutdown(){
@@ -271,105 +271,98 @@ function updatedb(){
   $('.py').addClass("progress-bar-striped progress-bar-animated");
 	console.log("Live : Updating...");
   $('#overallstate').html('<font class="text-muted"><i class="bi bi-hourglass-split"></i>&nbsp;Updating ...</font>');
-	$.ajax({
-		type: "GET",
-		dataType: "json",
-		cache: false,
-		url: "backend/sys_infos.php",
-		error : function(jqXHR, textStatus, errorThrown){
-      $('#overallstate').html('<font class="text-danger"><i class="bi bi-x-circle"></i>&nbsp;Connection lost ...</font>');
-			console.error("Ajax error");
-			console.error(jqXHR, textStatus, errorThrown);
-		},
-		success: function(result) {
-      document.getElementById("sys11").innerHTML="";
-      if(result.auth=="false"){
-        if(timer==true){
-          clearInterval(updinterval);
-          timer=false;
-          console.log("Timer gestoppt");
-        }
-        $('#overallstate').html('<font class="text-muted"><i class="bi bi-hourglass-split"></i>&nbsp;Waiting for authentication ...</font>');
-        $('#staticBackdrop').modal('show');
-        $("footer").addClass("fixed-bottom");
-        return;
+  var vReq = new ntwReq("backend/sys_infos.php", function (data) {
+    var result=JSON.parse(data.responseText);
+    document.getElementById("sys11").innerHTML="";
+    if(result.auth=="false"){
+      if(timer==true){
+        clearInterval(updinterval);
+        timer=false;
+        console.log("Timer gestoppt");
       }
-      if(!timer) togglep(false);
-			//ebody = 'Loads: ' + result.load + '\r\n' + 'Timestamp: ' + result.timest + '\r\n' + 'Uptime: ' + result.uptime + '\r\n' + 'CPU Temperature: ' + result.cputemp + '\r\n' + 'CPU Frequency: ' + result.cpufreq + '\r\n' + 'RAM total: ' + (result.memavail + result.memunavail) + '\r\n' + 'RAM used: ' + result.memunavail + '\r\n' + 'RAM free: ' + result.memavail + '\r\n' + 'RAM perc: ' + result.memperc + '\r\n' + 'SWAP perc: ' + result.swapperc + '\r\n' + 'SWAP total: ' + result.swaptotal + '\r\n' + 'SWAP used: ' + result.swapused;
-			warn=0;
-			var x = document.getElementsByName("lastupdated");
-			var i;
-			for (i = 0; i < x.length; i++) {
-				//if (x[i].type == "checkbox") {
-				//	x[i].checked = true;
-				//}
-				x[i].innerHTML=result.timest;
-				//console.log(x.length);
-			}
-			// Uptime
-			document.getElementById("uptime").innerHTML=result.uptime;
-			// CPU Temperature
-			document.getElementById("temperature").innerHTML=result.cputemp;
-			radialObj.animate(Math.round(result.cputemp));
-			//console.log(parseInt(result.cputemp));
-			if ( parseInt(result.cputemp) < warn_cpu_temp){
-				document.getElementById("tempstate").innerHTML="<i class='bi bi-thermometer-half'></i>&nbsp;Temperature <font class='text-success'>(OK)</font>";
-			}else{
-        document.getElementById("tempstate").innerHTML="<i class='bi bi-thermometer-half'></i>&nbsp;Temperature <font class='text-warning'>(WARNING)</font>";
-        addWarning("CPU Temperature","thermometer");
-				warn++;
-			}
-			// CPU Frequency
-			document.getElementById("frequency").innerHTML=result.cpufreq;
-			// CPU Loads
-			var str=result.load+'';
-			var array=str.split(",");
-			document.getElementById("m1").innerHTML=array[0];
-			document.getElementById("m5").innerHTML=array[1];
-			document.getElementById("m15").innerHTML=array[2];
-			removeData(chart);
-			removeData(chart);
-			removeData(chart);
-			addData(chart, "1 min", array[0]);
-			addData(chart, "5 min", array[1]);
-			addData(chart, "15 min", array[2]);
-			if (array[0] >= warn_loads_size){
-        document.getElementById("cput").innerHTML="CPU <font class='text-warning'>(WARNING)</font>";
-        addWarning("CPU Loads","activity");
-        warn++;
-			}else{
-				document.getElementById("cput").innerHTML="CPU <font class='text-success'>(OK)</font>";
-			}
-			// RAM
-			document.getElementById("memused").innerHTML=result.memunavail;
-			document.getElementById("memfree").innerHTML=result.memavail;
-			document.getElementById("memtotal").innerHTML=parseInt(result.memunavail) + parseInt(result.memavail);
-			document.getElementById("ram1").setAttribute("aria-valuenow", (100-result.memperc));
-			document.getElementById("ram1").style.width = (100-result.memperc) + "%";
-			document.getElementById("ram1").innerHTML = (100-result.memperc) + " %";
-			document.getElementById("ram2").setAttribute("aria-valuenow", result.memperc);
-			document.getElementById("ram2").style.width = result.memperc + "%";
-			document.getElementById("ram2").innerHTML = result.memperc + " %";
-			if (result.memperc >= warn_ram_space){
-        document.getElementById("ramt").innerHTML='Memory <font class="text-warning">(WARNING)</font>';
-        addWarning("Memory","cpu");
-				warn++;
-			}else{
-				document.getElementById("ramt").innerHTML='Memory <font class="text-success">(OK)</font>';
-			}
-			// Swap
-			document.getElementById("swapsys").innerHTML="Swap: <b>"+result.swapperc+"</b> % ("+result.swapused+" MB of "+result.swaptotal+" MB)";
-			// Overall
-			if (warn > 0){
-        var s = (warn>1) ? "s" : "";
-				document.getElementById("overallstate").innerHTML="<font class='text-danger'><i class='bi bi-exclamation-circle'></i>&nbsp;"+warn+" problem"+s+" occured</font>";
-				warnuser(warn);
-			}else{
-				document.getElementById("overallstate").innerHTML="<font class='text-success'><i class='bi bi-check2-circle'></i>&nbsp;System runs normally</font>";
-			}
-      $('.py').removeClass("progress-bar-striped progress-bar-animated");
+      $('#overallstate').html('<font class="text-muted"><i class="bi bi-hourglass-split"></i>&nbsp;Waiting for authentication ...</font>');
+      $('#staticBackdrop').modal('show');
+      $("footer").addClass("fixed-bottom");
+      return;
+    }
+    if(!timer) togglep(false);
+		//ebody = 'Loads: ' + result.load + '\r\n' + 'Timestamp: ' + result.timest + '\r\n' + 'Uptime: ' + result.uptime + '\r\n' + 'CPU Temperature: ' + result.cputemp + '\r\n' + 'CPU Frequency: ' + result.cpufreq + '\r\n' + 'RAM total: ' + (result.memavail + result.memunavail) + '\r\n' + 'RAM used: ' + result.memunavail + '\r\n' + 'RAM free: ' + result.memavail + '\r\n' + 'RAM perc: ' + result.memperc + '\r\n' + 'SWAP perc: ' + result.swapperc + '\r\n' + 'SWAP total: ' + result.swaptotal + '\r\n' + 'SWAP used: ' + result.swapused;
+		warn=0;
+		var x = document.getElementsByName("lastupdated");
+		var i;
+		for (i = 0; i < x.length; i++) {
+			//if (x[i].type == "checkbox") {
+			//	x[i].checked = true;
+			//}
+			x[i].innerHTML=result.timest;
+			//console.log(x.length);
 		}
-	});
+		// Uptime
+		document.getElementById("uptime").innerHTML=result.uptime;
+		// CPU Temperature
+		document.getElementById("temperature").innerHTML=result.cputemp;
+		radialObj.animate(Math.round(result.cputemp));
+		//console.log(parseInt(result.cputemp));
+		if ( parseInt(result.cputemp) < warn_cpu_temp){
+			document.getElementById("tempstate").innerHTML="<i class='bi bi-thermometer-half'></i>&nbsp;Temperature <font class='text-success'>(OK)</font>";
+		}else{
+      document.getElementById("tempstate").innerHTML="<i class='bi bi-thermometer-half'></i>&nbsp;Temperature <font class='text-warning'>(WARNING)</font>";
+      addWarning("CPU Temperature","thermometer");
+			warn++;
+		}
+		// CPU Frequency
+		document.getElementById("frequency").innerHTML=result.cpufreq;
+		// CPU Loads
+		var str=result.load+'';
+		var array=str.split(",");
+		document.getElementById("m1").innerHTML=array[0];
+		document.getElementById("m5").innerHTML=array[1];
+		document.getElementById("m15").innerHTML=array[2];
+		removeData(chart);
+		removeData(chart);
+		removeData(chart);
+		addData(chart, "1 min", array[0]);
+		addData(chart, "5 min", array[1]);
+		addData(chart, "15 min", array[2]);
+		if (array[0] >= warn_loads_size){
+      document.getElementById("cput").innerHTML="CPU <font class='text-warning'>(WARNING)</font>";
+      addWarning("CPU Loads","activity");
+      warn++;
+		}else{
+			document.getElementById("cput").innerHTML="CPU <font class='text-success'>(OK)</font>";
+		}
+		// RAM
+		document.getElementById("memused").innerHTML=result.memunavail;
+		document.getElementById("memfree").innerHTML=result.memavail;
+		document.getElementById("memtotal").innerHTML=parseInt(result.memunavail) + parseInt(result.memavail);
+		document.getElementById("ram1").setAttribute("aria-valuenow", (100-result.memperc));
+		document.getElementById("ram1").style.width = (100-result.memperc) + "%";
+		document.getElementById("ram1").innerHTML = (100-result.memperc) + " %";
+		document.getElementById("ram2").setAttribute("aria-valuenow", result.memperc);
+		document.getElementById("ram2").style.width = result.memperc + "%";
+		document.getElementById("ram2").innerHTML = result.memperc + " %";
+		if (result.memperc >= warn_ram_space){
+      document.getElementById("ramt").innerHTML='Memory <font class="text-warning">(WARNING)</font>';
+      addWarning("Memory","cpu");
+			warn++;
+		}else{
+			document.getElementById("ramt").innerHTML='Memory <font class="text-success">(OK)</font>';
+		}
+		// Swap
+		document.getElementById("swapsys").innerHTML="Swap: <b>"+result.swapperc+"</b> % ("+result.swapused+" MB of "+result.swaptotal+" MB)";
+		// Overall
+		if (warn > 0){
+      var s = (warn>1) ? "s" : "";
+			document.getElementById("overallstate").innerHTML="<font class='text-danger'><i class='bi bi-exclamation-circle'></i>&nbsp;"+warn+" problem"+s+" occured</font>";
+			warnuser(warn);
+		}else{
+			document.getElementById("overallstate").innerHTML="<font class='text-success'><i class='bi bi-check2-circle'></i>&nbsp;System runs normally</font>";
+		}
+    $('.py').removeClass("progress-bar-striped progress-bar-animated");
+  }, function () {
+    $('#overallstate').html('<font class="text-danger"><i class="bi bi-x-circle"></i>&nbsp;Connection lost ...</font>');
+    alert("Connection error");
+  });
 }
 // Live-Static-change
 timer=false;
