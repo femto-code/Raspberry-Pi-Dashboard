@@ -14,23 +14,18 @@ $config->load("user-settings.php");
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-<link rel="apple-touch-icon" sizes="57x57" href="rpidb_ico/apple-icon-57x57.png">
-<link rel="apple-touch-icon" sizes="60x60" href="rpidb_ico/apple-icon-60x60.png">
-<link rel="apple-touch-icon" sizes="72x72" href="rpidb_ico/apple-icon-72x72.png">
-<link rel="apple-touch-icon" sizes="76x76" href="rpidb_ico/apple-icon-76x76.png">
-<link rel="apple-touch-icon" sizes="114x114" href="rpidb_ico/apple-icon-114x114.png">
-<link rel="apple-touch-icon" sizes="120x120" href="rpidb_ico/apple-icon-120x120.png">
-<link rel="apple-touch-icon" sizes="144x144" href="rpidb_ico/apple-icon-144x144.png">
-<link rel="apple-touch-icon" sizes="152x152" href="rpidb_ico/apple-icon-152x152.png">
-<link rel="apple-touch-icon" sizes="180x180" href="rpidb_ico/apple-icon-180x180.png">
-<link rel="icon" type="image/png" sizes="192x192"  href="rpidb_ico/android-icon-192x192.png">
-<link rel="icon" type="image/png" sizes="32x32" href="rpidb_ico/favicon-32x32.png">
-<link rel="icon" type="image/png" sizes="96x96" href="rpidb_ico/favicon-96x96.png">
-<link rel="icon" type="image/png" sizes="16x16" href="rpidb_ico/favicon-16x16.png">
-<link rel="manifest" href="rpidb_ico/rpidb_manifest.webmanifest">
-<meta name="msapplication-TileColor" content="#0099ff">
-<meta name="msapplication-TileImage" content="rpidb_ico/ms-icon-144x144.png">
-<meta name="theme-color" content="#0099ff">
+<link rel="apple-touch-icon" sizes="180x180" href="rpidb_ico/apple-touch-icon.png?v=PYAg5Ko93z">
+<link rel="icon" type="image/png" sizes="32x32" href="rpidb_ico/favicon-32x32.png?v=PYAg5Ko93z">
+<link rel="icon" type="image/png" sizes="16x16" href="rpidb_ico/favicon-16x16.png?v=PYAg5Ko93z">
+<link rel="manifest" href="rpidb_ico/site.webmanifest?v=PYAg5Ko93z">
+<link rel="mask-icon" href="rpidb_ico/safari-pinned-tab.svg?v=PYAg5Ko93z" color="#b91d47">
+<link rel="shortcut icon" href="rpidb_ico/favicon.ico?v=PYAg5Ko93z">
+<meta name="apple-mobile-web-app-title" content="Raspberry Pi Dashboard">
+<meta name="application-name" content="Raspberry Pi Dashboard">
+<meta name="msapplication-TileColor" content="#b91d47">
+<meta name="msapplication-TileImage" content="rpidb_ico/mstile-144x144.png?v=PYAg5Ko93z">
+<meta name="msapplication-config" content="rpidb_ico/browserconfig.xml?v=PYAg5Ko93z">
+<meta name="theme-color" content="#b91d47">
 
 <link rel="stylesheet" href="css/bootstrap-4.6.0.min.css">
 <link rel="stylesheet" href="css/bootstrap-icons.css">
