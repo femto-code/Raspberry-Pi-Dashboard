@@ -506,9 +506,6 @@ if($auth){
     <div class="modal-content">
       <div class="modal-header">
         <h5 class="modal-title" id="staticBackdropLabel"><i class="bi bi-shield-lock"></i>&nbsp;Authentication</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
       </div>
       <div class="modal-body">
         <div class='alert alert-info' role='alert'>Please enter password to access dashboard!</div>
@@ -523,8 +520,7 @@ if($auth){
         </form>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary" onclick="loginToServer()" id="lbtn">Login</button>
+        <button type="button" class="btn btn-block btn-primary" onclick="loginToServer()" id="lbtn">Login</button>
       </div>
     </div>
   </div>
