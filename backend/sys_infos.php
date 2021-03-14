@@ -94,11 +94,16 @@ if ($free_version == "free from procps-ng 3.3.9"){ // old free version Linux 8
 	$swaptotal = $swap[1];
 	$swapused = $swap[2];
 	$swapfree = $swap[3];
-	$swapperc = round(($swapused/$swaptotal)*100);
+  if($swaptotal == 0){
+    $swapperc = 0;
+  }else{
+    $swapperc = round(($swapused/$swaptotal)*100);
+  }
+
 }
 //
 if(isset($_GET["statemail"])){
-	
+
 	$name_tag = array();
 	$name_tag[0] = "Sunday";
 	$name_tag[1] = "Monday";
@@ -130,7 +135,7 @@ if(isset($_GET["statemail"])){
 	//echo $command;
 	$output=shell_exec($command);
 	echo "<pre>$output</pre><br>";
-	
+
 	$a1 = "\n<div class=\"testbox\"	style=\"border: 1px dotted green; position: absolute; margin:0px; padding:10px; z-index:5; background-color:#ffffcc; color:#000000;\"> \n";
 	$a2 = " \n </div> \n";
 	$ausgabe = $a1 . "Status mail was sent!<br><button onclick='location.replace(\"../index.php\");'>Zurück</button>" . $a2;
