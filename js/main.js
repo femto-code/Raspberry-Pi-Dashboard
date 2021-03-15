@@ -22,7 +22,7 @@ class ntwReq {
     }else{
       this.xmlhttp.send();
     }
-    
+
   }
 }
 window.addEventListener("offline", function(e) {
@@ -33,12 +33,12 @@ window.addEventListener("online", function(e) {
 }, false);
 
 function preload(){
-	// Update of all data
-	updatedb();
-	if(window.location.search == "?live=disabled"){ // TODO: init param does not work
-		console.info("Live Update was disabled through site parameters.");
-		document.getElementById("pctl").innerHTML='<i class="bi bi-play"></i>';
-	}
+  // Update of all data
+  updatedb();
+  if(window.location.search == "?live=disabled"){ // TODO: init param does not work
+    console.info("Live Update was disabled through site parameters.");
+    document.getElementById("pctl").innerHTML='<i class="bi bi-play"></i>';
+  }
   setTimeout(function(){ $(".preload-screen").fadeOut("slow"); }, 500);
   checkShutdown();
 }
@@ -56,25 +56,25 @@ function authorize() {
   var e = document.getElementById("time"+tselect);
   var time;
   if( (tselect==1) || (tselect==2) ){
-    
+
     if(tselect==1){
       time = parseInt(e.options[e.selectedIndex].value);
     }else{
       time = parseInt(e.value);
     }
-    
+
     if( (!Number.isInteger(time)) || (time < 1) ){
-		  alert("Invalid time input!");
-		  return false;
-	  }
+      alert("Invalid time input!");
+      return false;
+    }
   }else if(tselect==3){
     time = e.value;
   }
-	
+
   console.log(time);
-	
-	var act=document.querySelector('input[name="pwrOptions"]:checked').value;
-  if (pass.length == 0) { 
+
+  var act=document.querySelector('input[name="pwrOptions"]:checked').value;
+  if (pass.length == 0) {
     console.log("pass is empty");
     $("#inputPassword2").addClass("is-invalid");
     $("#pwrform input, select").prop("disabled","");
@@ -183,7 +183,7 @@ function outputShutdown(data,act) {
   }else{
     d = new Date(data);
   }
-  
+
   var restd = Math.floor((d.getTime() - Date.now()) / (1000 * 60 * 60 * 24));
   var resth = Math.floor((d.getTime() - Date.now()) / (1000 * 60 * 60)) % 24;
   var restm = Math.floor((d.getTime() - Date.now()) / (1000 * 60)) % 60;
@@ -203,34 +203,34 @@ function outputShutdown(data,act) {
 }
 
 function shutdown(){
-	clearInterval(updinterval);
-	$('#exampleModalCenter').modal('hide');
-	$('#exampleModalCenter2').modal('show');
-	$('#sys1').html('System is being restarted...');
-	$('#sys2').html('<div class="progress" style="height: 1px;"><div class="progress-bar p2" role="progressbar" style="width: 0%;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div></div><br><button type="button" class="btn btn-primary b2" onclick="location.reload()" id="secbutton" disabled>Refresh dashboard</button>');
+  clearInterval(updinterval);
+  $('#exampleModalCenter').modal('hide');
+  $('#exampleModalCenter2').modal('show');
+  $('#sys1').html('System is being restarted...');
+  $('#sys2').html('<div class="progress" style="height: 1px;"><div class="progress-bar p2" role="progressbar" style="width: 0%;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div></div><br><button type="button" class="btn btn-primary b2" onclick="location.reload()" id="secbutton" disabled>Refresh dashboard</button>');
 
-	i=5;
-	ival=setInterval(function(){
-	//console.log(i);
-		if(i<=100){
-			$('.p1').width(i+'%');
-			$('.p1').html(i+'%');
-			$('.p2').width(i+'%');
-			i=i+5;
-		}else{
-			clearInterval(ival);
-			//console.log("Interval cleared");
-			$(".b2").prop( "disabled", false);
-			$(".b2").css("background-color","green");
-		}
-	}, 3000);
+  i=5;
+  ival=setInterval(function(){
+  //console.log(i);
+    if(i<=100){
+      $('.p1').width(i+'%');
+      $('.p1').html(i+'%');
+      $('.p2').width(i+'%');
+      i=i+5;
+    }else{
+      clearInterval(ival);
+      //console.log("Interval cleared");
+      $(".b2").prop( "disabled", false);
+      $(".b2").css("background-color","green");
+    }
+  }, 3000);
 }
 function send_supportmail(){
-	esubject="Support-Mail";
-	// ebody is created in update function
-	ebody = encodeURIComponent(ebody);
-	estring="mailto:gitarrenflo@gmx.de?subject="+esubject+"&body="+ebody;
-	location.href=estring;
+  esubject="Support-Mail";
+  // ebody is created in update function
+  ebody = encodeURIComponent(ebody);
+  estring="mailto:gitarrenflo@gmx.de?subject="+esubject+"&body="+ebody;
+  location.href=estring;
 }
 
 function logout(){
@@ -252,11 +252,11 @@ function logout(){
 Chart.defaults.global.legend.display = false;
 
 function addData(chart, label, data) {
-	chart.data.labels.push(label);
-	chart.data.datasets.forEach((dataset) => {
-		dataset.data.push(data);
-	});
-	chart.update();
+  chart.data.labels.push(label);
+  chart.data.datasets.forEach((dataset) => {
+    dataset.data.push(data);
+  });
+  chart.update();
 }
 
 function removeData(chart) {
@@ -269,7 +269,7 @@ function removeData(chart) {
 
 function updatedb(){
   $('.py').addClass("progress-bar-striped progress-bar-animated");
-	console.log("Live : Updating...");
+  console.log("Live : Updating...");
   $('#overallstate').html('<font class="text-muted"><i class="bi bi-hourglass-split"></i>&nbsp;Updating ...</font>');
   var vReq = new ntwReq("backend/sys_infos.php", function (data) {
     var result=JSON.parse(data.responseText);
@@ -286,78 +286,78 @@ function updatedb(){
       return;
     }
     if(!timer) togglep(false);
-		//ebody = 'Loads: ' + result.load + '\r\n' + 'Timestamp: ' + result.timest + '\r\n' + 'Uptime: ' + result.uptime + '\r\n' + 'CPU Temperature: ' + result.cputemp + '\r\n' + 'CPU Frequency: ' + result.cpufreq + '\r\n' + 'RAM total: ' + (result.memavail + result.memunavail) + '\r\n' + 'RAM used: ' + result.memunavail + '\r\n' + 'RAM free: ' + result.memavail + '\r\n' + 'RAM perc: ' + result.memperc + '\r\n' + 'SWAP perc: ' + result.swapperc + '\r\n' + 'SWAP total: ' + result.swaptotal + '\r\n' + 'SWAP used: ' + result.swapused;
-		warn=0;
-		var x = document.getElementsByName("lastupdated");
-		var i;
-		for (i = 0; i < x.length; i++) {
-			//if (x[i].type == "checkbox") {
-			//	x[i].checked = true;
-			//}
-			x[i].innerHTML=result.timest;
-			//console.log(x.length);
-		}
-		// Uptime
-		document.getElementById("uptime").innerHTML=result.uptime;
-		// CPU Temperature
-		document.getElementById("temperature").innerHTML=result.cputemp;
-		radialObj.animate(Math.round(result.cputemp));
-		//console.log(parseInt(result.cputemp));
-		if ( parseInt(result.cputemp) < warn_cpu_temp){
-			document.getElementById("tempstate").innerHTML="<i class='bi bi-thermometer-half'></i>&nbsp;Temperature <font class='text-success'>(OK)</font>";
-		}else{
+    //ebody = 'Loads: ' + result.load + '\r\n' + 'Timestamp: ' + result.timest + '\r\n' + 'Uptime: ' + result.uptime + '\r\n' + 'CPU Temperature: ' + result.cputemp + '\r\n' + 'CPU Frequency: ' + result.cpufreq + '\r\n' + 'RAM total: ' + (result.memavail + result.memunavail) + '\r\n' + 'RAM used: ' + result.memunavail + '\r\n' + 'RAM free: ' + result.memavail + '\r\n' + 'RAM perc: ' + result.memperc + '\r\n' + 'SWAP perc: ' + result.swapperc + '\r\n' + 'SWAP total: ' + result.swaptotal + '\r\n' + 'SWAP used: ' + result.swapused;
+    warn=0;
+    var x = document.getElementsByName("lastupdated");
+    var i;
+    for (i = 0; i < x.length; i++) {
+      //if (x[i].type == "checkbox") {
+      //  x[i].checked = true;
+      //}
+      x[i].innerHTML=result.timest;
+      //console.log(x.length);
+    }
+    // Uptime
+    document.getElementById("uptime").innerHTML=result.uptime;
+    // CPU Temperature
+    document.getElementById("temperature").innerHTML=result.cputemp;
+    radialObj.animate(Math.round(result.cputemp));
+    //console.log(parseInt(result.cputemp));
+    if ( parseInt(result.cputemp) < warn_cpu_temp){
+      document.getElementById("tempstate").innerHTML="<i class='bi bi-thermometer-half'></i>&nbsp;Temperature <font class='text-success'>(OK)</font>";
+    }else{
       document.getElementById("tempstate").innerHTML="<i class='bi bi-thermometer-half'></i>&nbsp;Temperature <font class='text-warning'>(WARNING)</font>";
       addWarning("CPU Temperature","thermometer");
-			warn++;
-		}
-		// CPU Frequency
-		document.getElementById("frequency").innerHTML=result.cpufreq;
-		// CPU Loads
-		var str=result.load+'';
-		var array=str.split(",");
-		document.getElementById("m1").innerHTML=array[0];
-		document.getElementById("m5").innerHTML=array[1];
-		document.getElementById("m15").innerHTML=array[2];
-		removeData(chart);
-		removeData(chart);
-		removeData(chart);
-		addData(chart, "1 min", array[0]);
-		addData(chart, "5 min", array[1]);
-		addData(chart, "15 min", array[2]);
-		if (array[0] >= warn_loads_size){
+      warn++;
+    }
+    // CPU Frequency
+    document.getElementById("frequency").innerHTML=result.cpufreq;
+    // CPU Loads
+    var str=result.load+'';
+    var array=str.split(",");
+    document.getElementById("m1").innerHTML=array[0];
+    document.getElementById("m5").innerHTML=array[1];
+    document.getElementById("m15").innerHTML=array[2];
+    removeData(chart);
+    removeData(chart);
+    removeData(chart);
+    addData(chart, "1 min", array[0]);
+    addData(chart, "5 min", array[1]);
+    addData(chart, "15 min", array[2]);
+    if (array[0] >= warn_loads_size){
       document.getElementById("cput").innerHTML="CPU <font class='text-warning'>(WARNING)</font>";
       addWarning("CPU Loads","activity");
       warn++;
-		}else{
-			document.getElementById("cput").innerHTML="CPU <font class='text-success'>(OK)</font>";
-		}
-		// RAM
-		document.getElementById("memused").innerHTML=result.memunavail;
-		document.getElementById("memfree").innerHTML=result.memavail;
-		document.getElementById("memtotal").innerHTML=parseInt(result.memunavail) + parseInt(result.memavail);
-		document.getElementById("ram1").setAttribute("aria-valuenow", (100-result.memperc));
-		document.getElementById("ram1").style.width = (100-result.memperc) + "%";
-		document.getElementById("ram1").innerHTML = (100-result.memperc) + " %";
-		document.getElementById("ram2").setAttribute("aria-valuenow", result.memperc);
-		document.getElementById("ram2").style.width = result.memperc + "%";
-		document.getElementById("ram2").innerHTML = result.memperc + " %";
-		if (result.memperc >= warn_ram_space){
+    }else{
+      document.getElementById("cput").innerHTML="CPU <font class='text-success'>(OK)</font>";
+    }
+    // RAM
+    document.getElementById("memused").innerHTML=result.memunavail;
+    document.getElementById("memfree").innerHTML=result.memavail;
+    document.getElementById("memtotal").innerHTML=parseInt(result.memunavail) + parseInt(result.memavail);
+    document.getElementById("ram1").setAttribute("aria-valuenow", (100-result.memperc));
+    document.getElementById("ram1").style.width = (100-result.memperc) + "%";
+    document.getElementById("ram1").innerHTML = (100-result.memperc) + " %";
+    document.getElementById("ram2").setAttribute("aria-valuenow", result.memperc);
+    document.getElementById("ram2").style.width = result.memperc + "%";
+    document.getElementById("ram2").innerHTML = result.memperc + " %";
+    if (result.memperc >= warn_ram_space){
       document.getElementById("ramt").innerHTML='Memory <font class="text-warning">(WARNING)</font>';
       addWarning("Memory","cpu");
-			warn++;
-		}else{
-			document.getElementById("ramt").innerHTML='Memory <font class="text-success">(OK)</font>';
-		}
-		// Swap
-		document.getElementById("swapsys").innerHTML="Swap: <b>"+result.swapperc+"</b> % ("+result.swapused+" MB of "+result.swaptotal+" MB)";
-		// Overall
-		if (warn > 0){
+      warn++;
+    }else{
+      document.getElementById("ramt").innerHTML='Memory <font class="text-success">(OK)</font>';
+    }
+    // Swap
+    document.getElementById("swapsys").innerHTML="Swap: <b>"+result.swapperc+"</b> % ("+result.swapused+" MB of "+result.swaptotal+" MB)";
+    // Overall
+    if (warn > 0){
       var s = (warn>1) ? "s" : "";
-			document.getElementById("overallstate").innerHTML="<font class='text-danger'><i class='bi bi-exclamation-circle'></i>&nbsp;"+warn+" problem"+s+" occured</font>";
-			warnuser(warn);
-		}else{
-			document.getElementById("overallstate").innerHTML="<font class='text-success'><i class='bi bi-check2-circle'></i>&nbsp;System runs normally</font>";
-		}
+      document.getElementById("overallstate").innerHTML="<font class='text-danger'><i class='bi bi-exclamation-circle'></i>&nbsp;"+warn+" problem"+s+" occured</font>";
+      warnuser(warn);
+    }else{
+      document.getElementById("overallstate").innerHTML="<font class='text-success'><i class='bi bi-check2-circle'></i>&nbsp;System runs normally</font>";
+    }
     $('.py').removeClass("progress-bar-striped progress-bar-animated");
   }, function () {
     $('#overallstate').html('<font class="text-danger"><i class="bi bi-x-circle"></i>&nbsp;Connection lost ...</font>');
@@ -368,33 +368,33 @@ function updatedb(){
 timer=false;
 y=0;
 function togglep(force){
-	console.log("Togglep() - Timer: "+timer);
-	if(timer == false){
-		if(force){ y=100; }
-		updinterval=setInterval(function(){
-			if(y<100){
-				$('.py').width(y+'%');
-				y+=10;
-			}else{
-				$('.py').width(y+'%');
+  console.log("Togglep() - Timer: "+timer);
+  if(timer == false){
+    if(force){ y=100; }
+    updinterval=setInterval(function(){
+      if(y<100){
+        $('.py').width(y+'%');
+        y+=10;
+      }else{
+        $('.py').width(y+'%');
         updatedb();
         checkShutdown();
-				y=0;
-			}
-		}, (((upd_time_interval*1000)-1.5)/10));
-		timer=true;
-		console.log("Timer started");
-		$('#overallstate').html('<font class="text-info"><i class="bi bi-chevron-double-right"></i>&nbsp;Will be updated ...</font>');
+        y=0;
+      }
+    }, (((upd_time_interval*1000)-1.5)/10));
+    timer=true;
+    console.log("Timer started");
+    $('#overallstate').html('<font class="text-info"><i class="bi bi-chevron-double-right"></i>&nbsp;Will be updated ...</font>');
     $('.py').removeClass("bg-danger");
-		return '<i class="bi bi-pause"></i>';
-	}else{
-		clearInterval(updinterval);
-		timer=false;
-		console.log("Timer gestoppt");
-		$('#overallstate').html('<font class="text-muted"><i class="bi bi-clock"></i>&nbsp;Live Update disabled</font>');
+    return '<i class="bi bi-pause"></i>';
+  }else{
+    clearInterval(updinterval);
+    timer=false;
+    console.log("Timer gestoppt");
+    $('#overallstate').html('<font class="text-muted"><i class="bi bi-clock"></i>&nbsp;Live Update disabled</font>');
     $('.py').addClass("bg-danger");
-		return '<i class="bi bi-play"></i>';
-	}
+    return '<i class="bi bi-play"></i>';
+  }
 }
 $('#staticBackdrop').on('hidden.bs.modal', function (e) {
   updatedb();
@@ -404,7 +404,7 @@ $('#staticBackdrop').on('hidden.bs.modal', function (e) {
   $("#lpwd").val("").removeClass("is-valid is-invalid");
   $("#lbtn").html("Login").addClass("btn-primary").removeClass("btn-success");
 });
-function loginToServer(){ // TODO: Add logout option
+function loginToServer(){
   var value=$("#lpwd").val();
   if(value.length==0){ $("#lpwd").addClass("is-invalid");return; }
   $("#lpwd").prop("disabled","true");
@@ -459,12 +459,12 @@ function checkLauth(){
 }
 
 $('#indicatorContainer').radialIndicator({
-	barColor: {
+  barColor: {
     0: '#dfffbf',
     50: '#45b438',
     65: '#ff4000',
     78: '#cc0000',
-		100: '#000'
+    100: '#000'
   },
   //barBgColor: '#888888',
   initValue: 0,

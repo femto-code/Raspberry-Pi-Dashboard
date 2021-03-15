@@ -70,7 +70,7 @@ if(isset($_GET["checkShutdown"])){
     echo "unauthorized";
   }else{
     system('sudo /sbin/shutdown -c');
-  }  
+  }
   exit();
 }
 if(isset($_REQUEST["p"])){
@@ -80,19 +80,19 @@ if(isset($_REQUEST["p"])){
     $time="+".$time;
   }
   if( ($pass != $correctPassword) && (time()-$_SESSION["rpidbauth"] > 5 * 60) ){
-  	echo "wrongCredentials";
+    echo "wrongCredentials";
   }else{
     if($pass==$correctPassword){
       $_SESSION["rpidbauth"]=time();
     }
-  	if($_REQUEST["a"]=="1"){
-  		echo "true_";
-  		system('sudo /sbin/shutdown -h '.$time);
-  	}else if($_REQUEST["a"]=="2"){
-  		echo "true_";
-  		system("sudo /sbin/shutdown -r ".$time);
-  	}else{
-  		echo "false_";
+    if($_REQUEST["a"]=="1"){
+      echo "true_";
+      system('sudo /sbin/shutdown -h '.$time);
+    }else if($_REQUEST["a"]=="2"){
+      echo "true_";
+      system("sudo /sbin/shutdown -r ".$time);
+    }else{
+      echo "false_";
     }
     echo json_encode(getShutdownEventsInfo());
   }

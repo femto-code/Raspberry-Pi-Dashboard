@@ -1,0 +1,14 @@
+{
+  "ecmaVersion": 8,
+  "libs": [
+    "jquery",
+    "browser"
+  ],
+  "loadEagerly": [],
+  "dontLoad": [
+    "node_modules/**"
+  ],
+  "plugins": {
+    "doc_comment": true
+  }
+}

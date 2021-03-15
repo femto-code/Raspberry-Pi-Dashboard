@@ -63,13 +63,13 @@ body{
   }
 }
 .preload-screen {
-	position: fixed;
-	left: 0px;
-	top: 0px;
-	width: 100%;
-	height: 100%;
-	z-index: 9999;
-	background: url(img/load.gif) center no-repeat #fff;
+  position: fixed;
+  left: 0px;
+  top: 0px;
+  width: 100%;
+  height: 100%;
+  z-index: 9999;
+  background: url(img/load.gif) center no-repeat #fff;
 }
 .doughnut-chart-container {
   height: 360px;
@@ -121,76 +121,76 @@ if($auth){
   <div class="collapse navbar-collapse" id="navbarSupportedContent">
     <ul class="navbar-nav mr-auto">
       <li class="nav-item">
-				<a class="nav-link" href="backend/sys_infos.php?statemail" onclick="alert('Status Mail support will arrive soon!');return false;">Status Mail</a>
+        <a class="nav-link" href="backend/sys_infos.php?statemail" onclick="alert('Status Mail support will arrive soon!');return false;">Status Mail</a>
       </li>
     </ul>
-		<p style="color: white;line-height:15px;margin-bottom:0px"><b>Hostname:</b> <?php system("hostname");?> &#183; <b>Internal IP:</b> <?php echo $_SERVER["SERVER_ADDR"];?><br>
-		<b>Access from:</b> <?php echo $_SERVER["REMOTE_ADDR"];?> &#183; <b>Port:</b> <?php echo $_SERVER['SERVER_PORT']; ?></p>
-	</div>
+    <p style="color: white;line-height:15px;margin-bottom:0px"><b>Hostname:</b> <?php system("hostname");?> &#183; <b>Internal IP:</b> <?php echo $_SERVER["SERVER_ADDR"];?><br>
+    <b>Access from:</b> <?php echo $_SERVER["REMOTE_ADDR"];?> &#183; <b>Port:</b> <?php echo $_SERVER['SERVER_PORT']; ?></p>
+  </div>
 </nav>
 
 <div style="margin-top:70px" class="container">
-	<div class="row<?php if(!$auth){ echo " hidden"; } ?>">
-	  <div class="col-sm-8 pt-1 pt-md-0">
-			<div class="card shadow-sm">
-	      <div class="card-header border-primary text-primary"><i class="bi bi-info-circle"></i>&nbsp;Overview</div>
-			  <div class="card-body">
-					<h5 id="sys1" class="card-title"><span id="overallstate"></span></h5>
+  <div class="row<?php if(!$auth){ echo " hidden"; } ?>">
+    <div class="col-sm-8 pt-1 pt-md-0">
+      <div class="card shadow-sm">
+        <div class="card-header border-primary text-primary"><i class="bi bi-info-circle"></i>&nbsp;Overview</div>
+        <div class="card-body">
+          <h5 id="sys1" class="card-title"><span id="overallstate"></span></h5>
           <p id="sys11" class="card-text"></p>
-					<p id="sys2" class="card-text"></p>
-					<hr>
-					<p><i class="bi bi-clock-history"></i><!--<img src="img/time-icon.png">-->&nbsp;Uptime: <b><span id="uptime"></span></b><?php if($auth){ ?>&nbsp;(started <?=$uptstr;?>)<?php } ?></p>
-		      <table style="width:100%"><tbody><tr><td style="width:10%"><button type="button" id="pctl" onclick="y=100; this.innerHTML=togglep(true);" class="btn btn-secondary btn-sm"><i class="bi bi-pause"></i></button></td><td style="width:90%">
-		      <div class="progress" style="margin-top: 1px; height: 2px;"><div class="progress-bar py" role="progressbar" style="width: 0%;" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div></div></td></tr></tbody></table>
-					<p class="card-text"><small class="text-muted">Updated <span name="lastupdated">now</span></small></p>
-			  </div>
-			</div>	
-	  </div>
-	  <div class="col-sm-4 pt-1 pt-md-0">
-			<div class="card shadow-sm">
+          <p id="sys2" class="card-text"></p>
+          <hr>
+          <p><i class="bi bi-clock-history"></i><!--<img src="img/time-icon.png">-->&nbsp;Uptime: <b><span id="uptime"></span></b><?php if($auth){ ?>&nbsp;(started <?=$uptstr;?>)<?php } ?></p>
+          <table style="width:100%"><tbody><tr><td style="width:10%"><button type="button" id="pctl" onclick="y=100; this.innerHTML=togglep(true);" class="btn btn-secondary btn-sm"><i class="bi bi-pause"></i></button></td><td style="width:90%">
+          <div class="progress" style="margin-top: 1px; height: 2px;"><div class="progress-bar py" role="progressbar" style="width: 0%;" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div></div></td></tr></tbody></table>
+          <p class="card-text"><small class="text-muted">Updated <span name="lastupdated">now</span></small></p>
+        </div>
+      </div>
+    </div>
+    <div class="col-sm-4 pt-1 pt-md-0">
+      <div class="card shadow-sm">
         <div class="card-header border-primary text-primary"><i class="bi bi-command"></i>&nbsp;System</div>
-			  <div class="card-body">
-					<button type="button" data-toggle="modal" data-target="#exampleModalCenter" class="btn btn-outline-primary mt-1"><i class="bi bi-power"></i>&nbsp;Power</button>&nbsp;
+        <div class="card-body">
+          <button type="button" data-toggle="modal" data-target="#exampleModalCenter" class="btn btn-outline-primary mt-1"><i class="bi bi-power"></i>&nbsp;Power</button>&nbsp;
           <button type="button" onclick="logout()" class="btn btn-outline-warning mt-1"><i class="bi bi-arrow-right-square"></i>&nbsp;Logout</button>
-			  </div>
-			</div>	
-	  </div>
-	</div>
-	<div class="row pt-3<?php if(!$auth){ echo " hidden"; } ?>">
-	  <div class="col-12 col-sm-6 col-md-5 pt-1 pt-md-0">
-			<div class="card text-center border-info shadow-sm">
-			  <div class="card-body">
-					<h5 class="card-title"><i class="bi bi-cpu"></i>&nbsp;<span id="cput"></span></h5>
-					<p class="card-text"><canvas id="myChart"></canvas>1 min: <b><span id="m1"></span></b> &#183; 5 min: <b><span id="m5"></span></b> &#183; 15 min: <b><span id="m15"></span></b><br>CPU clock: <b><span id="frequency"></span> MHz</b></p>
-					<p class="card-text"><small class="text-muted">Updated <span name="lastupdated">now</span></small></p>
-			  </div>
-			</div>
-	  </div>
-	  <div class="col-12 col-sm-6 col-md-3 pt-1 pt-md-0">
-			<div class="card text-center border-danger shadow-sm">
-			  <div class="card-body">
-				<h5 id="tempstate" class="card-title"></h5>
-				<div id="indicatorContainer"></div><!--CPU-Indicator-->
-				<p class="card-text"><b><span style="font-size: 20px" id="temperature"></span> °C</b></p>
-				<p class="card-text"><small class="text-muted">Updated <span name="lastupdated">now</span></small></p>
-			  </div>
-			</div>
-	  </div>
-	  <div class="col-12 col-sm-6 col-md-4 pt-1 pt-md-0">
-			<div class="card text-center border-warning shadow-sm">
-			  <div class="card-body">
-					<h5 class="card-title"><i class="bi bi-hdd-network"></i>&nbsp;<span id="ramt"></span></h5>
-					<div class="progress">
-					  <div class="progress-bar bg-success" id="ram1" role="progressbar" style="" aria-valuenow="" aria-valuemin="0" aria-valuemax="100"></div>
-					  <div class="progress-bar bg-danger" id="ram2" role="progressbar" style="" aria-valuenow="" aria-valuemin="0" aria-valuemax="100"></div>
-					</div>
-					<p class="card-text">Free: <b><span id="memfree"></span> MB</b> &#183; Used: <b><span id="memused"></span> MB</b><br>Total: <b><span id="memtotal"></span> MB</b></p>
-					<p class="card-text"><span id="swapsys"></span></p>
-					<p class="card-text"><small class="text-muted">Updated <span name="lastupdated">now</span></small></p>
-			  </div>
-			</div>
-	  </div>
-	</div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="row pt-3<?php if(!$auth){ echo " hidden"; } ?>">
+    <div class="col-12 col-sm-6 col-md-5 pt-1 pt-md-0">
+      <div class="card text-center border-info shadow-sm">
+        <div class="card-body">
+          <h5 class="card-title"><i class="bi bi-cpu"></i>&nbsp;<span id="cput"></span></h5>
+          <p class="card-text"><canvas id="myChart"></canvas>1 min: <b><span id="m1"></span></b> &#183; 5 min: <b><span id="m5"></span></b> &#183; 15 min: <b><span id="m15"></span></b><br>CPU clock: <b><span id="frequency"></span> MHz</b></p>
+          <p class="card-text"><small class="text-muted">Updated <span name="lastupdated">now</span></small></p>
+        </div>
+      </div>
+    </div>
+    <div class="col-12 col-sm-6 col-md-3 pt-1 pt-md-0">
+      <div class="card text-center border-danger shadow-sm">
+        <div class="card-body">
+        <h5 id="tempstate" class="card-title"></h5>
+        <div id="indicatorContainer"></div><!--CPU-Indicator-->
+        <p class="card-text"><b><span style="font-size: 20px" id="temperature"></span> °C</b></p>
+        <p class="card-text"><small class="text-muted">Updated <span name="lastupdated">now</span></small></p>
+        </div>
+      </div>
+    </div>
+    <div class="col-12 col-sm-6 col-md-4 pt-1 pt-md-0">
+      <div class="card text-center border-warning shadow-sm">
+        <div class="card-body">
+          <h5 class="card-title"><i class="bi bi-hdd-network"></i>&nbsp;<span id="ramt"></span></h5>
+          <div class="progress">
+            <div class="progress-bar bg-success" id="ram1" role="progressbar" style="" aria-valuenow="" aria-valuemin="0" aria-valuemax="100"></div>
+            <div class="progress-bar bg-danger" id="ram2" role="progressbar" style="" aria-valuenow="" aria-valuemin="0" aria-valuemax="100"></div>
+          </div>
+          <p class="card-text">Free: <b><span id="memfree"></span> MB</b> &#183; Used: <b><span id="memused"></span> MB</b><br>Total: <b><span id="memtotal"></span> MB</b></p>
+          <p class="card-text"><span id="swapsys"></span></p>
+          <p class="card-text"><small class="text-muted">Updated <span name="lastupdated">now</span></small></p>
+        </div>
+      </div>
+    </div>
+  </div>
   <hr id="ldiv" class="my-4<?php if(!$auth){ echo " hidden"; } ?>"><!-- Static infos, that won't be updated -->
   <?php
   if($auth){
@@ -214,88 +214,88 @@ if($auth){
         </div>
       </div>
     </div>
-	</div>
-	<div class="row pt-3">
-	  <div class="col-sm-6 pt-1 pt-md-0">
-			<div class="card text-center border-info">
-			  <div class="card-body">
-					<h5 class="card-title"><i class="bi bi-hdd"></i>&nbsp;SD Card</h5>
-					<p class="card-text"><canvas height="100" class="doughnut-chart-container" id="space"></canvas>Total: <b><?php echo $ds_rund;?> GB</b> &#183; Free: <b><?php echo $df_rund;?> GB</b> &#183; Used: <b><?php echo round($ds-$df,2);?> GB</b></p>
-					<p class="card-text"><small class="text-muted">Updated <span><?php echo date("H:i:s");?> (at page load)</span></small></p>
-			  </div>
-			</div>
-	  </div>
-	  <div class="col-sm-6 pt-1 pt-md-0">
-			<div class="card text-center border-info">
-			  <div class="card-body">
-					<h5 class="card-title"><i class="bi bi-lightning"></i>&nbsp;Voltage</h5>
-					<p style="font-size: 20px" class="card-text text-muted"><?php echo $spannung; ?></p>
-					<p class="card-text"><small class="text-muted">Updated <span><?php echo date("H:i:s");?> (at page load)</span></small></p>
-			  </div>
-			</div>
-	  </div>
-	</div>
-	<div class="row pt-3">
-	  <div class="col-sm-6 pt-1 pt-md-0">
-		<div class="card text-center border-info">
-		  <div class="card-header">Kernel</div>
-		  <div class="card-body">
-				<p class="card-text" id="kernel"><?php echo php_uname(); ?></p>
-				<p class="card-text"><small class="text-muted">Updated <span><?php echo date("H:i:s");?> (at page load)</span></small></p>
-		  </div>
-		</div>
-	  </div>
-	  <div class="col-sm-6 pt-1 pt-md-0">
-			<div class="card text-center border-info">
-			  <div class="card-header">Model</div>
-			  <div class="card-body">
-					<samp><?php echo exec("cat /sys/firmware/devicetree/base/model");?></samp>
-					<samp><?php $ot=shell_exec("vcgencmd version");if(strpos($ot,"failed")!==false){echo "<div class='alert alert-danger' role='alert'>Execution of system command failed. Please run<br><kbd>sudo usermod -aG video www-data</kbd><br>in a terminal to solve this problem.</div>";}else{echo $ot;}?></samp>
-					<p class="card-text"><small class="text-muted">Updated <span><?php echo date("H:i:s");?> (at page load)</span></small></p>
-			  </div>
-			</div>
-	  </div>
-	</div>
-	<div class="row pt-3">
-	  <div class="col-sm-6 pt-1 pt-md-0">
-			<div class="card text-center border-info">
-			  <div class="card-header">Partitions / Storage</div>
-			  <div class="card-body">
-					<?php print "<pre style='text-align: left!important;'>"; echo shell_exec("df -h"); print "</pre>"; ?>
-					<p class="card-text"><small class="text-muted">Updated <span><?php echo date("H:i:s");?> (at page load)</span></small></p>
-			  </div>
-			</div>
-	  </div>
-	  <div class="col-sm-6 pt-1 pt-md-0">
-			<div class="card text-center border-info">
-			  <div class="card-header">Operating System</div>
-			  <div class="card-body">
-					<?php print "<pre>"; echo shell_exec("cat /etc/os-release"); print "</pre>"; ?>
-					<p class="card-text"><small class="text-muted">Updated <span><?php echo date("H:i:s");?> (at page load)</span></small></p>
-			  </div>
-			</div>
-	  </div>
-	</div>
-	<div class="row pt-3">
-	  <div class="col-sm-6 pt-1 pt-md-0">
-		<div class="card text-center border-info">
-		  <div class="card-header">Hostnamectl</div>
-		  <div class="card-body">
-				<?php print "<pre style='text-align: left!important;'>"; echo shell_exec("hostnamectl"); print "</pre>"; ?>
-				<p class="card-text"><small class="text-muted">Updated <span><?php echo date("H:i:s");?> (at page load)</span></small></p>
-		  </div>
-		</div>
-	  </div>
-	  <div class="col-sm-6 pt-1 pt-md-0">
-			<div class="card text-center border-info">
-			  <div class="card-header">Processor</div>
-			  <div class="card-body">
-					<?php print "<pre>"; echo shell_exec("lscpu"); print "</pre>"; ?>
-					<p class="card-text"><small class="text-muted">Updated <span><?php echo date("H:i:s");?> (at page load)</span></small></p>
-			  </div>
-			</div>
-	  </div>
-	</div>
+  </div>
+  <div class="row pt-3">
+    <div class="col-sm-6 pt-1 pt-md-0">
+      <div class="card text-center border-info">
+        <div class="card-body">
+          <h5 class="card-title"><i class="bi bi-hdd"></i>&nbsp;SD Card</h5>
+          <p class="card-text"><canvas height="100" class="doughnut-chart-container" id="space"></canvas>Total: <b><?php echo $ds_rund;?> GB</b> &#183; Free: <b><?php echo $df_rund;?> GB</b> &#183; Used: <b><?php echo round($ds-$df,2);?> GB</b></p>
+          <p class="card-text"><small class="text-muted">Updated <span><?php echo date("H:i:s");?> (at page load)</span></small></p>
+        </div>
+      </div>
+    </div>
+    <div class="col-sm-6 pt-1 pt-md-0">
+      <div class="card text-center border-info">
+        <div class="card-body">
+          <h5 class="card-title"><i class="bi bi-lightning"></i>&nbsp;Voltage</h5>
+          <p style="font-size: 20px" class="card-text text-muted"><?php echo $spannung; ?></p>
+          <p class="card-text"><small class="text-muted">Updated <span><?php echo date("H:i:s");?> (at page load)</span></small></p>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="row pt-3">
+    <div class="col-sm-6 pt-1 pt-md-0">
+    <div class="card text-center border-info">
+      <div class="card-header">Kernel</div>
+      <div class="card-body">
+        <p class="card-text" id="kernel"><?php echo php_uname(); ?></p>
+        <p class="card-text"><small class="text-muted">Updated <span><?php echo date("H:i:s");?> (at page load)</span></small></p>
+      </div>
+    </div>
+    </div>
+    <div class="col-sm-6 pt-1 pt-md-0">
+      <div class="card text-center border-info">
+        <div class="card-header">Model</div>
+        <div class="card-body">
+          <samp><?php echo exec("cat /sys/firmware/devicetree/base/model");?></samp>
+          <samp><?php $ot=shell_exec("vcgencmd version");if(strpos($ot,"failed")!==false){echo "<div class='alert alert-danger' role='alert'>Execution of system command failed. Please run<br><kbd>sudo usermod -aG video www-data</kbd><br>in a terminal to solve this problem.</div>";}else{echo $ot;}?></samp>
+          <p class="card-text"><small class="text-muted">Updated <span><?php echo date("H:i:s");?> (at page load)</span></small></p>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="row pt-3">
+    <div class="col-sm-6 pt-1 pt-md-0">
+      <div class="card text-center border-info">
+        <div class="card-header">Partitions / Storage</div>
+        <div class="card-body">
+          <?php print "<pre style='text-align: left!important;'>"; echo shell_exec("df -h"); print "</pre>"; ?>
+          <p class="card-text"><small class="text-muted">Updated <span><?php echo date("H:i:s");?> (at page load)</span></small></p>
+        </div>
+      </div>
+    </div>
+    <div class="col-sm-6 pt-1 pt-md-0">
+      <div class="card text-center border-info">
+        <div class="card-header">Operating System</div>
+        <div class="card-body">
+          <?php print "<pre>"; echo shell_exec("cat /etc/os-release"); print "</pre>"; ?>
+          <p class="card-text"><small class="text-muted">Updated <span><?php echo date("H:i:s");?> (at page load)</span></small></p>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="row pt-3">
+    <div class="col-sm-6 pt-1 pt-md-0">
+    <div class="card text-center border-info">
+      <div class="card-header">Hostnamectl</div>
+      <div class="card-body">
+        <?php print "<pre style='text-align: left!important;'>"; echo shell_exec("hostnamectl"); print "</pre>"; ?>
+        <p class="card-text"><small class="text-muted">Updated <span><?php echo date("H:i:s");?> (at page load)</span></small></p>
+      </div>
+    </div>
+    </div>
+    <div class="col-sm-6 pt-1 pt-md-0">
+      <div class="card text-center border-info">
+        <div class="card-header">Processor</div>
+        <div class="card-body">
+          <?php print "<pre>"; echo shell_exec("lscpu"); print "</pre>"; ?>
+          <p class="card-text"><small class="text-muted">Updated <span><?php echo date("H:i:s");?> (at page load)</span></small></p>
+        </div>
+      </div>
+    </div>
+  </div>
 
 <?php
 }else{
@@ -317,18 +317,18 @@ if($auth){
         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
       </div>
       <div class="modal-body">
-				<!---->
+        <!---->
         <div id="currentState"></div>
-				<form id="pwrform" onkeydown="return event.key != 'Enter';">
-					<div class="form-check form-check-inline">
-					  <input class="form-check-input" type="radio" name="pwrOptions" id="inlineRadio1" value="1">
-					  <label class="form-check-label" for="inlineRadio1">Shutdown</label>
-					</div>
-					<div class="form-check form-check-inline">
-					  <input class="form-check-input" type="radio" name="pwrOptions" id="inlineRadio2" value="2" checked>
-					  <label class="form-check-label" for="inlineRadio2">Reboot</label>
-					</div>
-					<hr>
+        <form id="pwrform" onkeydown="return event.key != 'Enter';">
+          <div class="form-check form-check-inline">
+            <input class="form-check-input" type="radio" name="pwrOptions" id="inlineRadio1" value="1">
+            <label class="form-check-label" for="inlineRadio1">Shutdown</label>
+          </div>
+          <div class="form-check form-check-inline">
+            <input class="form-check-input" type="radio" name="pwrOptions" id="inlineRadio2" value="2" checked>
+            <label class="form-check-label" for="inlineRadio2">Reboot</label>
+          </div>
+          <hr>
           <nav>
             <div class="nav nav-tabs" id="nav-tab" role="tablist">
               <a class="nav-item nav-link active" id="nav-home-presets" data-toggle="tab" href="#nav-presets" role="tab" aria-controls="nav-presets" aria-selected="true">Presets</a>
@@ -354,8 +354,8 @@ if($auth){
             </div>
           </div>
           <hr>
-					<div id="pwrauth" class="form-group">
-					  <label for="inputPassword2" class="sr-only">Password</label>
+          <div id="pwrauth" class="form-group">
+            <label for="inputPassword2" class="sr-only">Password</label>
             <div class="input-group">
               <div class="input-group-prepend">
                 <div class="input-group-text" id="myPsw2"><i class="bi bi-key"></i></div>
@@ -366,10 +366,10 @@ if($auth){
           </div>
           <div id="pwrCheck" class='alert alert-info' role='alert'><i class='bi bi-chevron-double-right'></i>&nbsp;Checking authorization ...</div>
           <div id="pwrCheck2" class="hidden alert alert-success" role="alert"><i class="bi bi-check2-circle"></i>&nbsp;Authenticated</div>
-				</form>
+        </form>
       </div>
       <div class="modal-footer">
-				<button id="confbtn" class="btn btn-primary" onclick="authorize();">Confirm identity</button>
+        <button id="confbtn" class="btn btn-primary" onclick="authorize();">Confirm identity</button>
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
       </div>
     </div>
@@ -388,9 +388,9 @@ if($auth){
       </div>
       <div class="modal-body">
         Please be patient...<br>
-				<div class="progress">
-				  <div class="progress-bar p1" role="progressbar" style="width: 0%;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">0%</div>
-				</div>
+        <div class="progress">
+          <div class="progress-bar p1" role="progressbar" style="width: 0%;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">0%</div>
+        </div>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
@@ -455,10 +455,10 @@ if($auth){
             </form>
           </div>
         </div>
-        
+
         <hr />
-				<div id="accordion">
-				  <div class="card">
+        <div id="accordion">
+          <div class="card">
             <div class="card-header" id="headingOne">
               <h5 class="mb-0">
               <button class="btn btn-link" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">About this version of RPi Dashboard</button>
@@ -471,8 +471,8 @@ if($auth){
               <small>most important changes since RPi Dashboard v0.9 (Feb 2021)</small>
               </div>
             </div>
-				  </div>
-				  <div class="card">
+          </div>
+          <div class="card">
             <div class="card-header" id="headingTwo">
               <h5 class="mb-0">
               <button class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">Customization</button>
@@ -481,8 +481,8 @@ if($auth){
             <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordion">
               <div class="card-body">Under <code>/var/www/html/Raspberry-Pi-Dashboard/custom/</code> there is <kbd>custom.js</kbd>. Within this JS file you can customize a few things of functions and appearance of RPi Dashboard. See the notes inside the file for instructions.</div>
             </div>
-				  </div>
-				  <div class="card">
+          </div>
+          <div class="card">
             <div class="card-header" id="headingThree">
               <h5 class="mb-0">
                 <button class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">What does 'CPU Load' mean?</button>
@@ -491,8 +491,8 @@ if($auth){
             <div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#accordion">
               <div class="card-body"><i>Explanation of CPU Loads in Linux at <a href="http://blog.scoutapp.com/articles/2009/07/31/understanding-load-averages">http://blog.scoutapp.com/articles/2009/07/31/understanding-load-averages</a> (recommended article)</i><br>Critical value about 3~4, when all kernel cores are busy.</div>
             </div>
-				  </div>
-				</div>
+          </div>
+        </div>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
@@ -531,12 +531,12 @@ if($auth){
 
 <!-- Footer -->
 <footer style="line-height: 40px; background-color: #f5f5f5; margin-top: 10px;">
-	<div class="container text-center">
-		RPi Dashboard v0.9.1 <font class="text-muted">(Mar 2021)</font> <span id="dot">&middot;</span> <font id="notf" class="text-success">See the <a href="https://github.com/femto-code/Rasberry-Pi-Dashboard/releases">Github releases</a> for updates!</font><br />
+  <div class="container text-center">
+    RPi Dashboard v0.9.1 <font class="text-muted">(Mar 2021)</font> <span id="dot">&middot;</span> <font id="notf" class="text-success">See the <a href="https://github.com/femto-code/Rasberry-Pi-Dashboard/releases">Github releases</a> for updates!</font><br />
     <button class="btn btn-secondary mb-2" onclick="$('#exampleModal').modal('show');"><i class="bi bi-gear"></i>&nbsp;Options</button>
-		<hr style="margin-top: 0; margin-bottom: 0;">
-		femto-code&nbsp;<a href="https://github.com/femto-code"><i class="bi bi-github"></i></a> &middot; <font class="text-muted">2018 - 2021</font>
-	</div>
+    <hr style="margin-top: 0; margin-bottom: 0;">
+    femto-code&nbsp;<a href="https://github.com/femto-code"><i class="bi bi-github"></i></a> &middot; <font class="text-muted">2018 - 2021</font>
+  </div>
 </footer>
 <!-- End Footer -->
 
@@ -573,15 +573,15 @@ var chart = new Chart(ctx, {
     }]
   },
    options: {
-		animation: {
-			easing: 'easeInExpo'
-		},
+    animation: {
+      easing: 'easeInExpo'
+    },
     scales: {
       yAxes: [{
         ticks: {
           beginAtZero: true
         }
-      }],    
+      }],
     }
   }
 });
