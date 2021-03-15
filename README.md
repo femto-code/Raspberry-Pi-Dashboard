@@ -34,11 +34,18 @@
 ### Setup project
 
 - navigate to your web folder (`cd /var/www/html`)
-- download this Github repository: `git clone https://github.com/femto-code/Rasberry-Pi-Dashboard.git`
-- DONE!
-- Open web browser with URL: `http://IP_OF_YOUR_RPI/Raspberry-Pi-Dashboard`
+- clone this Github repository: `git clone https://github.com/femto-code/Rasberry-Pi-Dashboard.git`
+- DONE! Open web browser with URL: `http://IP_OF_YOUR_RPI/Raspberry-Pi-Dashboard`
 - [OPTIONAL] rename the folder to shorten the address input: `mv /var/www/html/Raspberry-Pi-Dashboard /var/www/html/{subfolder_name}` (Note: replace {subfolder_name} with your wish to enter the web page)
+
 - [SOON] There will be a user-friendly setup page for configuration.
+
+#### Core voltage output is missing
+- If you want to see this information on your instance:<br>run `sudo usermod -aG video www-data` in a terminal
+>If you do not use Raspbian (or any other RasPi distro) like Ubuntu, you do have to install `libraspberrypi-bin` by running `sudo apt install libraspberrypi-bin`
+
+- background: The `vcgencmd` command (specifically dedicated to RPi firmware) is a system command that requires certain hardware rights. Therefore one has to grant this particular right (to read hardware info) to e.g. `www-data` (under which web server is running). This is achived by adding this user to a system group called video, which the standard user pi is part of by default.
+- in case of problems: please comment on #12 (or new issue)
 
 ### Configure password
 

@@ -7,6 +7,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 Open for your feature [requests](https://github.com/femto-code/Rasberry-Pi-Dashboard/pulls) or [issues](https://github.com/femto-code/Rasberry-Pi-Dashboard/issues)!
 [https://github.com/femto-code/Rasberry-Pi-Dashboard](https://github.com/femto-code/Rasberry-Pi-Dashboard)
 
+## [0.9.1] - 2021-03-15
+### Fixed
+- this is a minor release due to a recent issue. It fixes a bug where the dashboard does not seem to load appropriately.
+Please comment on #19 if you have similar issues (or open a new one).
+
+### Changed
+- updated Readme with instructions on preparation for correct voltage output. (soon)
+
 ## [0.9] - 2021-02-26
 ### Added
 - [Font] added local fonts instead of remote embed (better privacy)
