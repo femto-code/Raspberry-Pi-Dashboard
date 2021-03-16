@@ -307,7 +307,7 @@ function updatedb(){
       document.getElementById("tempstate").innerHTML="<i class='bi bi-thermometer-half'></i>&nbsp;Temperature <font class='text-success'>(OK)</font>";
     }else{
       document.getElementById("tempstate").innerHTML="<i class='bi bi-thermometer-half'></i>&nbsp;Temperature <font class='text-warning'>(WARNING)</font>";
-      addWarning("CPU Temperature","thermometer");
+      addWarning("CPU Temperature","thermometer-half");
       warn++;
     }
     // CPU Frequency
@@ -326,7 +326,7 @@ function updatedb(){
     addData(chart, "15 min", array[2]);
     if (array[0] >= warn_loads_size){
       document.getElementById("cput").innerHTML="CPU <font class='text-warning'>(WARNING)</font>";
-      addWarning("CPU Loads","activity");
+      addWarning("CPU Loads","cpu");
       warn++;
     }else{
       document.getElementById("cput").innerHTML="CPU <font class='text-success'>(OK)</font>";
@@ -343,7 +343,7 @@ function updatedb(){
     document.getElementById("ram2").innerHTML = result.memperc + " %";
     if (result.memperc >= warn_ram_space){
       document.getElementById("ramt").innerHTML='Memory <font class="text-warning">(WARNING)</font>';
-      addWarning("Memory","cpu");
+      addWarning("Memory","hdd-network");
       warn++;
     }else{
       document.getElementById("ramt").innerHTML='Memory <font class="text-success">(OK)</font>';
@@ -353,7 +353,7 @@ function updatedb(){
     // Overall
     if (warn > 0){
       var s = (warn>1) ? "s" : "";
-      document.getElementById("overallstate").innerHTML="<font class='text-danger'><i class='bi bi-exclamation-circle'></i>&nbsp;"+warn+" problem"+s+" occured</font>";
+      document.getElementById("overallstate").innerHTML="<font class='text-danger'><i class='bi bi-exclamation-circle'></i>&nbsp;"+warn+" critical value"+s+" detected!</font>";
       warnuser(warn);
     }else{
       document.getElementById("overallstate").innerHTML="<font class='text-success'><i class='bi bi-check2-circle'></i>&nbsp;System runs normally</font>";
