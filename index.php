@@ -48,7 +48,7 @@ $config->load("user-settings.php");
     url('fonts/rubik-v12-latin-300.ttf') format('truetype'), /* Safari, Android, iOS */
     url('fonts/rubik-v12-latin-300.svg#Rubik') format('svg'); /* Legacy iOS */
 }
-body{
+body, .mdtoast{
   font-family: 'Rubik', sans-serif;
 }
 .hidden{
