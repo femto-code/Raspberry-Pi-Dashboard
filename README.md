@@ -40,28 +40,30 @@
 
 - [SOON] There will be a user-friendly setup page for configuration.
 
-#### Core voltage output is missing
-- If you want to see this information on your instance:<br>run `sudo usermod -aG video www-data` in a terminal
+## Configuration
+
+#### Core voltage output is not shown
+- If you want to see this information on your dashboard instance:<br>run `sudo usermod -aG video www-data` in a terminal
 >If you do not use Raspbian (or any other RasPi distro) like Ubuntu, you do have to install `libraspberrypi-bin` by running `sudo apt install libraspberrypi-bin`
 
 - background: The `vcgencmd` command (specifically dedicated to RPi firmware) is a system command that requires certain hardware rights. Therefore one has to grant this particular right (to read hardware info) to e.g. `www-data` (under which web server is running). This is achived by adding this user to a system group called video, which the standard user pi is part of by default.
 - in case of problems: please comment on #12 (or new issue)
 
-### Configure password
+#### Enable shutdown / reboot (optional)
+> Recommended only, if your RPi is **not** accessible over the Internet!
+
+In order to use the remote power functionality you have to give the user `www-data` advanced rights for running one specific command:
+1. Run `sudo visudo` to open the editor for adjusting user rights
+2. Be careful what you change here! Just add the following at the **end** of the file: `www-data ALL=NOPASSWD: /sbin/shutdown`
+3. Restart your Pi and now shutdown from another device (connected to same local network like your Pi) is possible
+
+#### Configure password
 
 >You should change the default password (which is **root**) and a choose a more secure one by following these steps:
 
 1. Go to [https://www.md5-generator.de/](https://www.md5-generator.de/) and generate the MD5 encyrpted passphrase.
 2. Open `user-settings.php` on line 13 and replace the passphrase string with the generated one from step 1.
 3. Remember password and enjoy!
-
-### Enabling remote shutdown/reboot (OPTIONAL)
-> Recommended only, if your RPi is **not** accessible over the Internet!
-
-In order to use the remote power functionality you have to give the user `www-data` advanced rights for running one specific command:
-1. Run `sudo visudo` to open the editor for adjusting user rights
-2. Be careful what you change here! Just add the following at the **end** of the file: `www-data ALL=NOPASSWD: /sbin/shutdown`
-3. Restart your Pi and now shutdown from another device (connected to local network) is possible
 
 ## License
 
