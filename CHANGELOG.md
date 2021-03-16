@@ -7,6 +7,18 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 Open for your feature [requests](https://github.com/femto-code/Rasberry-Pi-Dashboard/pulls) or [issues](https://github.com/femto-code/Rasberry-Pi-Dashboard/issues)!
 [https://github.com/femto-code/Rasberry-Pi-Dashboard](https://github.com/femto-code/Rasberry-Pi-Dashboard)
 
+## [0.9.2] - 2021-03-16
+### Changed
+- updated dependencies (bootstrap-icons and mdtoast)
+  - alignment of icons much better! 🎆 👍 💯
+- forced toast to use global font of dashboard
+- add version string as query on includes to help refresh files (prevent caching files for too long)
+- code formatting: use spaces (instead of tabs) consistently
+- misc dev env improvements
+
+### Fixed
+- fixed icons in overall status view in case of warnings
+
 ## [0.9.1] - 2021-03-15
 ### Fixed
 - this is a minor release due to a recent issue. It fixes a bug where the dashboard does not seem to load appropriately.
