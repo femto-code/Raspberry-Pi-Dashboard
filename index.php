@@ -452,6 +452,7 @@ if($auth){
               <button type="button" id="applyBtn" class="btn btn-outline-success">Apply</button>
               <button type="button" id="discardBtn" class="btn btn-outline-secondary">Discard changes</button>
               <button type="button" id="defaultsBtn" class="btn btn-outline-primary">Defaults</button>
+              <div id="sformFeedback"></div>
             </form>
           </div>
         </div>

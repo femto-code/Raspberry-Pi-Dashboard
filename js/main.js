@@ -570,8 +570,10 @@ document.querySelector('#applyBtn').onclick = function (e) {
   var vReq = new ntwReq("backend/serv.php", function (data) {
     if(data.responseText=="1"){
       mdtoast('<i class="bi bi-check2-circle"></i>&nbsp;Settings were updated!', { type: 'success'});
+      $("#sformFeedback").html('<div class="mt-2 alert alert-success" role="alert"><i class="bi bi-check2-circle"></i>&nbsp;Saved successfully! <a href="javascript:location.reload()">Reload</a> the page for changes to take effect.</div>');
     }else{
       mdtoast('<i class="bi bi-x-circle"></i>&nbsp;There was an error! ('+data.responseText+')', { type: 'error'});
+      $("#sformFeedback").html('<div class="mt-2 alert alert-danger" role="alert"><i class="bi bi-x-circle"></i>&nbsp;Failed! <a href="https://github.com/femto-code/Raspberry-Pi-Dashboard/issues/new" target="blank">Create an issue</a> with error message: <kbd>'+data.responseText+'</kbd>.</div>');
     }
   }, null, "POST", false, sFormData);
 };
