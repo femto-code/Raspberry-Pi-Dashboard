@@ -28,9 +28,9 @@ $config->load("user-settings.php");
 <meta name="theme-color" content="#b91d47">
 
 <link rel="stylesheet" href="css/bootstrap-4.6.0.min.css">
-<link rel="stylesheet" href="css/bootstrap-icons.css">
-<link rel="stylesheet" href="css/darkmode.css" id="dmcss" type="text/css" disabled>
-<link rel="stylesheet" href="css/mdtoast.min.css">
+<link rel="stylesheet" href="css/bootstrap-icons.css?v=1.4.0">
+<link rel="stylesheet" href="css/darkmode.css?v=0.9.1" id="dmcss" type="text/css" disabled>
+<link rel="stylesheet" href="css/mdtoast.min.css?v=2.0.2">
 
 <title>RPi Dashboard</title>
 
@@ -544,7 +544,7 @@ if($auth){
 <script src="js/popper-1.16.1.min.js"></script>
 <script src="js/bootstrap-4.6.0.min.js"></script>
 <script src="js/Chart-2.9.3.min.js"></script>
-<script src="js/mdtoast.min.js"></script>
+<script src="js/mdtoast.min.js?v=2.0.2"></script>
 <script src="js/radialIndicator-2.0.0.min.js"></script>
 
 <script>
@@ -557,7 +557,7 @@ var defaultSettings=[65, 80, 2, 15];
 console.log("Custom user options: warncputemp="+warn_cpu_temp+" | warn_ram_space="+warn_ram_space+" | upd_time_interval="+upd_time_interval+" | warn_loads_size="+warn_loads_size);
 </script>
 
-<script src="js/main.js"></script>
+<script src="js/main.js?v=0.9.1"></script>
 
 <script>
 var ctx = document.getElementById('myChart').getContext('2d');
