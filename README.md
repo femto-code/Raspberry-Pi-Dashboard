@@ -34,11 +34,9 @@
 ### Setup project
 
 - navigate to your web folder (`cd /var/www/html`)
-- clone this Github repository: `git clone https://github.com/femto-code/Rasberry-Pi-Dashboard.git`
-- DONE! Open web browser with URL: `http://IP_OF_YOUR_RPI/Raspberry-Pi-Dashboard`
-- [OPTIONAL] rename the folder to shorten the address input: `mv /var/www/html/Raspberry-Pi-Dashboard /var/www/html/{subfolder_name}` (Note: replace {subfolder_name} with your wish to enter the web page)
-
-- [SOON] There will be a user-friendly setup page for configuration.
+- clone this Github repository: `git clone https://github.com/femto-code/Rasberry-Pi-Dashboard.git {your_subfolder_name}`
+- **DONE!** Open web browser with URL: `http://IP_OF_YOUR_RPI/{your_subfolder_name}`
+> Note: replace {your_subfolder_name} with your choice accordingly. You can also rename the base folder at any time afterwards.
 
 ## Configuration
 
