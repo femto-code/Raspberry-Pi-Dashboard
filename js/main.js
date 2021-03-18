@@ -555,25 +555,46 @@ darkmode( (localStorage.getItem("darkmode") != 'false' && localStorage.getItem("
 toggleAutoDarkMode((localStorage.getItem("darkmode")=="auto"));
 
 // Settings Form
+function checkPw() {
+  if(document.getElementById("pass").value!=document.getElementById("pass2").value){
+    $("#pass2").addClass("is-invalid").removeClass("is-valid");
+  }else{
+    $("#pass2").addClass("is-valid").removeClass("is-invalid");
+  }
+}
+
 document.querySelector('#applyBtn').onclick = function (e) {
   e.preventDefault();
   let sFormData = new FormData();
+  var val;
   for (var i = 0; i < settingsKeys.length; i++) {
-    var val=document.getElementById(settingsKeys[i]).value;
+    val=document.getElementById(settingsKeys[i]).value;
     if(val==""){
       val=defaultSettings[i];
+      sFormData.append(settingsKeys[i], val);
+    }else if(val=="***"){
+      // NOTE: password is altered (not default) -> leave as is
+    }else{
+      if(settingsKeys[i]=="pass") {
+        if(val!=document.getElementById("pass2").value){
+          $("#pass2").attr("onkeyup", "checkPw()");
+          $("#pass2").addClass("is-invalid").removeClass("is-valid");
+          return;
+        }
+      }
+      sFormData.append(settingsKeys[i], val);
     }
-    sFormData.append(settingsKeys[i], val);
+
   }
   sFormData.append("updateSettings", true);
-  console.log("settings data "+ sFormData);
+  console.log("settings data ", sFormData);
   var vReq = new ntwReq("backend/serv.php", function (data) {
     if(data.responseText=="1"){
       mdtoast('<i class="bi bi-check2-circle"></i>&nbsp;Settings were updated!', { type: 'success'});
-      $("#sformFeedback").html('<div class="mt-2 alert alert-success" role="alert"><i class="bi bi-check2-circle"></i>&nbsp;Saved successfully! <a href="javascript:location.reload()">Reload</a> the page for changes to take effect.</div>');
+      $("#sformFeedback").html('<div class="mt-2 alert alert-success alert-dismissible fade show" role="alert"><i class="bi bi-check2-circle"></i>&nbsp;Saved successfully! <a href="javascript:location.reload()" class="alert-link">Reload</a> the page for changes to take effect.<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
     }else{
       mdtoast('<i class="bi bi-x-circle"></i>&nbsp;There was an error! ('+data.responseText+')', { type: 'error'});
-      $("#sformFeedback").html('<div class="mt-2 alert alert-danger" role="alert"><i class="bi bi-x-circle"></i>&nbsp;Failed! <a href="https://github.com/femto-code/Raspberry-Pi-Dashboard/issues/new" target="blank">Create an issue</a> with error message: <kbd>'+data.responseText+'</kbd>.</div>');
+      $("#sformFeedback").html('<div class="mt-2 alert alert-danger" role="alert"><i class="bi bi-x-circle"></i>&nbsp;Failed! <a class="alert-link" href="https://github.com/femto-code/Raspberry-Pi-Dashboard/issues/new" target="blank">Create an issue</a> mentioning error message: <kbd>'+data.responseText+'</kbd>.</div>');
     }
   }, null, "POST", false, sFormData);
 };

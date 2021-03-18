@@ -8,6 +8,7 @@ require "backend/Config.php";
 $config = new Config;
 $config->load("local.config", "defaults.php");
 
+$passVal = ($config->get("general.pass")!=='63a9f0ea7bb98050796b649e85481845') ? '***' : '';
 ?>
 <!doctype html>
 <html lang="en">
@@ -450,6 +451,18 @@ if($auth){
                 </div>
                 <small id="dbRefreshHelp" class="col form-text text-muted">Refresh interval of live data update section (recommended: 10 - 60 sec) - Pay attention: Do not set too low. - default: 15</small>
               </div>
+              <h4 class="mb-0">Authentication</h4>
+              <div class="form-row mb-2">
+                <div class="col">
+                  <input type="password" id="pass" class="form-control" placeholder="default: root" aria-describedby="passHelp" value="<?=$passVal;?>">
+                  <small id="passHelp" class="form-text text-muted">Password - default: root</small>
+                </div>
+                <div class="col">
+                  <input type="password" id="pass2" class="form-control" placeholder="please repeat" aria-describedby="pass2Help" value="<?=$passVal;?>">
+                  <small id="pass2Help" class="form-text text-muted">Repeat password</small>
+                  <div class="invalid-feedback">Repeated password not correct!</div>
+                </div>
+              </div>
               <button type="button" id="applyBtn" class="btn btn-outline-success">Apply</button>
               <button type="button" id="discardBtn" class="btn btn-outline-secondary">Discard changes</button>
               <button type="button" id="defaultsBtn" class="btn btn-outline-primary">Defaults</button>
@@ -554,8 +567,8 @@ warn_cpu_temp = <?=$config->get("thresholds.warn_cpu_temp")?>;
 warn_ram_space = <?=$config->get("thresholds.warn_ram_space")?>;
 upd_time_interval = <?=$config->get("thresholds.upd_time_interval")?>;
 warn_loads_size = <?=$config->get("thresholds.warn_loads_size")?>;
-var settingsKeys=["warn_cpu_temp", "warn_ram_space", "warn_loads_size", "upd_time_interval"];
-var defaultSettings=[65, 80, 2, 15];
+var settingsKeys=["warn_cpu_temp", "warn_ram_space", "warn_loads_size", "upd_time_interval", "pass"];
+var defaultSettings=[65, 80, 2, 15, "root"];
 console.log("Custom user options: warncputemp="+warn_cpu_temp+" | warn_ram_space="+warn_ram_space+" | upd_time_interval="+upd_time_interval+" | warn_loads_size="+warn_loads_size);
 </script>
 

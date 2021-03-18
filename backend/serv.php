@@ -99,13 +99,21 @@ if(isset($_REQUEST["p"])){
 }
 if(isset($_REQUEST["updateSettings"])){
   $allowed=array_keys($config->get("thresholds"));
+  $allowed2=array_keys($config->get("general"));
   $edit=array('thresholds' => array (), 'general' => array ());
+  $edit["general"]=$config->get("general");
   foreach ($_POST as $key => $val) {
     if(in_array($key, $allowed)){
       $edit["thresholds"]+=array($key => $val);
     }
+    if(in_array($key, $allowed2)){
+      if($key=="pass"){
+        $val=md5($val);
+      }
+      $edit["general"][$key]=$val;
+    }
   }
-  $edit["general"]=$config->get("general");
+
   echo $config->save($edit);
   //echo json_encode($edit);
 }
