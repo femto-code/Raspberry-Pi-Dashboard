@@ -7,14 +7,15 @@
 
 ## Features
 
-- Live surveillance of RPi hardware (CPU Temperature, frequency, loads etc.) with custom warnings
+- Live surveillance of RPi hardware (CPU Temperature, frequency, loads etc.) with customizable warning thresholds
+- Detailed software/hardware information (web server, PHP, storage / partition workload, core voltage, plugged USB devices, kernel version, model specifications, OS, CPU)
 - Protected access with password login (default: root) ([configure password](https://github.com/femto-code/Rasberry-Pi-Dashboard#configure-password))
 - Power (shutdown/reboot) Raspberry Pi with schedule options ([setup instructions](https://github.com/femto-code/Rasberry-Pi-Dashboard#enabling-remote-shutdownreboot-optional))
-- [Work in progress:] State Mail to send an email containing a summary (soon)
-- Web-App capable with mobile integration thanks to responsive design
-- Dark Theme (manual/auto)
+- Mobile WebApp integration
+- Responsive design layout allows usage on all screen sizes
+- Dark Theme (manual / auto)
 
->Update your existing dashboard setup by navigating to root folder and running `git pull` in the terminal.
+>Update your existing dashboard setup by navigating to project root folder and running `git pull` in the terminal.
 
 ## Screenshots
 
@@ -28,8 +29,8 @@
 
 ### Prequisites
 
-- Running Web Server (Lighttpd or Apache) with PHP installed (5.6 or higher)
-- Installed Git (comes preinstalled on Raspberry Pi OS / formerly Raspbian)
+- Running Web Server (e.g. Lighttpd or Apache) with PHP installed (>=v5.6)
+- Installed Git (comes preinstalled on Raspberry Pi OS / formerly Raspbian as well as other linux distros)
 
 ### Setup project
 
@@ -42,12 +43,13 @@
 
 #### Core voltage output is not shown
 - If you want to see this information on your dashboard instance:<br>run `sudo usermod -aG video www-data` in a terminal
->If you do not use Raspbian (or any other RasPi distro) like Ubuntu, you do have to install `libraspberrypi-bin` by running `sudo apt install libraspberrypi-bin`
+>If you do not use Raspbian (or any other RasPi distro) like Ubuntu, you do have to install `libraspberrypi-bin` by running `sudo apt install libraspberrypi-bin`.
 
 - background: The `vcgencmd` command (specifically dedicated to RPi firmware) is a system command that requires certain hardware rights. Therefore one has to grant this particular right (to read hardware info) to e.g. `www-data` (under which web server is running). This is achived by adding this user to a system group called video, which the standard user pi is part of by default.
 - in case of problems: please comment on #12 (or new issue)
 
 #### Enable shutdown / reboot (optional)
+
 > Recommended only, if your RPi is **not** accessible over the Internet!
 
 In order to use the remote power functionality you have to give the user `www-data` advanced rights for running one specific command:
