@@ -10,7 +10,7 @@ if(!isset($_SESSION["rpidbauth"])){
 }
 require "Config.php";
 $config = new Config;
-$config->load("../user-settings.php");
+$config->load("../local.config", "../defaults.php");
 // Uptime
 $uptime = shell_exec("cat /proc/uptime");
 $uptime = explode(" ", $uptime);

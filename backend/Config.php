@@ -8,9 +8,17 @@ class Config{
 
   protected $file;
 
-  public function load($file){
-    $this->data = require $file;
+  public function load($file, $defaultfile){
+    if(!(file_exists($file))){
+      $myfile = fopen($file, "w") or die("Unable to open file!");
+      fwrite($myfile, "<?php\nreturn array();\n?>");
+      fclose($myfile);
+    }
     $this->file=$file;
+    $userconf=require $file;
+    $defaults=require $defaultfile;
+    $this->data = array_merge($defaults, $userconf);
+    //echo "<pre>",print_r($this->data),"</pre>";
     //$this->save($this->data);
   }
 

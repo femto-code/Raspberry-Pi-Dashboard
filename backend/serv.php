@@ -5,7 +5,7 @@ ini_set ('display_errors', 'On');
 
 require "Config.php";
 $config = new Config;
-$config->load("../user-settings.php");
+$config->load("../local.config", "../defaults.php");
 $correctPassword = $config->get("general.pass");
 
 if(isset($_GET["logout"])){

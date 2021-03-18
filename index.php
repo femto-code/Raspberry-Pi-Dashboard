@@ -6,7 +6,8 @@ $auth=(isset($_SESSION["rpidbauth"])) ? true : false;
 
 require "backend/Config.php";
 $config = new Config;
-$config->load("user-settings.php");
+$config->load("local.config", "defaults.php");
+
 ?>
 <!doctype html>
 <html lang="en">
