@@ -8,6 +8,9 @@ require "backend/Config.php";
 $config = new Config;
 $config->load("local.config", "defaults.php");
 
+$path=$_SERVER['SCRIPT_FILENAME'];
+$fol=substr($path, 0, -9);
+
 $passVal = ($config->get("general.pass")!=='63a9f0ea7bb98050796b649e85481845') ? '***' : '';
 ?>
 <!doctype html>
@@ -490,11 +493,11 @@ if($auth){
           <div class="card">
             <div class="card-header" id="headingTwo">
               <h5 class="mb-0">
-              <button class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">Customization</button>
+              <button class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">Customization&nbsp;<span class="badge badge-warning">New</span></button>
               </h5>
             </div>
             <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordion">
-              <div class="card-body">Under <code>/var/www/html/Raspberry-Pi-Dashboard/custom/</code> there is <kbd>custom.js</kbd>. Within this JS file you can customize a few things of functions and appearance of RPi Dashboard. See the notes inside the file for instructions.</div>
+              <div class="card-body"><p>Your local dashboard project instance is located under: <code><?=$fol;?></code>. Look for a file called <kbd>local.config</kbd>. Within this config file you can customize a few things of RPi Dashboard (e.g. thresholds, password).</p><p>See the notes in <kbd>README.md</kbd> for instructions.</p></div>
             </div>
           </div>
           <div class="card">
