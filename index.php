@@ -8,10 +8,16 @@ require "backend/Config.php";
 $config = new Config;
 $config->load("local.config", "defaults.php");
 
+if(!isset($_SESSION["setup"])){
+  if($config->get("general.initsetup")=="0"){
+    header("Location: setup.php");
+  }
+}
+
 $path=$_SERVER['SCRIPT_FILENAME'];
 $fol=substr($path, 0, -9);
 
-$passVal = ($config->get("general.pass")!=='63a9f0ea7bb98050796b649e85481845') ? '***' : '';
+$passVal = ($config->get("general.pass")!=='63a9f0ea7bb98050796b649e85481845') ? "***notdefault***" : '';
 ?>
 <!doctype html>
 <html lang="en">
@@ -104,8 +110,12 @@ if($auth){
   $p = $df / $ds * 100;
   //
 
+  $permissionerr=false;
   $spannung=substr(exec("vcgencmd measure_volts core"),5);
-  if(strpos($spannung,"failed")!==false) $spannung=$spannung."<div class='alert alert-danger' role='alert'>Reading of core voltage failed. Please run<br><kbd>sudo usermod -aG video www-data</kbd><br>in a terminal to solve this problem.</div>";
+  if( (strpos($spannung,"failed")!==false) || (strlen($spannung)<2) ){
+    $spannung=$spannung."<div class='alert alert-danger' role='alert'>Reading of core voltage failed. Please run<br><kbd>sudo usermod -aG video www-data</kbd><br>in a terminal to solve this problem.</div>";
+    $permissionerr=true;
+  }
 }
 ?>
 
@@ -142,6 +152,15 @@ if($auth){
         <div class="card-body">
           <h5 id="sys1" class="card-title"><span id="overallstate"></span></h5>
           <p id="sys11" class="card-text"></p>
+          <?php
+          if(isset($_SESSION["setup"])){
+          ?>
+          <div class="alert alert-info alert-dismissible fade show" role="alert"><i class="bi bi-info-circle"></i>&nbsp;Setup finished! RPi Dashboard is ready.<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>
+          <?php
+          unset($_SESSION["setup"]);
+          }
+          ?>
+
           <p id="sys2" class="card-text"></p>
           <hr>
           <p><i class="bi bi-clock-history"></i><!--<img src="img/time-icon.png">-->&nbsp;Uptime: <b><span id="uptime"></span></b><?php if($auth){ ?>&nbsp;(started <?=$uptstr;?>)<?php } ?></p>
@@ -255,7 +274,7 @@ if($auth){
         <div class="card-header">Model</div>
         <div class="card-body">
           <samp><?php echo exec("cat /sys/firmware/devicetree/base/model");?></samp>
-          <samp><?php $ot=shell_exec("vcgencmd version");if(strpos($ot,"failed")!==false){echo "<div class='alert alert-danger' role='alert'>Execution of system command failed. Please run<br><kbd>sudo usermod -aG video www-data</kbd><br>in a terminal to solve this problem.</div>";}else{echo $ot;}?></samp>
+          <?php $ot=shell_exec("vcgencmd version");if($permissionerr){echo "<div class='alert alert-danger' role='alert'>Execution of system command failed. Please run<br><kbd>sudo usermod -aG video www-data</kbd><br>in a terminal to solve this problem.</div>";}else{echo '<samp>'.$ot.'</samp>';}?>
           <p class="card-text"><small class="text-muted">Updated <span><?php echo date("H:i:s");?> (at page load)</span></small></p>
         </div>
       </div>
@@ -433,24 +452,24 @@ if($auth){
             <form id="settingsForm">
               <div class="form-row">
                 <div class="col">
-                  <input type="number" id="warn_cpu_temp" class="form-control" placeholder="default: 60" aria-describedby="critCpuTempHelp" min="20" max="80" value="<?=$config->get("thresholds.warn_cpu_temp")?>">
+                  <input type="number" id="warn_cpu_temp" class="form-control" placeholder="default: 65" aria-describedby="critCpuTempHelp" min="20" max="80" value="<?=$config->modified("thresholds.warn_cpu_temp")?>">
                   <small id="critCpuTempHelp" class="form-text text-muted">CPU Temperature (°C) - default: 65°C</small>
                 </div>
                 <div class="col">
-                  <input type="number" id="warn_ram_space" class="form-control" placeholder="default: 80" aria-describedby="critRamSizeHelp" min="0" max="100" value="<?=$config->get("thresholds.warn_ram_space")?>">
+                  <input type="number" id="warn_ram_space" class="form-control" placeholder="default: 80" aria-describedby="critRamSizeHelp" min="0" max="100" value="<?=$config->modified("thresholds.warn_ram_space")?>">
                   <small id="critRamSizeHelp" class="form-text text-muted">RAM Load (%) - default: 80%</small>
                 </div>
               </div>
               <div class="form-row">
                 <div class="col-6">
-                  <input type="number" id="warn_loads_size" class="form-control" placeholder="default: 2" aria-describedby="critCpuLoadHelp" min="1" max="4" value="<?=$config->get("thresholds.warn_loads_size")?>">
+                  <input type="number" id="warn_loads_size" class="form-control" placeholder="default: 2" aria-describedby="critCpuLoadHelp" min="1" max="4" value="<?=$config->modified("thresholds.warn_loads_size")?>">
                   <small id="critCpuLoadHelp" class="form-text text-muted">CPU workload (last min) - default: 2</small>
                 </div>
               </div>
               <div class="form-row mb-2">
                 <label for="upd_time_interval" class="col-sm-6 col-form-label">Refresh rate (sec)</label>
                 <div class="col-sm-6">
-                  <input type="number" class="form-control" placeholder="default: 15" id="upd_time_interval" aria-describedby="dbRefreshHelp" min="5" max="600" value="<?=$config->get("thresholds.upd_time_interval")?>">
+                  <input type="number" class="form-control" placeholder="default: 15" id="upd_time_interval" aria-describedby="dbRefreshHelp" min="5" max="600" value="<?=$config->modified("thresholds.upd_time_interval")?>">
                 </div>
                 <small id="dbRefreshHelp" class="col form-text text-muted">Refresh interval of live data update section (recommended: 10 - 60 sec) - Pay attention: Do not set too low. - default: 15</small>
               </div>
@@ -571,7 +590,6 @@ warn_ram_space = <?=$config->get("thresholds.warn_ram_space")?>;
 upd_time_interval = <?=$config->get("thresholds.upd_time_interval")?>;
 warn_loads_size = <?=$config->get("thresholds.warn_loads_size")?>;
 var settingsKeys=["warn_cpu_temp", "warn_ram_space", "warn_loads_size", "upd_time_interval", "pass"];
-var defaultSettings=[65, 80, 2, 15, "root"];
 console.log("Custom user options: warncputemp="+warn_cpu_temp+" | warn_ram_space="+warn_ram_space+" | upd_time_interval="+upd_time_interval+" | warn_loads_size="+warn_loads_size);
 </script>
 

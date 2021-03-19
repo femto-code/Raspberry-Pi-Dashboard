@@ -571,9 +571,9 @@ document.querySelector('#applyBtn').onclick = function (e) {
   for (var i = 0; i < settingsKeys.length; i++) {
     val=document.getElementById(settingsKeys[i]).value;
     if(val==""){
-      val=defaultSettings[i];
-      sFormData.append(settingsKeys[i], val);
-    }else if(val=="***"){
+      //val=defaultSettings[i];
+      //sFormData.append(settingsKeys[i], val);
+    }else if(val=="***notdefault***"){
       // NOTE: password is altered (not default) -> leave as is
     }else{
       if(settingsKeys[i]=="pass") {
@@ -593,6 +593,9 @@ document.querySelector('#applyBtn').onclick = function (e) {
     if(data.responseText=="1"){
       mdtoast('<i class="bi bi-check2-circle"></i>&nbsp;Settings were updated!', { type: 'success'});
       $("#sformFeedback").html('<div class="mt-2 alert alert-success alert-dismissible fade show" role="alert"><i class="bi bi-check2-circle"></i>&nbsp;Saved successfully! <a href="javascript:location.reload()" class="alert-link">Reload</a> the page for changes to take effect.<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
+    }else if(data.responseText=="nothing changed"){
+      mdtoast('<i class="bi bi-info-circle"></i>&nbsp;Nothing was changed!', { type: 'info'});
+      $("#sformFeedback").html('<div class="mt-2 alert alert-info alert-dismissible fade show" role="alert"><i class="bi bi-info-circle"></i>&nbsp;All set! You did not change anything.<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
     }else{
       mdtoast('<i class="bi bi-x-circle"></i>&nbsp;There was an error! ('+data.responseText+')', { type: 'error'});
       $("#sformFeedback").html('<div class="mt-2 alert alert-danger" role="alert"><i class="bi bi-x-circle"></i>&nbsp;Failed! <a class="alert-link" href="https://github.com/femto-code/Raspberry-Pi-Dashboard/issues/new" target="blank">Create an issue</a> mentioning error message: <kbd>'+data.responseText+'</kbd>.</div>');
