@@ -3,7 +3,7 @@ body, div.bg-light {
   background-color: #24292e!important;
 }
 
-footer, .card, .modal-header, .modal-body, .modal-footer, .close, #preload {
+footer, .card, .modal-header, .modal-body, .modal-footer, .close, #preload, .multisteps-form__panel {
   background-color: #2f363d!important;
   color: #fff!important;
 }
@@ -16,7 +16,7 @@ hr {
   color: #b1afaf!important;
 }
 
-label{
+label, .headline {
   color: #fff;
 }
 
