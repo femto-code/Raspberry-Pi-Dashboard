@@ -9,6 +9,7 @@ Open for your feature [requests](https://github.com/femto-code/Rasberry-Pi-Dashb
 
 ## [0.10] - 2021-03-18
 > Last release before a major 1.0.0
+
 ### Added
 - allow changing password from options modal 💯
 
