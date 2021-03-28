@@ -17,6 +17,8 @@
 
 >Update your existing dashboard setup by navigating to project root folder and running `git pull` in the terminal.
 
+## ❗ If you run into issues and getting error message "Permission denied" or "unable to open file" [see issue #22](https://github.com/femto-code/Raspberry-Pi-Dashboard/issues/22) for help and instructions to solve. ❗ 
+
 ## Screenshots
 
 ![Preview](img/preview.png?raw=true "Preview of dashboard in a web browser")
