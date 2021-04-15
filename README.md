@@ -59,13 +59,28 @@ In order to use the remote power functionality you have to give the user `www-da
 2. Be careful what you change here! Just add the following at the **end** of the file: `www-data ALL=NOPASSWD: /sbin/shutdown`
 3. Restart your Pi and now shutdown from another device (connected to same local network like your Pi) is possible
 
-#### Configure password
+#### Configure password (manually)
 
->You should change the default password (which is **root**) and a choose a more secure one by following these steps:
+>You should change the default password (which is **root**) and a choose a more secure one by following the following steps.
+
+>Please be aware that there is a more user-friendly way by using the Dashboards options modal. The manual way of changing the password might be helpful
+>- in case of wrong permissions (`www-data` cannot change settings for you - [see issue #22](https://github.com/femto-code/Raspberry-Pi-Dashboard/issues/22) for help and instructions to solve)
+>- if password is unknown (and access to Dashboard therefore impossible)
 
 1. Go to [https://www.md5-generator.de/](https://www.md5-generator.de/) and generate the MD5 encyrpted passphrase.
-2. Open `user-settings.php` on line 13 and replace the passphrase string with the generated one from step 1.
-3. Remember password and enjoy!
+2. Open `local.config` (dynamically created at first start) and apply your custom passphrase string (generated in step 1) as follows (don't alter other lines):
+```
+[...]
+'general' =>
+  array (
+    [...]
+    'pass' => 'YOUR_MD5_PASSPHRASE_HERE',
+    [...]
+  ),
+  [...]
+```
+
+4. Remember password and enjoy!
 
 ## License
 
