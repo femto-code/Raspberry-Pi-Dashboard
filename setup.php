@@ -13,7 +13,7 @@ if(isset($_POST["complete"])){
   if(isset($_POST["pw"])){
     $val=$_POST["pw"];
   }else{
-    echo "error";
+    echo "Setup error - no password specified. Please create an issue <a href='https://github.com/femto-code/Raspberry-Pi-Dashboard/issues/new' target='blank'>here</a>.";
     exit();
   }
 
@@ -351,8 +351,8 @@ body, .mdtoast{
               }else{
               ?>
 
-              <div class="alert alert-warning mt-3" role="alert"><i class="bi bi-info-circle"></i>&nbsp;Custom password was already set and this form now disabled for security reasons. Log-in to Dashboard and use options to change it.<hr>
-              <p class="mb-0"><strong>Don't have access to it?</strong> Alternatively, reset setup state by editing your <kbd>local.config</kbd> file. <a href="" class="alert-link"><i class="bi bi-question-circle"></i>&nbsp;Help</a></p></div>
+              <div class="alert alert-danger mt-3" role="alert"><i class="bi bi-info-circle"></i>&nbsp;Custom password was already set (by you) using this setup. This form is now disabled for security reasons. Log-in to Dashboard first and open settings to change it.<hr>
+              <p class="mb-0"><strong>Don't have access to it / forgot password?</strong><br>Alternatively, change your password manually by editing your <kbd>local.config</kbd> file.<br><a href="https://github.com/femto-code/Raspberry-Pi-Dashboard#configure-password-manually" target="blank" class="alert-link"><i class="bi bi-question-circle"></i>&nbsp;Help / Instructions</a></p></div>
 
               <?php
               }
@@ -366,7 +366,7 @@ body, .mdtoast{
                 </button>
                 Please keep in mind, that this password authentication <b>does not prevent</b> attackers to access your dashboard for 100%.
                 <hr>
-                <p class="mb-0">If you certainly want to block unwanted users you should consider HTTP Authentication or other mechanisms.</p>
+                <p class="mb-0"><b>In case you use remote shutdown functionality and/or have your Pi accessible over Internet</b> <i>or</i> if you (more securely) want to block unwanted users you should consider <i>HTTP Authentication</i> or other mechanisms!</p>
 
               </div>
 
@@ -382,23 +382,37 @@ body, .mdtoast{
             <div class="multisteps-form__content">
               <div class="form-row mt-4">
 
-                <p>The dashboard attempts to retrieve the following information. Therefore it will figure out if permissions are set correctly. Click on the item to get help.</p>
+                <p>The dashboard attempts to retrieve/control some system information as listed below. In order to inspect/use them (from your dashboard instance) you can figure out if necessary permissions are set correctly.<br>In case of any insufficient configuration click on the item to get help.</p>
 
-                <div class="list-group" style="width: 100%">
+                <h4>Required</h4>
+                <div class="list-group mb-3" style="width: 100%">
                   <a href="#" class="list-group-item list-group-item-action list-group-item-<?=$pclass1;?>">
                     <div class="d-flex w-100 justify-content-between">
-                      <h5 class="mb-1">Hardware information</h5>
+                      <h5 class="mb-1">Basic directory access</h5>
                       <small><?=$permi1;?></small>
                     </div>
-                    <p class="mb-1">Get voltage, firmware version etc. by vcgencmd command</p>
+                    <p class="mb-1">Storing user settings (password etc.) and configuration options (thresholds etc.)</p>
+                    <small>Click for help on setting correct permissions!</small>
+                  </a>
+                </div>
+                
+                <h4>Optional</h4>
+                <div class="alert alert-info" role="alert"><i class="bi bi-info-circle"></i>&nbsp;The following permission configurations are <b>optional</b> to be decided with respect to what you want the dashboard to tell/control and security aspects (e.g. in case RPi is accessible over Internet).<br>Click on the respective item to get information about what you cannot see/use when permission is missing.</div>
+                <div class="list-group" style="width: 100%">
+                  <a href="#" data-toggle="modal" data-target="#exampleModal" data-whatever="hwinfo" class="list-group-item list-group-item-action list-group-item-<?=$pclass1;?>">
+                    <div class="d-flex w-100 justify-content-between">
+                      <h5 class="mb-1">Advanced hardware information</h5>
+                      <small><?=$permi1;?></small>
+                    </div>
+                    <p class="mb-1">Get core voltage, firmware version etc.</p>
                     <small>Click for more</small>
                   </a>
-                  <a href="#" class="list-group-item list-group-item-action list-group-item-<?=$pclass2;?>">
+                  <a href="#" data-toggle="modal" data-target="#exampleModal" data-whatever="power" class="list-group-item list-group-item-action list-group-item-<?=$pclass2;?>" role="button">
                     <div class="d-flex w-100 justify-content-between">
-                      <h5 class="mb-1">Shutdown / Reboot RPi</h5>
+                      <h5 class="mb-1">Shutdown / Reboot RPi remotely</h5>
                       <small class="text-info"><?=$permi2;?></small>
                     </div>
-                    <p class="mb-1">Control power state of RPi from your local network</p>
+                    <p class="mb-1">Control power state of RPi from your local network. Also affects inspecting (viewing) upcoming/planned power events!</p>
                     <small>Click for more</small>
                   </a>
                 </div>
@@ -419,10 +433,9 @@ body, .mdtoast{
   <?php
   if($config->get("general.initsetup")=="0"){
   ?>
-  <div class="alert alert-info mt-3" role="alert"><i class="bi bi-info-circle"></i>&nbsp;You need to complete setup first before entering dashboard!</div>
+  <div class="alert alert-warning mt-3" role="alert"><i class="bi bi-info-circle"></i>&nbsp;<b>Welcome!</b> You need to complete this setup first before entering dashboard for the first time!</div>
   <?php
   }
-
   ?>
 
 </div>
@@ -436,10 +449,46 @@ body, .mdtoast{
   </ul>
 </footer>
 
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">New message</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <p></p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+
 <script src="js/jquery-3.5.1.min.js"></script>
 <script src="js/popper-1.16.1.min.js"></script>
 <script src="js/bootstrap-4.6.0.min.js"></script>
 <script>
+
+$('#exampleModal').on('show.bs.modal', function (event) {
+  var button = $(event.relatedTarget) // Button that triggered the modal
+  var content = button.data('whatever') // Extract info from data-* attributes
+  // If necessary, you could initiate an AJAX request here (and then do the updating in a callback).
+  // Update the modal's content. We'll use jQuery here, but you could use a data binding library or other methods instead.
+  var text, modal = $(this)
+  
+  if(content=="power"){
+    modal.find('.modal-title').text('Shutdown / Reboot RPi remotely (optional)')
+    text='<div class="alert alert-warning mt-3" role="alert"><i class="bi bi-info-circle"></i>&nbsp;This is <b>optional</b> and <b>recommended only</b> if your RPi is not accessible over the Internet!</div>In order to use the remote power functionality you have to give the user www-data advanced rights for running one specific command:<br><ul><li>Run <code>sudo visudo</code> to open the editor for adjusting user rights</li><li>Be careful what you change here! Just add the following at the end of the file: <code>www-data ALL=NOPASSWD: /sbin/shutdown</code></li><li>Restart your Pi and now shutdown from another device (connected to same local network like your Pi) is possible</li></ul><h5>Without this change</h5><ul><li>you cannot view any information about upcoming shutdown (e.g. planned via console)</li><li>you cannot shutdown your RPi remotely using the Dashboard</li></ul>';
+  }else if(content=="hwinfo"){
+    modal.find('.modal-title').text('Advanced hardware information (optional)');
+    text='<ul><li>Run <code>sudo usermod -aG video www-data</code> in a terminal</li></ul><div class="alert alert-info mt-3" role="alert"><i class="bi bi-info-circle"></i>&nbsp;If you do not use Raspbian (or any other RasPi distro) like Ubuntu, you do have to install libraspberrypi-bin by running <code>sudo apt install libraspberrypi-bin</code>.</div><h4>Background</h4><p>The <code>vcgencmd</code> command (specifically dedicated to RPi firmware) is a system command that requires certain hardware rights. Therefore one has to grant this particular right (to read hardware info) to e.g. <code>www-data</code> (under which web server is running). This is achived by adding this user to a system group called video, which the standard user pi is part of by default.<br><br>In case of problems: please comment on <a href="https://github.com/femto-code/Raspberry-Pi-Dashboard/issues/12" target="blank">#12</a> (or <a href="https://github.com/femto-code/Raspberry-Pi-Dashboard/issues/new" target="blank">new issue</a>)</p>';
+  }
+  modal.find('.modal-body p').html(text)
+});
 
 // General XMLHttpRequest(s)
 class ntwReq {
