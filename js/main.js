@@ -110,7 +110,7 @@ function authorize() {
         $("#inputPassword2").addClass("is-invalid");
         $("#confbtn").html("Confirm identity");
       }else if(data.responseText.indexOf("false") > -1){
-        alert('There was an error with shutdown: Parameter error. Please report an issue.');
+        alert('There was an error with shutdown: Parameter error. Please report this issue on Github!');
       }
     }, function () {
       alert("Connection error");
@@ -158,7 +158,7 @@ function cancelShutdown(force) {
     }else{
       checkShutdown(function(){
         if(shutdownCurrent){
-          alert('There was an error with shutdown cancel. Please report an issue.');
+          alert('There was an error with shutdown cancel. Please report this issue on Github!');
         }else{
           mdtoast('<i class="bi bi-check2-circle"></i>&nbsp;Power event was cancelled!', { type: 'success'});
         }
