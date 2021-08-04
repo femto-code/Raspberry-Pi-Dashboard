@@ -86,13 +86,14 @@ function authorize() {
       console.log(data.responseText);
       if(data.responseText.indexOf("true") > -1){
         document.getElementById("currentState").innerHTML = "<div class='alert alert-success' role='alert'><i class='bi bi-check2-circle'></i>&nbsp;Authorization completed!</font>";
-        $("#confbtn").html("<i class='bi bi-check2-circle'></i>&nbsp;Saved");
         var res=JSON.parse(data.responseText.split("true_")[1]);
         if( (res.act=="") || (res.date==null) ){
-          if (confirm(("There was an error with shutdown. Please check that user www-data has necessary rights to perform this action.\nShow help?"))){
-            location.href='https://github.com/femto-code/Raspberry-Pi-Dashboard#enabling-remote-shutdownreboot-optional';
+          $("#confbtn").html("<i class='bi bi-x-circle'></i>&nbsp;Failed");
+          if (confirm(("There was an error with scheduling the shutdown. This error usually goes back to incorrect permissions.\nPlease check that user www-data has necessary rights to perform this action.\nShow help?"))){
+            location.href='https://github.com/femto-code/Raspberry-Pi-Dashboard#enable-shutdown--reboot-optional';
           }
         }else{
+          $("#confbtn").html("<i class='bi bi-check2-circle'></i>&nbsp;Saved");
           outputShutdown(res.date,res.act);
         }
         setTimeout(function(){
@@ -109,7 +110,7 @@ function authorize() {
         $("#inputPassword2").addClass("is-invalid");
         $("#confbtn").html("Confirm identity");
       }else if(data.responseText.indexOf("false") > -1){
-        alert('There was an error with shutdown: Parameter error. Please report an issue.');
+        alert('There was an error with shutdown: Parameter error. Please report this issue on Github!');
       }
     }, function () {
       alert("Connection error");
@@ -157,7 +158,7 @@ function cancelShutdown(force) {
     }else{
       checkShutdown(function(){
         if(shutdownCurrent){
-          alert('There was an error with shutdown cancel. Please report an issue.');
+          alert('There was an error with shutdown cancel. Please report this issue on Github!');
         }else{
           mdtoast('<i class="bi bi-check2-circle"></i>&nbsp;Power event was cancelled!', { type: 'success'});
         }
@@ -570,9 +571,9 @@ document.querySelector('#applyBtn').onclick = function (e) {
   for (var i = 0; i < settingsKeys.length; i++) {
     val=document.getElementById(settingsKeys[i]).value;
     if(val==""){
-      val=defaultSettings[i];
-      sFormData.append(settingsKeys[i], val);
-    }else if(val=="***"){
+      //val=defaultSettings[i];
+      //sFormData.append(settingsKeys[i], val);
+    }else if(val=="***notdefault***"){
       // NOTE: password is altered (not default) -> leave as is
     }else{
       if(settingsKeys[i]=="pass") {
@@ -592,6 +593,9 @@ document.querySelector('#applyBtn').onclick = function (e) {
     if(data.responseText=="1"){
       mdtoast('<i class="bi bi-check2-circle"></i>&nbsp;Settings were updated!', { type: 'success'});
       $("#sformFeedback").html('<div class="mt-2 alert alert-success alert-dismissible fade show" role="alert"><i class="bi bi-check2-circle"></i>&nbsp;Saved successfully! <a href="javascript:location.reload()" class="alert-link">Reload</a> the page for changes to take effect.<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
+    }else if(data.responseText=="nothing changed"){
+      mdtoast('<i class="bi bi-info-circle"></i>&nbsp;Nothing was changed!', { type: 'info'});
+      $("#sformFeedback").html('<div class="mt-2 alert alert-info alert-dismissible fade show" role="alert"><i class="bi bi-info-circle"></i>&nbsp;All set! You did not change anything.<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
     }else{
       mdtoast('<i class="bi bi-x-circle"></i>&nbsp;There was an error! ('+data.responseText+')', { type: 'error'});
       $("#sformFeedback").html('<div class="mt-2 alert alert-danger" role="alert"><i class="bi bi-x-circle"></i>&nbsp;Failed! <a class="alert-link" href="https://github.com/femto-code/Raspberry-Pi-Dashboard/issues/new" target="blank">Create an issue</a> mentioning error message: <kbd>'+data.responseText+'</kbd>.</div>');
