@@ -11,8 +11,8 @@
 
 - Live surveillance of RPi hardware (CPU Temperature, frequency, loads etc.) with customizable warning thresholds
 - Detailed software/hardware information (web server, PHP, storage / partition workload, core voltage, plugged USB devices, kernel version, model specifications, OS, CPU, network config)
-- Protected access with password login (default: root) ([configure password](https://github.com/femto-code/Rasberry-Pi-Dashboard#configure-password))
-- Power (shutdown/reboot) Raspberry Pi with schedule options ([setup instructions](https://github.com/femto-code/Rasberry-Pi-Dashboard#enabling-remote-shutdownreboot-optional))
+- Protected access with password login (default: root) ([configure password](https://github.com/femto-code/Raspberry-Pi-Dashboard#configure-password-manually))
+- Power (shutdown/reboot) Raspberry Pi with schedule options ([setup instructions](https://github.com/femto-code/Raspberry-Pi-Dashboard#enable-shutdown--reboot-optional))
 - Mobile WebApp integration
 - Responsive design layout allows usage on all screen sizes
 - Dark Theme (manual / auto)
