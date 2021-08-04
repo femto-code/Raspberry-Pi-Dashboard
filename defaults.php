@@ -10,7 +10,7 @@ return array (
   'general' =>
   array (
     'pass' => '63a9f0ea7bb98050796b649e85481845',
-    'initsetup' => '0',
+    'initialsetup' => '0',
   ),
 );
 ?>

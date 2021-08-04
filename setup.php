@@ -21,7 +21,7 @@ if(isset($_POST["complete"])){
 
   $edit=array('general' => array ());
   $edit["general"]["pass"]=md5($val);
-  $edit["general"]["initsetup"]="1";
+  $edit["general"]["initialsetup"]="1";
   //print_r($edit);
 
   $combined=array_replace_recursive($existing, $edit);
@@ -68,6 +68,26 @@ if(strlen($permtest)<2){
 }else{
   $permi1='<span class="text-success"><i class="bi bi-check-circle"></i>&nbsp;Passed!</span>';
   $pclass1="success";
+}
+
+function isFileWritable($path){
+  $writable_file = (file_exists($path) && is_writable($path));
+  $writable_directory = (!file_exists($path) && is_writable(dirname($path)));
+
+  if ($writable_file || $writable_directory) {
+      return true;
+  }
+  return false;
+}
+$perm0test=isFileWritable(__DIR__."/local.config");
+if($perm0test){
+  $permi0='<span class="text-success"><i class="bi bi-check-circle"></i>&nbsp;Passed!</span>';
+  $pclass0="success";
+  $p0help="It seems, that permissions are set correctly!";
+}else{
+  $permi0='<span class="text-danger"><i class="bi bi-x-circle"></i>&nbsp;Failed!</span>';
+  $pclass0="danger";
+  $p0help="Click for help on setting correct permissions!";
 }
 ?>
 <!DOCTYPE html>
@@ -331,7 +351,7 @@ body, .mdtoast{
             <div class="multisteps-form__content">
 
               <?php
-              if($config->get("general.initsetup")=="0"){
+              if($config->get("general.initialsetup")=="0"){
 
               ?>
 
@@ -386,13 +406,13 @@ body, .mdtoast{
 
                 <h4>Required</h4>
                 <div class="list-group mb-3" style="width: 100%">
-                  <a href="#" class="list-group-item list-group-item-action list-group-item-<?=$pclass1;?>">
+                  <a href="https://github.com/femto-code/Rasberry-Pi-Dashboard#valid-permissions" class="list-group-item list-group-item-action list-group-item-<?=$pclass0;?>">
                     <div class="d-flex w-100 justify-content-between">
                       <h5 class="mb-1">Basic directory access</h5>
-                      <small><?=$permi1;?></small>
+                      <small><?=$permi0;?></small>
                     </div>
                     <p class="mb-1">Storing user settings (password etc.) and configuration options (thresholds etc.)</p>
-                    <small>Click for help on setting correct permissions!</small>
+                    <small><?=$p0help;?></small>
                   </a>
                 </div>
                 
@@ -431,7 +451,7 @@ body, .mdtoast{
   </div>
 
   <?php
-  if($config->get("general.initsetup")=="0"){
+  if($config->get("general.initialsetup")=="0"){
   ?>
   <div class="alert alert-warning mt-3" role="alert"><i class="bi bi-info-circle"></i>&nbsp;<b>Welcome!</b> You need to complete this setup first before entering dashboard for the first time!</div>
   <?php
@@ -519,7 +539,7 @@ class ntwReq {
 }
 function completeSetup() {
   <?php
-  if($config->get("general.initsetup")=="0"){
+  if($config->get("general.initialsetup")=="0"){
   ?>
   if(checkPw()==false){
     alert("Please check password fields.");
