@@ -11,7 +11,7 @@ class Config{
 
   public function load($file, $defaultfile){
     if(!(file_exists($file))){
-      $myfile = fopen($file, "w") or die("Unable to open file! This error happens in the situation where the user responsible for web server (e.g. www-data) does not have rights to create/modify the local config file for saving your dashboard adjustments (your custom thresholds, password etc.). Please see installation instructions for setting correct permissions on your dashboard folder.");
+      $myfile = fopen($file, "w") or die("<br><br>Unable to open file! This error happens in the situation where the user responsible for web server (e.g. www-data) does not have rights to create/modify the local config file for saving your dashboard adjustments (your custom thresholds, password etc.).<br><br>THIS IS NECESSARY FOR THE DASHBOARD TO WORK!<br><br>Please see <a href='https://github.com/femto-code/Raspberry-Pi-Dashboard#valid-permissions' target='blank'>installation instructions</a> (and the permission prequisites) for setting correct permissions on your dashboard folder.");
       fwrite($myfile, "<?php\nreturn array();\n?>");
       fclose($myfile);
       chmod($file, 0664);
