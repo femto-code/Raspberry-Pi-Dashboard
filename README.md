@@ -42,29 +42,28 @@
 > This setup ensures that your user as well as the `www-data` user are allowed to write files to web directory (the minimum need of permissions)
 
 The following configuration is the commonly recommended set-up for your web server folder:
-(Source: https://dev.to/phlash909/comment/ahf6)
 
 1. First, make sure `www-data` group exists and add your current login:
-_(if you are using another distro than Raspbian/Raspberry Pi OS the username of web server can differ)_
-`sudo groupadd www-data`
-`sudo usermod -a -G www-data www-data`
+_(if you are using another distro than Raspbian/Raspberry Pi OS the username of web server can differ)_<br>
+`sudo groupadd www-data`<br>
+`sudo usermod -a -G www-data www-data`<br>
 `sudo usermod -a -G www-data <yourlogin>` (replace `<yourlogin>` with your username)
 
-2. Second, give the ownership of web folder to the `www-data` group and user. The following commands ensure that group members (including your own login) are able to write/edit files:
-`sudo chgrp -R www-data /var/www/html`
-`sudo chown -R www-data /var/www/html`
-`sudo chmod -R 775 /var/www/html`
+2. Second, give the ownership of web folder to the `www-data` group and *your* user. The following commands ensure that you have _full_ access on the files and group members (www-data) are able to write/edit files _only in the dashboard folder_:<br>
+`sudo chown -R <yourlogin>:www-data /var/www/html` (replace `<yourlogin>` with your username)<br>
+`sudo chmod -R 755 /var/www/html`
 
 3. Reboot your RPi (for permission changes to take effect)
 
-> An erroneous permission typically results in the situation where the user responsible for web server (e.g. `www-data`) does not have rights to create/modify the local config file for saving your dashboard adjustments (your custom thresholds, password etc.). In this case, the dashboard won't work at all and throwing this error (see #22).
+> An erroneous permission typically results in the situation where the user responsible for web server (e.g. `www-data`) does not have rights to create/modify the local config file for saving your dashboard adjustments (your custom thresholds, password etc.). In this case, the dashboard won't work at all and throwing this error.
 
 ### Setup project
 
 - navigate to your web folder (`cd /var/www/html`)
 - clone this Github repository: `git clone https://github.com/femto-code/Rasberry-Pi-Dashboard.git {your_subfolder_name}`
-- **DONE!** Open web browser with URL: `http://IP_OF_YOUR_RPI/{your_subfolder_name}`
-> Note: replace {your_subfolder_name} with your choice accordingly. You can also rename the base folder at any time afterwards.
+- Run `sudo chmod -R 775 /var/www/html/<your_subfolder_name>` to set correct permissions
+- **DONE!** Open web browser with URL: `http://IP_OF_YOUR_RPI/<your_subfolder_name>`
+> Note: replace <your_subfolder_name> with your choice of subfolder name accordingly. You can also rename the base folder at any time afterwards.
 
 ## Configuration / Help
 
