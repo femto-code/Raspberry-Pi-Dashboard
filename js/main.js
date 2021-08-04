@@ -598,7 +598,7 @@ document.querySelector('#applyBtn').onclick = function (e) {
       $("#sformFeedback").html('<div class="mt-2 alert alert-info alert-dismissible fade show" role="alert"><i class="bi bi-info-circle"></i>&nbsp;All set! You did not change anything.<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
     }else{
       mdtoast('<i class="bi bi-x-circle"></i>&nbsp;There was an error! ('+data.responseText+')', { type: 'error'});
-      $("#sformFeedback").html('<div class="mt-2 alert alert-danger" role="alert"><i class="bi bi-x-circle"></i>&nbsp;Config file (local.config) exists but could not be modified. Required permissions are not set correctly.<br><a class="alert-link" href="https://github.com/femto-code/Raspberry-Pi-Dashboard#valid-permissions" target="blank"><i class="bi bi-question"></i>&nbsp;Show help</a></div>');
+      $("#sformFeedback").html('<div class="mt-2 alert alert-danger" role="alert"><i class="bi bi-x-circle"></i>&nbsp;Config file (local.config) exists but could not be modified. Required permissions are not set correctly.<br><a class="alert-link" href="https://github.com/femto-code/Raspberry-Pi-Dashboard#valid-permissions" target="blank"><i class="bi bi-question-circle"></i>&nbsp;Show help</a></div>');
     }
   }, null, "POST", false, sFormData);
 };

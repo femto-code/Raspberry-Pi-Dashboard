@@ -113,7 +113,7 @@ if($auth){
   $permissionerr=false;
   $spannung=substr(exec("vcgencmd measure_volts core"),5);
   if( (strpos($spannung,"failed")!==false) || (strlen($spannung)<2) ){
-    $spannung=$spannung."<div class='alert alert-danger' role='alert'>Reading of core voltage failed. Please run<br><kbd>sudo usermod -aG video www-data</kbd><br>in a terminal to solve this problem.</div>";
+    $spannung=$spannung."<div class='alert alert-danger' role='alert'>Reading of core voltage failed. Please run<br><kbd>sudo usermod -aG video www-data</kbd><br>in a terminal to solve this problem.&nbsp;<a href='https://github.com/femto-code/Raspberry-Pi-Dashboard#core-voltage-or-other-hardware-info-output-is-not-shown-optional' target='blank'><i class='bi bi-question-circle'></i>&nbsp;Help</a></div>";
     $permissionerr=true;
   }
 }
@@ -274,7 +274,7 @@ if($auth){
         <div class="card-header">Model</div>
         <div class="card-body">
           <samp><?php echo exec("cat /sys/firmware/devicetree/base/model");?></samp>
-          <?php $ot=shell_exec("vcgencmd version");if($permissionerr){echo "<div class='alert alert-danger' role='alert'>Execution of system command failed. Please run<br><kbd>sudo usermod -aG video www-data</kbd><br>in a terminal to solve this problem.</div>";}else{echo '<samp>'.$ot.'</samp>';}?>
+          <?php $ot=shell_exec("vcgencmd version");if($permissionerr){echo "<div class='alert alert-danger' role='alert'>Execution of system command failed. Please run<br><kbd>sudo usermod -aG video www-data</kbd><br>in a terminal to solve this problem.&nbsp;<a href='https://github.com/femto-code/Raspberry-Pi-Dashboard#core-voltage-or-other-hardware-info-output-is-not-shown-optional' target='blank'><i class='bi bi-question-circle'></i>&nbsp;Help</a></div>";}else{echo '<samp>'.$ot.'</samp>';}?>
           <p class="card-text"><small class="text-muted">Updated <span><?php echo date("H:i:s");?> (at page load)</span></small></p>
         </div>
       </div>

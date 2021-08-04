@@ -554,6 +554,14 @@ function completeSetup() {
     return;
   }
   var value=document.getElementById("pwinput1").value;
+  <?php
+  }else{
+  ?>
+  var value="xyz"; // does not matter - server won't accept when setup done before
+  //location.replace("index.php");
+  <?php
+  }
+  ?>
   $("#submit").html("Processing...").prop("disabled", true);
   var vReq = new ntwReq("setup.php", function (data) {
     console.log(data.responseText);
@@ -573,33 +581,6 @@ function completeSetup() {
       
     }
   }, null, "POST", true, "complete=true&pw="+value);
-  <?php
-  }else{
-  ?>
-  $("#submit").html("Processing...").prop("disabled", true);
-  var vReq = new ntwReq("setup.php", function (data) {
-    console.log(data.responseText);
-    if(data.responseText=="1"){
-      window.setTimeout(function(){
-        $('#submit').html("<i class='bi bi-check-circle'></i>&nbsp;Successful");
-        window.setTimeout(function(){
-          location.replace("index.php");
-        }, 1000);
-      }, 1000);
-    }else{
-      if(data.responseText=="perm_error"){
-        if (confirm(("Config file (local.config) exists but could not be modified. Required permissions are not set correctly.\nShow help?"))){
-          window.open('https://github.com/femto-code/Raspberry-Pi-Dashboard#valid-permissions');
-        }
-      }
-      
-    }
-  }, null, "POST", true, "complete=true&pw=xyz");
-  //location.replace("index.php");
-  <?php
-  }
-  ?>
-
 
 }
 
