@@ -10,19 +10,26 @@ $config = new Config;
 $config->load("local.config", "defaults.php");
 
 if(isset($_POST["complete"])){
-  if(isset($_POST["pw"])){
-    $val=$_POST["pw"];
+
+  if($config->get("general.initialsetup")=="0"){
+
+    if(isset($_POST["pw"])){
+      $val=$_POST["pw"];
+    }else{
+      echo "Setup error - no password specified. Please create an issue <a href='https://github.com/femto-code/Raspberry-Pi-Dashboard/issues/new' target='blank'>here</a>.";
+      exit();
+    }
+    $edit=array('general' => array ());
+    $edit["general"]["pass"]=md5($val);
+    $edit["general"]["initialsetup"]="1";
+    //print_r($edit);
+
   }else{
-    echo "Setup error - no password specified. Please create an issue <a href='https://github.com/femto-code/Raspberry-Pi-Dashboard/issues/new' target='blank'>here</a>.";
-    exit();
+    $edit=$config->userconf;
   }
+  
 
   $existing=$config->userconf;
-
-  $edit=array('general' => array ());
-  $edit["general"]["pass"]=md5($val);
-  $edit["general"]["initialsetup"]="1";
-  //print_r($edit);
 
   $combined=array_replace_recursive($existing, $edit);
   echo $config->save($combined);
@@ -558,13 +565,37 @@ function completeSetup() {
         }, 1000);
       }, 1000);
     }else{
-      alert("Error occured.");
+      if(data.responseText=="perm_error"){
+        if (confirm(("Config file (local.config) exists but could not be modified. Required permissions are not set correctly.\nShow help?"))){
+          window.open('https://github.com/femto-code/Raspberry-Pi-Dashboard#valid-permissions');
+        }
+      }
+      
     }
   }, null, "POST", true, "complete=true&pw="+value);
   <?php
   }else{
   ?>
-  location.replace("index.php");
+  $("#submit").html("Processing...").prop("disabled", true);
+  var vReq = new ntwReq("setup.php", function (data) {
+    console.log(data.responseText);
+    if(data.responseText=="1"){
+      window.setTimeout(function(){
+        $('#submit').html("<i class='bi bi-check-circle'></i>&nbsp;Successful");
+        window.setTimeout(function(){
+          location.replace("index.php");
+        }, 1000);
+      }, 1000);
+    }else{
+      if(data.responseText=="perm_error"){
+        if (confirm(("Config file (local.config) exists but could not be modified. Required permissions are not set correctly.\nShow help?"))){
+          window.open('https://github.com/femto-code/Raspberry-Pi-Dashboard#valid-permissions');
+        }
+      }
+      
+    }
+  }, null, "POST", true, "complete=true&pw=xyz");
+  //location.replace("index.php");
   <?php
   }
   ?>
