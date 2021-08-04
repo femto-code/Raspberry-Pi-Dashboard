@@ -9,7 +9,7 @@ $config = new Config;
 $config->load("local.config", "defaults.php");
 
 if(!isset($_SESSION["setup"])){
-  if($config->get("general.initialsetup")=="0"){
+  if( ($config->get("general.initialsetup")=="0") || ($config->get("general.initialsetup")=="") ){
     header("Location: setup.php");
   }
 }
