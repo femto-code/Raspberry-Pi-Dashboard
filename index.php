@@ -40,7 +40,7 @@ $passVal = ($config->get("general.pass")!=='63a9f0ea7bb98050796b649e85481845') ?
 
 <link rel="stylesheet" href="css/bootstrap-4.6.0.min.css">
 <link rel="stylesheet" href="css/bootstrap-icons.css?v=1.4.0">
-<link rel="stylesheet" href="css/darkmode.css?v=0.10" id="dmcss" type="text/css" disabled>
+<link rel="stylesheet" href="css/darkmode.css?v=1.0.0" id="dmcss" type="text/css" disabled>
 <link rel="stylesheet" href="css/mdtoast.min.css?v=2.0.2">
 
 <title>RPi Dashboard</title>
@@ -503,9 +503,9 @@ if($auth){
             </div>
             <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordion">
               <div class="card-body">
-              <h3><font class='text-success'>&#10003;</font> Version 0.10</h3>
-              <ul><li>allow password change via options</li><li>updated <i>customize</i> section</li><li>notably improved Readme</li><li><a href='https://github.com/femto-code/Rasberry-Pi-Dashboard/releases'>Stay updated here</a></li><li><i><a href="CHANGELOG.md">All changes</a></i></li></ul>
-              <small>most important changes since RPi Dashboard v0.9 (Feb 2021)</small>
+              <h3><font class='text-success'>&#10003;</font> Version 1.0.0</h3>
+              <ul><li>brand-new setup and welcome page for easier setup and configuration instructions</li><li>notably updated readme with more comprehensive help / info</li><li><a href='https://github.com/femto-code/Rasberry-Pi-Dashboard/releases'>Stay updated here</a></li><li><i><a href="CHANGELOG.md">All changes</a></i></li></ul>
+              <small>most important changes since RPi Dashboard v0.10 (Mar 2021)</small>
               </div>
             </div>
           </div>
@@ -569,7 +569,7 @@ if($auth){
 <!-- Footer -->
 <footer style="line-height: 40px; background-color: #f5f5f5; margin-top: 10px;">
   <div class="container text-center">
-    RPi Dashboard v0.10 <font class="text-muted">(Mar 2021)</font> <span id="dot">&middot;</span> <font id="notf" class="text-success">See the <a href="https://github.com/femto-code/Rasberry-Pi-Dashboard/releases">Github releases</a> for updates!</font><br />
+    RPi Dashboard v1.0.0 <font class="text-muted">(Aug 2021)</font> <span id="dot">&middot;</span> <font id="notf" class="text-success">See the <a href="https://github.com/femto-code/Rasberry-Pi-Dashboard/releases">Github releases</a> for updates!</font><br />
     <button class="btn btn-secondary mb-2" onclick="$('#exampleModal').modal('show');"><i class="bi bi-gear"></i>&nbsp;Options</button>
     <hr style="margin-top: 0; margin-bottom: 0;">
     femto-code&nbsp;<a href="https://github.com/femto-code"><i class="bi bi-github"></i></a> &middot; <font class="text-muted">2018 - 2021</font>
@@ -593,7 +593,7 @@ var settingsKeys=["warn_cpu_temp", "warn_ram_space", "warn_loads_size", "upd_tim
 console.log("Custom user options: warncputemp="+warn_cpu_temp+" | warn_ram_space="+warn_ram_space+" | upd_time_interval="+upd_time_interval+" | warn_loads_size="+warn_loads_size);
 </script>
 
-<script src="js/main.js?v=0.10"></script>
+<script src="js/main.js?v=1.0.0"></script>
 
 <script>
 var ctx = document.getElementById('myChart').getContext('2d');

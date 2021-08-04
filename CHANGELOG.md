@@ -7,6 +7,22 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 Open for your feature [requests](https://github.com/femto-code/Rasberry-Pi-Dashboard/pulls) or [issues](https://github.com/femto-code/Rasberry-Pi-Dashboard/issues)!
 [https://github.com/femto-code/Rasberry-Pi-Dashboard](https://github.com/femto-code/Rasberry-Pi-Dashboard)
 
+## [1.0.0] - 2021-08-04
+> Call for testing!
+
+### Added
+- brand-new setup and welcome page for easier setup and configuration instructions 💯 🎆
+
+### Changed
+- notably updated readme with more comprehensive help / info
+- minor dark mode improvements
+- extended descriptions and help/instructions on error
+(- since v0.10 revamped user config options (major change requiring valid permissions set on /var/www/html - see #22 or installation instructions ❕ )
+
+### Fixed
+- auto-detection of missing permissions for retrieving advanced system information via vcgencmd
+- small improvements on settings
+
 ## [0.10] - 2021-03-18
 > Last release before a major 1.0.0
 
