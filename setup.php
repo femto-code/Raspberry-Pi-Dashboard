@@ -289,7 +289,7 @@ body, .mdtoast{
 <div class="container">
 
   <div style="margin:auto;margin-top: 30px" class="text-center">
-    <img class="mb-4" src="../login/official_logo.svg" alt="" width="72" height="72">
+    <img class="mb-4" src="img/official_logo.svg" alt="" width="72" height="72">
     <h1 class="headline h3 mb-2 font-weight-normal">Welcome!</h1>
     <h3 class="headline h5 mb-3 font-weight-light">Raspberry Pi Dashboard</h3>
     <h5 class="headline text-secondary font-weight-normal">Setup</h5>
@@ -624,9 +624,12 @@ function darkmode(state) {
 }
 if(localStorage.getItem("darkmode") != null){
   darkmode(localStorage.getItem("darkmode"));
+  document.getElementById(localStorage.getItem("darkmode")).checked="true";
+}else{
+  document.getElementById("false").checked="true";
 }
 
-document.getElementById(localStorage.getItem("darkmode")).checked="true";
+
 
 function checkPw() {
   var pw1=document.getElementById("pwinput1").value;
