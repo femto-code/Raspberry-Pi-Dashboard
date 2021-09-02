@@ -285,7 +285,7 @@ if($auth){
       <div class="card text-center border-info">
         <div class="card-header">Partitions / Storage</div>
         <div class="card-body">
-          <?php print "<pre style='text-align: left!important;'>"; echo shell_exec("df -h"); print "</pre>"; ?>
+          <?php print "<pre style='text-align: left!important;'>"; echo shell_exec("df -h | grep -v tmp"); print "</pre>"; ?>
           <p class="card-text"><small class="text-muted">Updated <span><?php echo date("H:i:s");?> (at page load)</span></small></p>
         </div>
       </div>
