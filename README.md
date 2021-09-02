@@ -1,7 +1,5 @@
 # <div align="center">Raspberry Pi Dashboard</div>
 
-## <div align="center">✔ Development will continue as of August 2021! ✔</div>
-
 <div align="center">View and manage your Pi system through your web browser!</div>
 <p align="center"><sub>Written in plain HTML5, CSS3, JavaScript and PHP (backend). <b>No extra software required!</b></sub></p>
 
@@ -60,8 +58,11 @@ _(if you are using another distro than Raspbian/Raspberry Pi OS the username of 
 ### Setup project
 
 - navigate to your web folder (`cd /var/www/html`)
-- clone this Github repository: `git clone https://github.com/femto-code/Rasberry-Pi-Dashboard.git {your_subfolder_name}`
-- Run `sudo chmod -R 775 /var/www/html/<your_subfolder_name>` to set correct permissions
+- clone this Github repository: `git clone https://github.com/femto-code/Rasberry-Pi-Dashboard.git <your_subfolder_name>`
+- Run
+  - `sudo chmod -R 775 /var/www/html/<your_subfolder_name>` and
+  - `sudo chown -R <yourlogin>:www-data /var/www/html/<your_subfolder_name>`<br>(replace `<yourlogin>` with your username)
+- to set correct permissions
 - **DONE!** Open web browser with URL: `http://IP_OF_YOUR_RPI/<your_subfolder_name>`
 > Note: replace <your_subfolder_name> with your choice of subfolder name accordingly. You can also rename the base folder at any time afterwards.
 
