@@ -246,7 +246,7 @@ if($auth){
     <div class="col-sm-6 pt-1 pt-md-0">
       <div class="card text-center border-info">
         <div class="card-body">
-          <h5 class="card-title"><i class="bi bi-hdd"></i>&nbsp;Disc Space</h5>
+          <h5 class="card-title"><i class="bi bi-hdd"></i>&nbsp;Disk Space</h5>
           <p class="card-text"><canvas height="100" class="doughnut-chart-container" id="space"></canvas>Total: <b><?php echo $ds_rund;?> GB</b> &#183; Free: <b><?php echo $df_rund;?> GB</b> &#183; Used: <b><?php echo round($ds-$df,2);?> GB</b></p>
           <p class="card-text"><small class="text-muted">Updated <span><?php echo date("H:i:s");?> (at page load)</span></small></p>
         </div>
