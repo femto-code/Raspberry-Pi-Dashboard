@@ -356,8 +356,12 @@ function updatedb(){
       var s = (warn>1) ? "s" : "";
       document.getElementById("overallstate").innerHTML="<font class='text-danger'><i class='bi bi-exclamation-circle'></i>&nbsp;"+warn+" critical value"+s+" detected!</font>";
       warnuser(warn);
+      $(document).attr('title', $(document).attr('title').replace("Loading...", "WARNING"));
+      $(document).attr('title', $(document).attr('title').replace("OK", "WARNING"));
     }else{
       document.getElementById("overallstate").innerHTML="<font class='text-success'><i class='bi bi-check2-circle'></i>&nbsp;System runs normally</font>";
+      $(document).attr('title', $(document).attr('title').replace("Loading...", "OK"));
+      $(document).attr('title', $(document).attr('title').replace("WARNING", "OK"));
     }
     $('.py').removeClass("progress-bar-striped progress-bar-animated");
   }, function () {

@@ -5,6 +5,23 @@
 
 ![Intro](img/intro2.png?raw=true "Components of this project")
 
+<div align="center">
+  <a href="https://github.com/femto-code/Raspberry-Pi-Dashboard/stargazers"><img src="https://img.shields.io/github/stars/femto-code/Raspberry-Pi-Dashboard?color=yellow" alt="Stars Badge"/></a>
+<a href="https://github.com/femto-code/Raspberry-Pi-Dashboard/network/members"><img src="https://img.shields.io/github/forks/femto-code/Raspberry-Pi-Dashboard?color=orange" alt="Forks Badge"/></a>
+<a href="https://github.com/femto-code/Raspberry-Pi-Dashboard/pulls"><img src="https://img.shields.io/github/issues-pr/femto-code/Raspberry-Pi-Dashboard" alt="Pull Requests Badge"/></a>
+<a href="https://github.com/femto-code/Raspberry-Pi-Dashboard/issues"><img src="https://img.shields.io/github/issues/femto-code/Raspberry-Pi-Dashboard" alt="Issues Badge"/></a>
+<a href="https://github.com/femto-code/Raspberry-Pi-Dashboard/graphs/contributors"><img alt="GitHub contributors" src="https://img.shields.io/github/contributors/femto-code/Raspberry-Pi-Dashboard?color=2b9348"></a>
+<a href="https://github.com/femto-code/Raspberry-Pi-Dashboard/blob/master/LICENSE"><img src="https://img.shields.io/github/license/femto-code/Raspberry-Pi-Dashboard?color=2b9348" alt="License Badge"/></a>
+<br>
+<a href="https://github.com/femto-code/Raspberry-Pi-Dashboard/"><img src="https://img.shields.io/github/repo-size/femto-code/Raspberry-Pi-Dashboard?color=important" alt="License Badge"/></a>
+<a href="https://github.com/femto-code/Raspberry-Pi-Dashboard/"><img src="https://img.shields.io/tokei/lines/github/femto-code/Raspberry-Pi-Dashboard?color=yellowgreen" alt="License Badge"/></a>
+<a href="https://github.com/femto-code/Raspberry-Pi-Dashboard/releases"><img src="https://img.shields.io/github/v/release/femto-code/Raspberry-Pi-Dashboard?color=success" alt="License Badge"/></a>
+<a href="https://github.com/femto-code/Raspberry-Pi-Dashboard/commits"><img src="https://img.shields.io/github/last-commit/femto-code/Raspberry-Pi-Dashboard" alt="License Badge"/></a>
+</div>
+<br>
+<p align="center"><a href="https://github.com/femto-code/Raspberry-Pi-Dashboard/issues">Report a Bug</a> | <a href="https://github.com/femto-code/Raspberry-Pi-Dashboard/issues">Request a New Feature</a> | <a href="https://github.com/femto-code/Raspberry-Pi-Dashboard/pulls">Help Develop This Project</a></p>
+<p align="center"><i>Loved the project? Please consider giving a star</i> :)</p>
+
 ## Features
 
 - Live surveillance of RPi hardware (CPU Temperature, frequency, loads etc.) with customizable warning thresholds
