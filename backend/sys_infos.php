@@ -11,6 +11,8 @@ if(!isset($_SESSION["rpidbauth"])){
 require "Config.php";
 $config = new Config;
 $config->load("../local.config", "../defaults.php");
+//Hostname
+$hostname = shell_exec("hostname");
 // Uptime
 $uptime = shell_exec("cat /proc/uptime");
 $uptime = explode(" ", $uptime);
@@ -142,7 +144,7 @@ if(isset($_GET["statemail"])){
   echo $ausgabe;
 
 }else{
-  $output = array('auth' => 'true', 'timest' => $timed, 'uptime' => $uptime_string, 'cputemp' => $cputemp, 'cpufreq' => $cpufreq, 'load' => $getLoad, 'memperc' => $memperc, 'memavail' => $mavail, 'memunavail' => $munavail, 'swapperc' => $swapperc, 'swaptotal' => $swaptotal, 'swapused' => $swapused);
+  $output = array('auth' => 'true', 'timest' => $timed, 'uptime' => $uptime_string, 'cputemp' => $cputemp, 'cpufreq' => $cpufreq, 'load' => $getLoad, 'memperc' => $memperc, 'memavail' => $mavail, 'memunavail' => $munavail, 'swapperc' => $swapperc, 'swaptotal' => $swaptotal, 'swapused' => $swapused, 'hostname' => $hostname);
   echo json_encode($output);
 }
 
