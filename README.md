@@ -1,10 +1,7 @@
-# <div align="center">Raspberry Pi Dashboard</div>
-
+![Intro](https://cdn.discordapp.com/attachments/742731876170465310/894937953233694790/RPi-Dashboard.png?raw=true "Components of this project")
 <div align="center">View and manage your Pi system through your web browser!</div>
 <p align="center"><sub>Written in plain HTML5, CSS3, JavaScript and PHP (backend). <b>No extra software required!</b></sub></p>
-
-![Intro](img/intro2.png?raw=true "Components of this project")
-
+<br>
 <div align="center">
   <a href="https://github.com/femto-code/Raspberry-Pi-Dashboard/stargazers"><img src="https://img.shields.io/github/stars/femto-code/Raspberry-Pi-Dashboard?color=yellow" alt="Stars Badge"/></a>
 <a href="https://github.com/femto-code/Raspberry-Pi-Dashboard/network/members"><img src="https://img.shields.io/github/forks/femto-code/Raspberry-Pi-Dashboard?color=orange" alt="Forks Badge"/></a>
