@@ -1,4 +1,4 @@
-![Intro](https://cdn.discordapp.com/attachments/742731876170465310/894937953233694790/RPi-Dashboard.png?raw=true "Components of this project")
+![Intro](https://cdn.discordapp.com/attachments/742731876170465310/894939832105726062/RPi-Dashboard.png?raw=true "Components of this project")
 <div align="center">View and manage your Pi system through your web browser!</div>
 <p align="center"><sub>Written in plain HTML5, CSS3, JavaScript and PHP (backend). <b>No extra software required!</b></sub></p>
 <br>
