@@ -18,6 +18,8 @@ $path=$_SERVER['SCRIPT_FILENAME'];
 $fol=substr($path, 0, -9);
 
 $passVal = ($config->get("general.pass")!=='63a9f0ea7bb98050796b649e85481845') ? "***notdefault***" : '';
+
+$string = trim(preg_replace('/\s\s+/', '', shell_exec("hostname")));
 ?>
 <!doctype html>
 <html lang="en">
@@ -43,7 +45,7 @@ $passVal = ($config->get("general.pass")!=='63a9f0ea7bb98050796b649e85481845') ?
 <link rel="stylesheet" href="css/darkmode.css?v=1.0.1" id="dmcss" type="text/css" disabled>
 <link rel="stylesheet" href="css/mdtoast.min.css?v=2.0.2">
 
-<title>RPi Dashboard</title>
+<title><?php system("hostname");?> - Loading...</title>
 
 <style>
 /* rubik-300 - latin */
@@ -139,6 +141,9 @@ if($auth){
         <a class="nav-link" href="backend/sys_infos.php?statemail" onclick="alert('Status Mail support will arrive soon!');return false;">Status Mail</a>
       </li> -->
     </ul>
+    <button class="btn btn-secondary mb-2" style="margin-bottom: 1px!important;" onclick="$('#exampleModal').modal('show');"><i class="bi bi-gear"></i>&nbsp;Options</button>
+    &nbsp;
+    &nbsp;
     <p style="color: white;line-height:15px;margin-bottom:0px"><b>Hostname:</b> <?php system("hostname");?> &#183; <b>Internal IP:</b> <?php echo $_SERVER["SERVER_ADDR"];?><br>
     <b>Access from:</b> <?php echo $_SERVER["REMOTE_ADDR"];?> &#183; <b>Port:</b> <?php echo $_SERVER['SERVER_PORT']; ?></p>
   </div>
@@ -243,7 +248,7 @@ if($auth){
     <div class="col-sm-6 pt-1 pt-md-0">
       <div class="card text-center border-info">
         <div class="card-body">
-          <h5 class="card-title"><i class="bi bi-hdd"></i>&nbsp;SD Card</h5>
+          <h5 class="card-title"><i class="bi bi-hdd"></i>&nbsp;Disk Space</h5>
           <p class="card-text"><canvas height="100" class="doughnut-chart-container" id="space"></canvas>Total: <b><?php echo $ds_rund;?> GB</b> &#183; Free: <b><?php echo $df_rund;?> GB</b> &#183; Used: <b><?php echo round($ds-$df,2);?> GB</b></p>
           <p class="card-text"><small class="text-muted">Updated <span><?php echo date("H:i:s");?> (at page load)</span></small></p>
         </div>
@@ -552,7 +557,7 @@ if($auth){
             <div class="input-group-prepend">
               <span class="input-group-text" id="myPsw">Password</span>
             </div>
-            <input type="password" class="form-control" placeholder="" aria-label="Password" aria-describedby="myPsw" id="lpwd">
+            <input type="password" class="form-control" placeholder="" aria-label="Password" aria-describedby="myPsw" id="lpwd" autofocus>
             <div class="invalid-feedback">Invalid password!</div>
           </div>
         </form>
@@ -591,6 +596,10 @@ upd_time_interval = <?=$config->get("thresholds.upd_time_interval")?>;
 warn_loads_size = <?=$config->get("thresholds.warn_loads_size")?>;
 var settingsKeys=["warn_cpu_temp", "warn_ram_space", "warn_loads_size", "upd_time_interval", "pass"];
 console.log("Custom user options: warncputemp="+warn_cpu_temp+" | warn_ram_space="+warn_ram_space+" | upd_time_interval="+upd_time_interval+" | warn_loads_size="+warn_loads_size);
+var hostname = <?="'".$string."'";?>;
+$('.modal').on('shown.bs.modal', function() {
+  $(this).find('[autofocus]').focus();
+});
 </script>
 
 <script src="js/main.js?v=1.0.1"></script>
