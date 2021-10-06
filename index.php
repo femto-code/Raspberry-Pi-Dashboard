@@ -141,7 +141,7 @@ if($auth){
         <a class="nav-link" href="backend/sys_infos.php?statemail" onclick="alert('Status Mail support will arrive soon!');return false;">Status Mail</a>
       </li> -->
     </ul>
-    <button class="btn btn-secondary mb-2" onclick="$('#exampleModal').modal('show');"><i class="bi bi-gear"></i>&nbsp;Options</button>
+    <button class="btn btn-secondary mb-2" style="margin-bottom: 1px!important;" onclick="$('#exampleModal').modal('show');"><i class="bi bi-gear"></i>&nbsp;Options</button>
     &nbsp;
     &nbsp;
     <p style="color: white;line-height:15px;margin-bottom:0px"><b>Hostname:</b> <?php system("hostname");?> &#183; <b>Internal IP:</b> <?php echo $_SERVER["SERVER_ADDR"];?><br>
