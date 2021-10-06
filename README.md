@@ -1,4 +1,4 @@
-![Intro](img/logo.png?raw=true "Components of this project")
+![Intro](img/logo.png?raw=true "Raspberry Pi Dashboard - Project Logo")
 <div align="center">View and manage your Pi system through your web browser!</div>
 <p align="center"><sub>Written in plain HTML5, CSS3, JavaScript and PHP (backend). <b>No extra software required!</b></sub></p>
 <br>
