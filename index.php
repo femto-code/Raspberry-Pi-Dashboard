@@ -18,6 +18,8 @@ $path=$_SERVER['SCRIPT_FILENAME'];
 $fol=substr($path, 0, -9);
 
 $passVal = ($config->get("general.pass")!=='63a9f0ea7bb98050796b649e85481845') ? "***notdefault***" : '';
+
+$string = trim(preg_replace('/\s\s+/', '', shell_exec("hostname")));
 ?>
 <!doctype html>
 <html lang="en">
@@ -594,6 +596,7 @@ upd_time_interval = <?=$config->get("thresholds.upd_time_interval")?>;
 warn_loads_size = <?=$config->get("thresholds.warn_loads_size")?>;
 var settingsKeys=["warn_cpu_temp", "warn_ram_space", "warn_loads_size", "upd_time_interval", "pass"];
 console.log("Custom user options: warncputemp="+warn_cpu_temp+" | warn_ram_space="+warn_ram_space+" | upd_time_interval="+upd_time_interval+" | warn_loads_size="+warn_loads_size);
+var hostname = <?="'".$string."'";?>;
 </script>
 
 <script src="js/main.js?v=1.0.1"></script>

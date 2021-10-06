@@ -242,7 +242,7 @@ function logout(){
       timer=false;
       console.log("Timer gestoppt");
     }
-    document.title = <?=system("hostname");?> + ' - Waiting for Authentication...';
+    document.title = hostname + ' - Waiting for Authentication...';
     $('#overallstate').html('<font class="text-muted"><i class="bi bi-hourglass-split"></i>&nbsp;Waiting for authentication ...</font>');
     $("#staticBackdrop").modal("show");
   }, function () {
@@ -273,7 +273,7 @@ function updatedb(){
   var vReq = new ntwReq("backend/sys_infos.php", function (data) {
     var result=JSON.parse(data.responseText);
     $('.py').addClass("progress-bar-striped progress-bar-animated");
-    document.title = <?=system("hostname");?> + ' - Loading...';
+    document.title = hostname + ' - Loading...';
     console.log("Live : Updating...");
     $('#overallstate').html('<font class="text-muted"><i class="bi bi-hourglass-split"></i>&nbsp;Updating ...</font>');
     document.getElementById("sys11").innerHTML="";
@@ -283,7 +283,7 @@ function updatedb(){
         timer=false;
         console.log("Timer gestoppt");
       }
-      document.title = <?=system("hostname");?> + ' - Waiting for Authentication...';
+      document.title = hostname + ' - Waiting for Authentication...';
       $('#overallstate').html('<font class="text-muted"><i class="bi bi-hourglass-split"></i>&nbsp;Waiting for authentication ...</font>');
       $('#staticBackdrop').modal('show');
       $("footer").addClass("fixed-bottom");
@@ -359,10 +359,10 @@ function updatedb(){
       var s = (warn>1) ? "s" : "";
       document.getElementById("overallstate").innerHTML="<font class='text-danger'><i class='bi bi-exclamation-circle'></i>&nbsp;"+warn+" critical value"+s+" detected!</font>";
       warnuser(warn);
-      document.title = <?=system("hostname");?> + ' - WARNING';
+      document.title = hostname + ' - WARNING';
     }else{
       document.getElementById("overallstate").innerHTML="<font class='text-success'><i class='bi bi-check2-circle'></i>&nbsp;System runs normally</font>";
-      document.title = <?=system("hostname");?> + ' - OK';
+      document.title = hostname + ' - OK';
     }
     $('.py').removeClass("progress-bar-striped progress-bar-animated");
   }, function () {
