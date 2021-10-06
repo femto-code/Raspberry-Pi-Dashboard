@@ -11,8 +11,6 @@ if(!isset($_SESSION["rpidbauth"])){
 require "Config.php";
 $config = new Config;
 $config->load("../local.config", "../defaults.php");
-//Hostname
-$hostname = shell_exec("hostname");
 // Uptime
 $uptime = shell_exec("cat /proc/uptime");
 $uptime = explode(" ", $uptime);
@@ -44,7 +42,7 @@ if ($s > 0) {
   $uptime_string .= $s . $sw;
 }
 // CPU temperature
-exec("cat /sys/class/thermal/thermal_zone*/temp",$cputemp);
+exec("cat /sys/class/thermal/thermal_zone0/temp",$cputemp);
 $cputemp = $cputemp[0] / 1000;
 // CPU frequency
 exec("cat /sys/devices/system/cpu/cpu0/cpufreq/scaling_cur_freq",$cpufreq);
@@ -144,7 +142,7 @@ if(isset($_GET["statemail"])){
   echo $ausgabe;
 
 }else{
-  $output = array('auth' => 'true', 'timest' => $timed, 'uptime' => $uptime_string, 'cputemp' => $cputemp, 'cpufreq' => $cpufreq, 'load' => $getLoad, 'memperc' => $memperc, 'memavail' => $mavail, 'memunavail' => $munavail, 'swapperc' => $swapperc, 'swaptotal' => $swaptotal, 'swapused' => $swapused, 'hostname' => $hostname);
+  $output = array('auth' => 'true', 'timest' => $timed, 'uptime' => $uptime_string, 'cputemp' => $cputemp, 'cpufreq' => $cpufreq, 'load' => $getLoad, 'memperc' => $memperc, 'memavail' => $mavail, 'memunavail' => $munavail, 'swapperc' => $swapperc, 'swaptotal' => $swaptotal, 'swapused' => $swapused);
   echo json_encode($output);
 }
 
