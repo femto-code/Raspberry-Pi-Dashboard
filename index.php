@@ -557,7 +557,7 @@ if($auth){
             <div class="input-group-prepend">
               <span class="input-group-text" id="myPsw">Password</span>
             </div>
-            <input type="password" class="form-control" placeholder="" aria-label="Password" aria-describedby="myPsw" id="lpwd">
+            <input type="password" class="form-control" placeholder="" aria-label="Password" aria-describedby="myPsw" id="lpwd" autofocus>
             <div class="invalid-feedback">Invalid password!</div>
           </div>
         </form>
@@ -597,6 +597,9 @@ warn_loads_size = <?=$config->get("thresholds.warn_loads_size")?>;
 var settingsKeys=["warn_cpu_temp", "warn_ram_space", "warn_loads_size", "upd_time_interval", "pass"];
 console.log("Custom user options: warncputemp="+warn_cpu_temp+" | warn_ram_space="+warn_ram_space+" | upd_time_interval="+upd_time_interval+" | warn_loads_size="+warn_loads_size);
 var hostname = <?="'".$string."'";?>;
+$('.modal').on('shown.bs.modal', function() {
+  $(this).find('[autofocus]').focus();
+});
 </script>
 
 <script src="js/main.js?v=1.0.1"></script>
