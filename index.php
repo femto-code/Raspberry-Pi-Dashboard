@@ -42,7 +42,7 @@ $string = trim(preg_replace('/\s\s+/', '', shell_exec("hostname")));
 
 <link rel="stylesheet" href="css/bootstrap-4.6.0.min.css">
 <link rel="stylesheet" href="css/bootstrap-icons.css?v=1.4.0">
-<link rel="stylesheet" href="css/darkmode.css?v=1.0.1" id="dmcss" type="text/css" disabled>
+<link rel="stylesheet" href="css/darkmode.css?v=1.1.0" id="dmcss" type="text/css" disabled>
 <link rel="stylesheet" href="css/mdtoast.min.css?v=2.0.2">
 
 <title><?php system("hostname");?> - Loading...</title>
@@ -508,9 +508,9 @@ if($auth){
             </div>
             <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordion">
               <div class="card-body">
-              <h3><font class='text-success'>&#10003;</font> Version 1.0.1</h3>
-              <ul><li>brand-new setup and welcome page for easier setup and configuration instructions</li><li>notably updated readme with more comprehensive help / info</li><li><a href='https://github.com/femto-code/Rasberry-Pi-Dashboard/releases'>Stay updated here</a></li><li><i><a href="CHANGELOG.md">All changes</a></i></li></ul>
-              <small>most important changes since RPi Dashboard v0.10 (Mar 2021)</small>
+              <h3><font class='text-success'>&#10003;</font> Version 1.1.0</h3>
+              <ul><li>live page title with hostname + status of monitored RPi</li><li>new project logo and improved readme.md design (thanks @Roo7K1d)</li><li><a href='https://github.com/femto-code/Rasberry-Pi-Dashboard/releases'>Stay updated here</a></li><li><i><a href="CHANGELOG.md">All changes</a></i></li></ul>
+              <small>most important changes since RPi Dashboard v1.0.1 (Sep 2021)</small>
               </div>
             </div>
           </div>
@@ -574,7 +574,7 @@ if($auth){
 <!-- Footer -->
 <footer style="line-height: 40px; background-color: #f5f5f5; margin-top: 10px;">
   <div class="container text-center">
-    RPi Dashboard v1.0.1 <font class="text-muted">(Sep 2021)</font> <span id="dot">&middot;</span> <font id="notf" class="text-success">See the <a href="https://github.com/femto-code/Rasberry-Pi-Dashboard/releases">Github releases</a> for updates!</font><br />
+    RPi Dashboard v1.1.0 <font class="text-muted">(Oct 2021)</font> <span id="dot">&middot;</span> <font id="notf" class="text-success">See the <a href="https://github.com/femto-code/Rasberry-Pi-Dashboard/releases">Github releases</a> for updates!</font><br />
     <button class="btn btn-secondary mb-2" onclick="$('#exampleModal').modal('show');"><i class="bi bi-gear"></i>&nbsp;Options</button>
     <hr style="margin-top: 0; margin-bottom: 0;">
     femto-code&nbsp;<a href="https://github.com/femto-code"><i class="bi bi-github"></i></a> &middot; <font class="text-muted">2018 - 2021</font>
@@ -602,7 +602,7 @@ $('.modal').on('shown.bs.modal', function() {
 });
 </script>
 
-<script src="js/main.js?v=1.0.1"></script>
+<script src="js/main.js?v=1.1.0"></script>
 
 <script>
 var ctx = document.getElementById('myChart').getContext('2d');

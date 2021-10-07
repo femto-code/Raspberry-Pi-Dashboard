@@ -7,6 +7,27 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 Open for your feature [requests](https://github.com/femto-code/Rasberry-Pi-Dashboard/pulls) or [issues](https://github.com/femto-code/Rasberry-Pi-Dashboard/issues)!
 [https://github.com/femto-code/Rasberry-Pi-Dashboard](https://github.com/femto-code/Rasberry-Pi-Dashboard)
 
+## [1.1.0] - 2021-10-09
+
+### Added
+- live page title with hostname + status of monitored RPi
+- new project logo and improved readme.md design (thanks @Roo7K1d)
+
+### Changed
+- renamed __SD Card__ to __Disk Space__
+- second options button placed in navbar for easier access
+- autofocus login modal password field
+
+## [1.0.1] - 2021-09-02
+
+### Changed
+- filter tmpfs not showing up in storage / partitions view (thanks @wannadrunk)
+- updated readme setup section for setting correct permissions
+
+### Fixed
+- bugs in setup page (resources)
+
+
 ## [1.0.0] - 2021-08-04
 > Call for testing!
 
