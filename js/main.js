@@ -398,6 +398,7 @@ function togglep(force){
     timer=false;
     console.log("Timer gestoppt");
     $('#overallstate').html('<font class="text-muted"><i class="bi bi-clock"></i>&nbsp;Live Update disabled</font>');
+    document.title = "(OLD) " + document.title;
     $('.py').addClass("bg-danger");
     return '<i class="bi bi-play"></i>';
   }
