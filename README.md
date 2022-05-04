@@ -18,6 +18,7 @@
 <br>
 <p align="center"><a href="https://github.com/femto-code/Raspberry-Pi-Dashboard/issues">Report a Bug</a> | <a href="https://github.com/femto-code/Raspberry-Pi-Dashboard/issues">Request a New Feature</a> | <a href="https://github.com/femto-code/Raspberry-Pi-Dashboard/pulls">Help Develop This Project</a></p>
 <p align="center"><i>Loved the project? Please consider giving a star</i> :)</p>
+<p align="center><i>Active development will continue soon!</i></p>
 
 ## Features
 
