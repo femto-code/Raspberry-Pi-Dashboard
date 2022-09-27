@@ -113,7 +113,7 @@ function authorize() {
         alert('There was an error with shutdown: Parameter error. Please report this issue on Github!');
       }
     }, function () {
-      alert("Connection error");
+      alert("Failed to execute requested shutdown action!");
     });
   }
 }
@@ -142,7 +142,7 @@ function checkShutdown(callback) {
       }
     }
   }, function () {
-    alert("Connection error");
+    alert("Failed checking for upcoming shutdown events!");
   });
 }
 
@@ -165,7 +165,7 @@ function cancelShutdown(force) {
       });
     }
   }, function () {
-    alert("Connection error");
+    alert("Failed to cancel existing shutdown!");
   });
 }
 
@@ -226,13 +226,6 @@ function shutdown(){
     }
   }, 3000);
 }
-function send_supportmail(){
-  esubject="Support-Mail";
-  // ebody is created in update function
-  ebody = encodeURIComponent(ebody);
-  estring="mailto:gitarrenflo@gmx.de?subject="+esubject+"&body="+ebody;
-  location.href=estring;
-}
 
 function logout(){
   var vReq = new ntwReq("backend/serv.php?logout", function (data) {
@@ -246,7 +239,7 @@ function logout(){
     $('#overallstate').html('<font class="text-muted"><i class="bi bi-hourglass-split"></i>&nbsp;Waiting for authentication ...</font>');
     $("#staticBackdrop").modal("show");
   }, function () {
-    alert("Connection error");
+    alert("Logging out failed!");
   });
 }
 
@@ -290,7 +283,6 @@ function updatedb(){
       return;
     }
     if(!timer) togglep(false);
-    //ebody = 'Loads: ' + result.load + '\r\n' + 'Timestamp: ' + result.timest + '\r\n' + 'Uptime: ' + result.uptime + '\r\n' + 'CPU Temperature: ' + result.cputemp + '\r\n' + 'CPU Frequency: ' + result.cpufreq + '\r\n' + 'RAM total: ' + (result.memavail + result.memunavail) + '\r\n' + 'RAM used: ' + result.memunavail + '\r\n' + 'RAM free: ' + result.memavail + '\r\n' + 'RAM perc: ' + result.memperc + '\r\n' + 'SWAP perc: ' + result.swapperc + '\r\n' + 'SWAP total: ' + result.swaptotal + '\r\n' + 'SWAP used: ' + result.swapused;
     warn=0;
     var x = document.getElementsByName("lastupdated");
     var i;
@@ -367,7 +359,7 @@ function updatedb(){
     $('.py').removeClass("progress-bar-striped progress-bar-animated");
   }, function () {
     $('#overallstate').html('<font class="text-danger"><i class="bi bi-x-circle"></i>&nbsp;Connection lost ...</font>');
-    alert("Connection error");
+    alert("Failed updating the dashboard!");
   });
 }
 // Live-Static-change
