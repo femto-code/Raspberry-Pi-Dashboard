@@ -123,7 +123,7 @@ if($auth){
 
 </head>
 <body onload="preload()" style="background-color: #eee">
-<noscript style="z-index: 99999!important; position: absolute; top: 0; width: 98%; padding: 3%;"><div class="alert alert-danger" role="alert">JavaScript is disabled in your browser. This site <b>requires</b> JS in order to work properly - please activate!</div></noscript>
+<noscript style="z-index: 99999!important; position: absolute; top: 0; width: 98%; padding: 3%;"><div class="alert alert-danger" role="alert">Raspberry Pi Dashboard Web Application <b>requires</b> JavaScript to be enabled in order to work properly - enable it to continue!</div></noscript>
 <div class="preload-screen"></div>
 
 <nav class="navbar navbar-expand-lg fixed-top navbar-dark bg-dark shadow-sm">
@@ -508,8 +508,8 @@ if($auth){
             </div>
             <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordion">
               <div class="card-body">
-              <h3><font class='text-success'>&#10003;</font> Version 1.1.0</h3>
-              <ul><li>live page title with hostname + status of monitored RPi</li><li>new project logo and improved readme.md design (thanks @Roo7K1d)</li><li><a href='https://github.com/femto-code/Rasberry-Pi-Dashboard/releases'>Stay updated here</a></li><li><i><a href="CHANGELOG.md">All changes</a></i></li></ul>
+              <h3><span class='text-success'>&#10003;</span> Version 1.1.1</h3>
+              <ul><li>live page title with hostname + status of monitored RPi</li><li>overhauled project documentation / readme</li><li><a href='https://github.com/femto-code/Rasberry-Pi-Dashboard/releases'>Stay updated here</a></li><li><i><a href="CHANGELOG.md">All changes</a></i></li></ul>
               <small>most important changes since RPi Dashboard v1.0.1 (Sep 2021)</small>
               </div>
             </div>
@@ -574,10 +574,10 @@ if($auth){
 <!-- Footer -->
 <footer style="line-height: 40px; background-color: #f5f5f5; margin-top: 10px;">
   <div class="container text-center">
-    RPi Dashboard v1.1.0 <font class="text-muted">(Oct 2021)</font> <span id="dot">&middot;</span> <font id="notf" class="text-success">See the <a href="https://github.com/femto-code/Rasberry-Pi-Dashboard/releases">Github releases</a> for updates!</font><br />
+    RPi Dashboard v1.1.1 <span class="text-muted">(Jan 2023)</span> <span id="dot">&middot;</span> <span id="notf" class="text-success">See the <a href="https://github.com/femto-code/Rasberry-Pi-Dashboard/releases">Github releases</a> for updates!</span><br />
     <button class="btn btn-secondary mb-2" onclick="$('#exampleModal').modal('show');"><i class="bi bi-gear"></i>&nbsp;Options</button>
     <hr style="margin-top: 0; margin-bottom: 0;">
-    femto-code&nbsp;<a href="https://github.com/femto-code"><i class="bi bi-github"></i></a> &middot; <font class="text-muted">2018 - 2021</font>
+    femto-code&nbsp;<a href="https://github.com/femto-code"><i class="bi bi-github"></i></a> &middot; <span class="text-muted">2018 - 2023</span>
   </div>
 </footer>
 <!-- End Footer -->
