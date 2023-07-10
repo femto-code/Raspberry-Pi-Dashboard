@@ -460,7 +460,7 @@ function checkLauth(){
 }
 
 $('#indicatorContainer').radialIndicator({
-  barColor: tempunit ? {
+  barColor: temp_unit ? {
     32: '#dfffbf',
     122: '#45b438',
     149: '#ff4000',
