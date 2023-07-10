@@ -442,7 +442,7 @@ if($auth){
             <h4 class="mb-0">Appearance</h4>
             <small class="text-muted">Only on this device</small>
             <div class="custom-control custom-switch">
-              <input type="checkbox" class="custom-control-input" id="tempunit" value="<?=$config->modified("general.temp_use_fahrenheit")?>">
+              <input type="checkbox" class="custom-control-input" id="tempunit" checked="<?=($config->modified("general.temp_use_fahrenheit"))?"true":"false"?>">
               <label class="custom-control-label" for="tempunit">Show Fahrenheit (°F) values</label>
             </div>
             <div class="custom-control custom-switch">
