@@ -442,6 +442,10 @@ if($auth){
             <h4 class="mb-0">Appearance</h4>
             <small class="text-muted">Only on this device</small>
             <div class="custom-control custom-switch">
+              <input type="checkbox" class="custom-control-input" id="tempunit" value="<?=$config->modified("general.temp_use_fahrenheit")?>">
+              <label class="custom-control-label" for="tempunit">Show Fahrenheit (°F) values</label>
+            </div>
+            <div class="custom-control custom-switch">
               <input type="checkbox" onchange="toggleDarkMode()" class="custom-control-input" id="dm">
               <label class="custom-control-label" for="dm">Dark Mode</label>
             </div>
@@ -517,7 +521,7 @@ if($auth){
           <div class="card">
             <div class="card-header" id="headingTwo">
               <h5 class="mb-0">
-              <button class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">Customization&nbsp;<span class="badge badge-warning">New</span></button>
+              <button class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">Customization</button>
               </h5>
             </div>
             <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordion">
@@ -594,7 +598,8 @@ warn_cpu_temp = <?=$config->get("thresholds.warn_cpu_temp")?>;
 warn_ram_space = <?=$config->get("thresholds.warn_ram_space")?>;
 upd_time_interval = <?=$config->get("thresholds.upd_time_interval")?>;
 warn_loads_size = <?=$config->get("thresholds.warn_loads_size")?>;
-var settingsKeys=["warn_cpu_temp", "warn_ram_space", "warn_loads_size", "upd_time_interval", "pass"];
+temp_unit = <?=$config->get("general.temp_use_fahrenheit")?>;
+var settingsKeys=["warn_cpu_temp", "warn_ram_space", "warn_loads_size", "upd_time_interval", "pass", "tempunit"];
 console.log("Custom user options: warncputemp="+warn_cpu_temp+" | warn_ram_space="+warn_ram_space+" | upd_time_interval="+upd_time_interval+" | warn_loads_size="+warn_loads_size);
 var hostname = <?="'".$string."'";?>;
 $('.modal').on('shown.bs.modal', function() {

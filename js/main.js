@@ -296,8 +296,10 @@ function updatedb(){
     // Uptime
     document.getElementById("uptime").innerHTML=result.uptime;
     // CPU Temperature
-    document.getElementById("temperature").innerHTML=result.cputemp;
-    radialObj.animate(Math.round(result.cputemp));
+    var tempValcelcius = result.cputemp;
+    var tempValfahrenheit = result.cputemp * 1.8 + 32;
+    document.getElementById("temperature").innerHTML = temp_unit ? tempValfahrenheit : tempValcelcius;
+    radialObj.animate(Math.round(temp_unit ? tempValfahrenheit : tempValcelcius));
     //console.log(parseInt(result.cputemp));
     if ( parseInt(result.cputemp) < warn_cpu_temp){
       document.getElementById("tempstate").innerHTML="<i class='bi bi-thermometer-half'></i>&nbsp;Temperature <font class='text-success'>(OK)</font>";
