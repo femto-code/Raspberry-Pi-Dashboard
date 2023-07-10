@@ -460,7 +460,13 @@ function checkLauth(){
 }
 
 $('#indicatorContainer').radialIndicator({
-  barColor: {
+  barColor: tempunit ? {
+    32: '#dfffbf',
+    122: '#45b438',
+    149: '#ff4000',
+    172: '#cc0000',
+    212: '#000'
+  } : {
     0: '#dfffbf',
     50: '#45b438',
     65: '#ff4000',
@@ -468,9 +474,9 @@ $('#indicatorContainer').radialIndicator({
     100: '#000'
   },
   //barBgColor: '#888888',
-  initValue: 0,
-  minValue: 0,
-  maxValue: 100,
+  initValue: temp_unit ? 32 : 0,
+  minValue: temp_unit ? 32 : 0,
+  maxValue: temp_unit ? 212 : 100,
   format: temp_unit ? '##°F' : '##°C'
 });
 var radialObj = $('#indicatorContainer').data('radialIndicator');
