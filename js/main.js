@@ -298,7 +298,7 @@ function updatedb(){
     // CPU Temperature
     var tempValcelcius = Math.round(result.cputemp*100)/100;
     var tempValfahrenheit = Math.round(result.cputemp * 1.8 + 32);
-    document.getElementById("temperature").innerHTML = temp_unit ? tempValfahrenheit : tempValcelcius;
+    document.getElementById("temperature").innerHTML = temp_unit ? tempValfahrenheit + "°F" : tempValcelcius + "°C";
     radialObj.animate(Math.round(temp_unit ? tempValfahrenheit : tempValcelcius));
     //console.log(parseInt(result.cputemp));
     if ( parseInt(result.cputemp) < warn_cpu_temp){

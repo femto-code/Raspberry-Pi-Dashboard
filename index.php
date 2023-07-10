@@ -200,7 +200,7 @@ if($auth){
         <div class="card-body">
         <h5 id="tempstate" class="card-title"></h5>
         <div id="indicatorContainer"></div><!--CPU-Indicator-->
-        <p class="card-text"><b><span style="font-size: 20px" id="temperature"></span> °C</b></p>
+        <p class="card-text"><b><span style="font-size: 20px" id="temperature"></span></b></p>
         <p class="card-text"><small class="text-muted">Updated <span name="lastupdated">now</span></small></p>
         </div>
       </div>
