@@ -517,9 +517,9 @@ if($auth){
             </div>
             <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordion">
               <div class="card-body">
-              <h3><span class='text-success'>&#10003;</span> Version 1.1.1</h3>
+              <h3><span class='text-success'>&#10003;</span> Version 1.1.2</h3>
               <ul><li>live page title with hostname + status of monitored RPi</li><li>overhauled project documentation / readme</li><li><a href='https://github.com/femto-code/Rasberry-Pi-Dashboard/releases'>Stay updated here</a></li><li><i><a href="CHANGELOG.md">All changes</a></i></li></ul>
-              <small>most important changes since RPi Dashboard v1.0.1 (Sep 2021)</small>
+              <small>most important changes since RPi Dashboard v1.0.1</small>
               </div>
             </div>
           </div>
@@ -583,7 +583,7 @@ if($auth){
 <!-- Footer -->
 <footer style="line-height: 40px; background-color: #f5f5f5; margin-top: 10px;">
   <div class="container text-center">
-    RPi Dashboard v1.1.1 <span class="text-muted">(Jan 2023)</span> <span id="dot">&middot;</span> <span id="notf" class="text-success">See the <a href="https://github.com/femto-code/Rasberry-Pi-Dashboard/releases">Github releases</a> for updates!</span><br />
+    RPi Dashboard v1.1.2 <span class="text-muted">(Jul 2023)</span> <span id="dot">&middot;</span> <span id="notf" class="text-success">See the <a href="https://github.com/femto-code/Rasberry-Pi-Dashboard/releases">Github releases</a> for updates!</span><br />
     <button class="btn btn-secondary mb-2" onclick="$('#exampleModal').modal('show');"><i class="bi bi-gear"></i>&nbsp;Options</button>
     <hr style="margin-top: 0; margin-bottom: 0;">
     femto-code&nbsp;<a href="https://github.com/femto-code"><i class="bi bi-github"></i></a> &middot; <span class="text-muted">2018 - 2023</span>
