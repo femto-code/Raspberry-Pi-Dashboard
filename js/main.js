@@ -570,6 +570,7 @@ document.querySelector('#applyBtn').onclick = function (e) {
   var val;
   for (var i = 0; i < settingsKeys.length; i++) {
     val = (settingsKeys[i] == "tempunit") ? document.getElementById(settingsKeys[i]).checked : document.getElementById(settingsKeys[i]).value;
+    console.log(settingsKeys[i], val);
     if(val==""){
       //val=defaultSettings[i];
       //sFormData.append(settingsKeys[i], val);

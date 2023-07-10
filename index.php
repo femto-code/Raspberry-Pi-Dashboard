@@ -442,7 +442,7 @@ if($auth){
             <h4 class="mb-0">Appearance</h4>
             <small class="text-muted">Only on this device</small>
             <div class="custom-control custom-switch">
-              <input type="checkbox" class="custom-control-input" id="tempunit" checked="<?=($config->modified("general.temp_use_fahrenheit"))?"true":"false"?>">
+              <input type="checkbox" class="custom-control-input" id="tempunit">
               <label class="custom-control-label" for="tempunit">Show Fahrenheit (°F) values</label>
             </div>
             <div class="custom-control custom-switch">
@@ -599,6 +599,7 @@ warn_ram_space = <?=$config->get("thresholds.warn_ram_space")?>;
 upd_time_interval = <?=$config->get("thresholds.upd_time_interval")?>;
 warn_loads_size = <?=$config->get("thresholds.warn_loads_size")?>;
 temp_unit = <?=$config->get("general.temp_use_fahrenheit")?>;
+document.getElementById("tempunit").checked = <?($config->modified("general.temp_use_fahrenheit"))?"true":"false";?>;
 console.log("Temp unit setting: ", temp_unit);
 var settingsKeys=["warn_cpu_temp", "warn_ram_space", "warn_loads_size", "upd_time_interval", "pass", "tempunit"];
 console.log("Custom user options: warncputemp="+warn_cpu_temp+" | warn_ram_space="+warn_ram_space+" | upd_time_interval="+upd_time_interval+" | warn_loads_size="+warn_loads_size);
