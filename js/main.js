@@ -296,8 +296,8 @@ function updatedb(){
     // Uptime
     document.getElementById("uptime").innerHTML=result.uptime;
     // CPU Temperature
-    var tempValcelcius = result.cputemp;
-    var tempValfahrenheit = result.cputemp * 1.8 + 32;
+    var tempValcelcius = Math.round(result.cputemp*100)/100;
+    var tempValfahrenheit = Math.round(result.cputemp * 1.8 + 32);
     document.getElementById("temperature").innerHTML = temp_unit ? tempValfahrenheit : tempValcelcius;
     radialObj.animate(Math.round(temp_unit ? tempValfahrenheit : tempValcelcius));
     //console.log(parseInt(result.cputemp));
@@ -577,7 +577,7 @@ document.querySelector('#applyBtn').onclick = function (e) {
   for (var i = 0; i < settingsKeys.length; i++) {
     val = (settingsKeys[i] == "tempunit") ? document.getElementById(settingsKeys[i]).checked : document.getElementById(settingsKeys[i]).value;
     console.log(settingsKeys[i], val);
-    if(val==""){
+    if(val===""){
       //val=defaultSettings[i];
       //sFormData.append(settingsKeys[i], val);
     }else if(val=="***notdefault***"){
