@@ -7,11 +7,11 @@ header("Cache-Control: no-store, no-cache, must-revalidate, max-age=0");
 header("Cache-Control: post-check=0, pre-check=0", false);
 header("Pragma: no-cache");
 
-$auth=(isset($_SESSION["rpidbauth"])) ? true : false;
-
 require "backend/Config.php";
 $config = new Config;
 $config->load("local.config", "defaults.php");
+
+$auth=(isset($_SESSION["rpidbauth"])) ? true : false;
 
 if(!isset($_SESSION["setup"])){
   if( ($config->get("general.initialsetup")=="0") || ($config->get("general.initialsetup")=="") ){
