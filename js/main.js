@@ -471,7 +471,7 @@ $('#indicatorContainer').radialIndicator({
   initValue: 0,
   minValue: 0,
   maxValue: 100,
-  format: '##°C'
+  format: temp_unit ? '##°F' : '##°C'
 });
 var radialObj = $('#indicatorContainer').data('radialIndicator');
 //now you can use instance to call different method on the radial progress.
