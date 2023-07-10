@@ -419,7 +419,7 @@ function loginToServer(){
       setTimeout(() => {
         $(".row").removeClass("hidden");
         $("#ldiv").removeClass("hidden");
-        $("#lock_section").html("<i class='bi bi-unlock' style='width: 100px;height:100px;color:#aaa'></i><br><font class='text-success'>You are authorized!<br><a href='javascript:location.reload()'>Reload</a> the page to load the full page content.</font>");
+        $("#lock_section").html("<i class='bi bi-unlock' style='width: 100px;height:100px;color:#aaa'></i><br><font class='text-success'>You are authorized!<br><a href='javascript:location.reload(true)'>Reload</a> the page to load the full page content.</font>");
         $('#staticBackdrop').modal('hide');
       }, 1000);
     }else{
