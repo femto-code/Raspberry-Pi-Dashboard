@@ -602,7 +602,7 @@ temp_unit = <?=$config->get("general.tempunit")?>;
 (function() {
    // your page initialization code here
    // the DOM will be available here
-  document.getElementById("tempunit").checked = tempunit;
+  document.getElementById("tempunit").checked = temp_unit;
 })();
 
 console.log("Temp unit setting: ", temp_unit);
