@@ -17,5 +17,5 @@
     "background_color": "#b91d47",
     "start_url": "./index.php",
     "display": "standalone",
-    "description": "Inspect and manage your RPi Software and Hardware through your local browser"
+    "description": "Web-based dashboard interface to check Raspberry Pi hardware and software status with no extra deependencies required."
 }
