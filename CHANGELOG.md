@@ -15,6 +15,12 @@ Open for your feature [requests](https://github.com/femto-code/Rasberry-Pi-Dashb
 ## Changed
 - improved error handling of network requests
 
+## [1.1.3] - 2023-09-17
+- updated dependencies
+- improvements to theme and layout
+  - migrated to new bootstrap's own dark mode
+- minor changes / bugfixes
+
 ## [1.1.2] - 2023-07-11
 - allow permanently changing temperature unit to Fahrenheit
 

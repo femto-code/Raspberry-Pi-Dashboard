@@ -39,7 +39,7 @@ function preload(){
     console.info("Live Update was disabled through site parameters.");
     document.getElementById("pctl").innerHTML='<i class="bi bi-play"></i>';
   }
-  setTimeout(function(){ $(".preload-screen").fadeOut("slow"); }, 500);
+  setTimeout(function(){ $(".preload-screen").fadeOut("slow"); }, 100);
   checkShutdown();
 }
 
@@ -355,7 +355,7 @@ function updatedb(){
       warnuser(warn);
       document.title = hostname + ' - WARNING';
     }else{
-      document.getElementById("overallstate").innerHTML="<font class='text-success'><i class='bi bi-check2-circle'></i>&nbsp;System runs normally</font>";
+      document.getElementById("overallstate").innerHTML="<font class='text-success'><i class='bi bi-check2-circle'></i>&nbsp;System status: OK</font>";
       document.title = hostname + ' - OK';
     }
     $('.py').removeClass("progress-bar-striped progress-bar-animated");
@@ -505,62 +505,6 @@ $('#exampleModalCenter').on('shown.bs.modal', function (e) {
   checkLauth();
 });
 
-// Dark Mode Switch and Init
-function toggleDarkMode() {
-  var state = $("#dm").prop("checked");
-  darkmode(state);
-  $("#dmauto").prop("checked", false);
-  localStorage.setItem("darkmode", state);
-}
-function toggleAutoDarkMode(predef) {
-  var state;
-  var save;
-  if(predef!==undefined){
-    state = predef;
-    console.log("predef",predef);
-  }else{
-    state = $("#dmauto").prop("checked");
-  }
-  if(state){
-    if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
-      darkmode(true);
-    } else {
-      darkmode(false);
-    }
-    window.matchMedia('(prefers-color-scheme: dark)').addListener(e => {
-      if (e.matches) {
-        darkmode(true);
-      } else {
-        darkmode(false);
-      }
-    });
-    save = "auto";
-  }else{
-    save = $("#dm").prop("checked");
-    darkmode(save);
-  }
-  localStorage.setItem("darkmode", save);
-}
-function darkmode(state) {
-  if (state == undefined) {
-    return !$("#dmcss").attr("disabled");
-  }
-  if (state == true) {
-    $("#dmcss").prop("disabled", false);
-    $("#webinfo").addClass("text-muted");
-    $("#kernel").addClass("text-muted");
-  } else if (state == false) {
-    $("#dmcss").prop("disabled", true);
-    $("#webinfo").removeClass("text-muted");
-    $("#kernel").removeClass("text-muted");
-  }
-}
-$("#dm").prop("checked", (localStorage.getItem("darkmode") == 'true'));
-$("#dmauto").prop("checked", (localStorage.getItem("darkmode") == 'auto'));
-darkmode( (localStorage.getItem("darkmode") != 'false' && localStorage.getItem("darkmode") != null) );
-// Formerly: call to disable darkmode by setting disabled prop to (?) -> logical A + B -> now we need the opposite /(A+B) = /A * /B -> works :D
-toggleAutoDarkMode((localStorage.getItem("darkmode")=="auto"));
-
 // Settings Form
 function checkPw() {
   if(document.getElementById("pass").value!=document.getElementById("pass2").value){
@@ -599,10 +543,10 @@ document.querySelector('#applyBtn').onclick = function (e) {
   var vReq = new ntwReq("backend/serv.php", function (data) {
     if(data.responseText=="1"){
       mdtoast('<i class="bi bi-check2-circle"></i>&nbsp;Settings were updated!', { type: 'success'});
-      $("#sformFeedback").html('<div class="mt-2 alert alert-success alert-dismissible fade show" role="alert"><i class="bi bi-check2-circle"></i>&nbsp;Saved successfully! <a href="javascript:location.reload()" class="alert-link">Reload</a> the page for changes to take effect.<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
+      $("#sformFeedback").html('<div class="mt-2 alert alert-success alert-dismissible fade show" role="alert"><i class="bi bi-check2-circle"></i>&nbsp;Saved successfully! <a href="javascript:location.reload()" class="alert-link">Reload</a> the page for changes to take effect.<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button></div>');
     }else if(data.responseText=="nothing changed"){
       mdtoast('<i class="bi bi-info-circle"></i>&nbsp;Nothing was changed!', { type: 'info'});
-      $("#sformFeedback").html('<div class="mt-2 alert alert-info alert-dismissible fade show" role="alert"><i class="bi bi-info-circle"></i>&nbsp;All set! You did not change anything.<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
+      $("#sformFeedback").html('<div class="mt-2 alert alert-info alert-dismissible fade show" role="alert"><i class="bi bi-info-circle"></i>&nbsp;All set! You did not change anything.<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button></div>');
     }else{
       mdtoast('<i class="bi bi-x-circle"></i>&nbsp;There was an error! ('+data.responseText+')', { type: 'error'});
       $("#sformFeedback").html('<div class="mt-2 alert alert-danger" role="alert"><i class="bi bi-x-circle"></i>&nbsp;Config file (local.config) exists but could not be modified. Required permissions are not set correctly.<br><a class="alert-link" href="https://github.com/femto-code/Raspberry-Pi-Dashboard#valid-permissions" target="blank"><i class="bi bi-question-circle"></i>&nbsp;Show help</a></div>');
