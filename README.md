@@ -128,7 +128,7 @@ Example:
   'general' => 
   array (
     [...]
-    'pass' => 'xxxxxxxxxxxxxxxxxx',
+    'pass' => 'YOUR_MD5_PASSPHRASE_HERE',
     'loginWithPassword' => '0',
     [...]
   ),
