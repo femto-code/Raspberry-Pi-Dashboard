@@ -116,6 +116,25 @@ In order to use the remote shutdown functionality you have to give the user `www
   [...]
 ```
 
+#### Disabling password login
+
+If your RaspberryPi is on a private part of the network and you don't want to use a password, you can disable it.
+To do this, in the `local.config` file, set the `loginWithPassword` parameter to `0`.
+If there is no `loginWithPassword` parameter in your `local.config` file, simply add it after the `pass` option.
+
+Example:
+```
+[...]
+  'general' => 
+  array (
+    [...]
+    'pass' => 'xxxxxxxxxxxxxxxxxx',
+    'loginWithPassword' => '0',
+    [...]
+  ),
+[...]
+```
+
 4. Remember password and enjoy!
 
 > **As always**: Make sure to change the default password (which is **root**) and choose a more secure one at first setup and if your dashboard is accessible on the network.
