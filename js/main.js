@@ -270,7 +270,7 @@ function updatedb(){
     console.log("Live : Updating...");
     $('#overallstate').html('<font class="text-muted"><i class="bi bi-hourglass-split"></i>&nbsp;Updating ...</font>');
     document.getElementById("sys11").innerHTML="";
-    if(result.auth=="false"){
+    if(authEnabled && result.auth=="false"){
       if(timer==true){
         clearInterval(updinterval);
         timer=false;

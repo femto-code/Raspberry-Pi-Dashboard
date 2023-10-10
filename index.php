@@ -720,6 +720,8 @@ if($auth){
 <script src="js/radialIndicator-2.0.0.min.js"></script>
 
 <script>
+const authVar = <?=$loginWithPassword?>;
+const authEnabled = (authVar.toString() === "1");
 warn_cpu_temp = <?=$config->get("thresholds.warn_cpu_temp")?>;
 warn_ram_space = <?=$config->get("thresholds.warn_ram_space")?>;
 upd_time_interval = <?=$config->get("thresholds.upd_time_interval")?>;
