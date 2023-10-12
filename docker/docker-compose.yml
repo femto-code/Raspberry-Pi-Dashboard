@@ -11,11 +11,9 @@ services:
     container_name: rasppidash
     privileged: true
     restart: unless-stopped
-    networks:
-      - bridge
-    ports:
-      - 80:80
+    network_mode: host
     volumes:
+      - /etc/hostname:/etc/hostname
       - /run/systemd/system:/run/systemd/system
       - /sys/fs/cgroup:/sys/fs/cgroup
       - /var/run/dbus:/var/run/dbus
