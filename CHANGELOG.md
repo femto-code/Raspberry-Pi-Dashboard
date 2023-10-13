@@ -7,13 +7,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 Open for your feature [requests](https://github.com/femto-code/Rasberry-Pi-Dashboard/pulls) or [issues](https://github.com/femto-code/Rasberry-Pi-Dashboard/issues)!
 [https://github.com/femto-code/Rasberry-Pi-Dashboard](https://github.com/femto-code/Rasberry-Pi-Dashboard)
 
-## [1.2.0] - 2022-XX-XX
-
-## Added
-- GPIO live status
-
-## Changed
-- improved error handling of network requests
+## [1.1.4] - 2023-10-13
+- fix stats not showing up on systems with PHP version 8.1+ (#61)
 
 ## [1.1.3] - 2023-09-17
 - updated dependencies
