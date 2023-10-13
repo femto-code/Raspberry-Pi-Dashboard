@@ -1,6 +1,8 @@
 <?php
-error_reporting(E_ALL);
-ini_set ('display_errors', 'On');
+if(isset($_GET["debug"])){
+  error_reporting(E_ALL);
+  ini_set ('display_errors', 'On');
+}
 // Authorization
 session_start();
 if(!isset($_SESSION["rpidbauth"])){
@@ -14,7 +16,7 @@ $config->load("../local.config", "../defaults.php");
 // Uptime
 $uptime = shell_exec("cat /proc/uptime");
 $uptime = explode(" ", $uptime);
-$uptime = $uptime[0];
+$uptime = (int) $uptime[0];
 $y = floor($uptime / 60 / 60 / 24 / 365);
 $d = floor($uptime / 60 / 60 / 24) % 365;
 $h = floor(($uptime / 3600) % 24);
