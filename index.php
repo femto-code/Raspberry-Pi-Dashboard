@@ -11,7 +11,15 @@ require "backend/Config.php";
 $config = new Config;
 $config->load("local.config", "defaults.php");
 
-$auth=(isset($_SESSION["rpidbauth"])) ? true : false;
+$loginWithPassword = $config->get("general.loginWithPassword");
+
+if($loginWithPassword) {
+    $auth = (isset($_SESSION["rpidbauth"])) ? true : false;
+}
+else {
+    $auth = true;
+    $_SESSION["rpidbauth"]=time();
+}
 
 if(!isset($_SESSION["setup"])){
   if( ($config->get("general.initialsetup")=="0") || ($config->get("general.initialsetup")=="") ){
@@ -189,7 +197,11 @@ if($auth){
         <div class="card-header border-primary text-primary"><i class="bi bi-command"></i>&nbsp;System</div>
         <div class="card-body">
           <button type="button" data-bs-toggle="modal" data-bs-target="#exampleModalCenter" class="btn btn-outline-primary mt-1"><i class="bi bi-power"></i>&nbsp;Power</button>&nbsp;
+          <?php 
+            if($loginWithPassword) {
+          ?>
           <button type="button" onclick="logout()" class="btn btn-outline-warning mt-1"><i class="bi bi-arrow-right-square"></i>&nbsp;Logout</button>
+          <?php } ?>
         </div>
       </div>
     </div>
@@ -586,6 +598,8 @@ if($auth){
 <script src="js/radialIndicator-2.0.0.min.js"></script>
 
 <script>
+const authVar = <?=$loginWithPassword?>;
+const authEnabled = (authVar.toString() === "1");
 warn_cpu_temp = <?=$config->get("thresholds.warn_cpu_temp")?>;
 warn_ram_space = <?=$config->get("thresholds.warn_ram_space")?>;
 upd_time_interval = <?=$config->get("thresholds.upd_time_interval")?>;

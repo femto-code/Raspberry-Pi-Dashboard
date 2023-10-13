@@ -10,6 +10,7 @@ return array (
   'general' =>
   array (
     'pass' => '63a9f0ea7bb98050796b649e85481845',
+    'loginWithPassword' => '1',
     'initialsetup' => '0',
     'tempunit' => '0'
   ),
