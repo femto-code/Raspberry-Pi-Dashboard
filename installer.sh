@@ -47,7 +47,6 @@ cecho () {
     fi
     tput sgr0; #  Reset text attributes to normal without clearing screen.
 
-    return;
 }
 cyanprint() { printf "${CYAN}%s${RESET}\n" "$1"; }
 _process() {
