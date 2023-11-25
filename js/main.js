@@ -311,11 +311,10 @@ function updatedb(){
     // CPU Frequency
     document.getElementById("frequency").innerHTML=result.cpufreq;
     // CPU Loads
-    var str=result.load+'';
-    var array=str.split(",");
-    document.getElementById("m1").innerHTML=array[0];
-    document.getElementById("m5").innerHTML=array[1];
-    document.getElementById("m15").innerHTML=array[2];
+    console.log(result.load);
+    document.getElementById("m1").innerHTML = Math.round(result.load[0] * 100) / 100;
+    document.getElementById("m5").innerHTML = Math.round(result.load[1] * 100) / 100;
+    document.getElementById("m15").innerHTML = Math.round(result.load[2] * 100) / 100;
     removeData(chart);
     removeData(chart);
     removeData(chart);
