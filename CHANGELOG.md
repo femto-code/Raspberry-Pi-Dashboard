@@ -7,6 +7,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 Open for your feature [requests](https://github.com/femto-code/Rasberry-Pi-Dashboard/pulls) or [issues](https://github.com/femto-code/Rasberry-Pi-Dashboard/issues)!
 [https://github.com/femto-code/Rasberry-Pi-Dashboard](https://github.com/femto-code/Rasberry-Pi-Dashboard)
 
+## [1.1.5] - 2023-11-25
+- [new] added installer script (alpha) for automated dashboard setup
+
 ## [1.1.4] - 2023-10-13
 - fix stats not showing up on systems with PHP version 8.1+ (#61)
 

@@ -17,7 +17,6 @@
 </div>
 <br>
 <p align="center"><a href="https://github.com/femto-code/Raspberry-Pi-Dashboard/issues">Report a bug</a> | <a href="https://github.com/femto-code/Raspberry-Pi-Dashboard/discussions">Request a new feature</a> | <a href="https://github.com/femto-code/Raspberry-Pi-Dashboard/pulls">Help develop this project</a></p>
-<p align="center"><i>Enjoy the project? Please consider giving a star</i> :)</p>
 
 ## Features
 
@@ -28,7 +27,7 @@
 - Responsive mobile web app
 - Dark Theme (manual / auto)
 
-#### 🆕 Use the installer script to set up the dashboard!
+### 🆕 Use the installer script to set up the dashboard!
 
 ## Screenshots
 

@@ -501,7 +501,7 @@ if($auth){
             </h2>
             <div id="collapseOne" class="accordion-collapse collapse show" data-bs-parent="#accordionExample">
               <div class="accordion-body">
-                <h3><span class='text-success'>&#10003;</span> Version 1.1.4</h3>
+                <h3><span class='text-success'>&#10003;</span> Version 1.1.5</h3>
                 <ul><li>live page title with hostname + status of monitored RPi</li><li>overhauled project documentation / readme</li><li><a href='https://github.com/femto-code/Rasberry-Pi-Dashboard/releases'>Stay updated here</a></li><li><i><a href="CHANGELOG.md">All changes</a></i></li></ul>
                 <small>most important changes since RPi Dashboard v1.0</small>
               </div>
@@ -571,7 +571,7 @@ if($auth){
 <!-- Footer -->
 <footer style="line-height: 40px; margin-top: 10px;" class="border-top py-1">
   <div class="container text-center">
-    RPi Dashboard v1.1.4 <span class="text-muted">(Oct 2023)</span> <span id="dot">&middot;</span> <span id="notf" class="text-success">See the <a href="https://github.com/femto-code/Rasberry-Pi-Dashboard/releases">Github releases</a> for updates!</span><br />
+    RPi Dashboard v1.1.5 <span class="text-muted">(Nov 2023)</span> <span id="dot">&middot;</span> <span id="notf" class="text-success">See the <a href="https://github.com/femto-code/Rasberry-Pi-Dashboard/releases">Github releases</a> for updates!</span><br />
     <button class="btn btn-secondary mb-2" onclick="$('#exampleModal').modal('show');"><i class="bi bi-gear"></i>&nbsp;Options</button>
     <hr style="margin-top: 0; margin-bottom: 0;">
     femto-code&nbsp;<a href="https://github.com/femto-code"><i class="bi bi-github"></i></a> &middot; <span class="text-muted">2018 - 2023</span>
