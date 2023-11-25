@@ -48,6 +48,7 @@ cecho () {
     tput sgr0; #  Reset text attributes to normal without clearing screen.
 
 }
+ESC=$(printf '\033')
 RESET="${ESC}[0m"
 CYAN="${ESC}[36m"
 cyanprint() { printf "${CYAN}%s${RESET}\n" "$1"; }
