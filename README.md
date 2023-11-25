@@ -28,9 +28,7 @@
 - Responsive mobile web app
 - Dark Theme (manual / auto)
 
-> Update your existing dashboard setup by navigating to project root folder and running `git pull` in the terminal. Please keep in mind, this only works if there are no changes in the workspace.
-
-### ❗ If you run into issues and getting error message "Permission denied" or "unable to open file": [see issue #22](https://github.com/femto-code/Raspberry-Pi-Dashboard/issues/22) or [read here](https://github.com/femto-code/Raspberry-Pi-Dashboard#valid-permissions) for help and instructions to solve. ❗
+#### 🆕 Use the installer script to set up the dashboard!
 
 ## Screenshots
 
@@ -40,7 +38,14 @@
 |:-------------------------------------------------:|:-----------------------------------------------:|
 | ![](img/m2.png?raw=true)                          |                ![](img/m1.png?raw=true)         |
 
-## Download and Installation
+## Use installer script (alpha)
+
+```bash
+wget -O install.sh https://github.com/femto-code/Raspberry-Pi-Dashboard/raw/release/installer.sh
+bash install.sh
+```
+
+## Manual download and installation
 
 ### Prerequisites
 
