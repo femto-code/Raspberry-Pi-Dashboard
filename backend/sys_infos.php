@@ -103,53 +103,6 @@ if ($free_version == "free from procps-ng 3.3.9"){ // old free version Linux 8
   }
 
 }
-//
-if(isset($_GET["statemail"])){
-
-  $name_tag = array();
-  $name_tag[0] = "Sunday";
-  $name_tag[1] = "Monday";
-  $name_tag[2] = "Tuesday";
-  $name_tag[3] = "Wednesday";
-  $name_tag[4] = "Thursday";
-  $name_tag[5] = "Friday";
-  $name_tag[6] = "Saturday";
-  $num_tag = date("w");
-  $tag = $name_tag[$num_tag];
-  $jahr = date("Y");
-  $n = date("d");
-  $monat = date("m");
-  $time = date("H:i");
-
-  $msg = "\n\n :: Request sent on $tag, $n.$monat.$jahr - $time ::\n\n";
-  $msg .= "Uptime: ".$uptime_string."\n\n";
-  $msg .= "CPU Temperature: ".$cputemp." Grad Celsius\n\n";
-  $msg .= "CPU Frequency: ".$cpufreq." MHz\n\n";
-  $msg .= "CPU Loads: ".$getLoad[0].",".$getLoad[1].",".$getLoad[2]."\n\n";
-  $msg .= "RAM: ".$memperc."%\n\n";
-  $msg .= "RAM unused: ".$mavail." MB\n\n";
-  $msg .= "RAM used: ".$munavail." MB\n\n";
-  $msg .= "SWAP: ".$swapperc."%\n\n";
-  $msg .= "SWAP overall: ".$swaptotal." MB\n\n";
-  $msg .= "SWAP used: ".$swapused." MB\n\n";
-
-  $command='python /var/www/html/'.$config->get("general.folder").'/statemail.py "Status Mail of RPi" "'.$msg.'"';
-  //echo $command;
-  $output=shell_exec($command);
-  echo "<pre>$output</pre><br>";
-
-  $a1 = "\n<div class=\"testbox\"  style=\"border: 1px dotted green; position: absolute; margin:0px; padding:10px; z-index:5; background-color:#ffffcc; color:#000000;\"> \n";
-  $a2 = " \n </div> \n";
-  $ausgabe = $a1 . "Status mail was sent!<br><button onclick='location.replace(\"../index.php\");'>Zurück</button>" . $a2;
-  echo $ausgabe;
-
-}else{
-  $output = array('auth' => 'true', 'timest' => $timed, 'uptime' => $uptime_string, 'cputemp' => $cputemp, 'cpufreq' => $cpufreq, 'load' => $getLoad, 'memperc' => $memperc, 'memavail' => $mavail, 'memunavail' => $munavail, 'swapperc' => $swapperc, 'swaptotal' => $swaptotal, 'swapused' => $swapused);
-  echo json_encode($output);
-}
-
-//$DURATION_start=microtime(true);
-//$DURATION_end=microtime(true);
-//$DURATION = $DURATION_end - $DURATION_start;
-//echo "<p><font size='0'>Site generated in ".round($DURATION,3)." seconds</font></p>\n";
+$output = array('auth' => 'true', 'timest' => $timed, 'uptime' => $uptime_string, 'cputemp' => $cputemp, 'cpufreq' => $cpufreq, 'load' => $getLoad, 'memperc' => $memperc, 'memavail' => $mavail, 'memunavail' => $munavail, 'swapperc' => $swapperc, 'swaptotal' => $swaptotal, 'swapused' => $swapused);
+echo json_encode($output);
 ?>
