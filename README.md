@@ -17,15 +17,15 @@
 </div>
 <br>
 <p align="center"><a href="https://github.com/femto-code/Raspberry-Pi-Dashboard/issues">Report a bug</a> | <a href="https://github.com/femto-code/Raspberry-Pi-Dashboard/discussions">Request a new feature</a> | <a href="https://github.com/femto-code/Raspberry-Pi-Dashboard/pulls">Help develop this project</a></p>
-<p align="center"><i>Loved the project? Please consider giving a star</i> :)</p>
+<p align="center"><i>Enjoy the project? Please consider giving a star</i> :)</p>
 
 ## Features
 
-- Live surveillance of RPi hardware (CPU temperature, frequency, loads etc.) with customizable warning thresholds
+- Live surveillance of RPi hardware (CPU temperature, frequency, load etc.) with customizable warning thresholds
 - Detailed software/hardware information (web server, PHP, storage / partition workload, core voltage, plugged USB devices, kernel version, model specifications, OS, CPU, network config)
 - Protected access with password login ([configure password](https://github.com/femto-code/Raspberry-Pi-Dashboard#configure-password-manually))
-- Power (shutdown/reboot) Raspberry Pi with scheduling options ([setup instructions](https://github.com/femto-code/Raspberry-Pi-Dashboard#enable-shutdown--reboot-optional))
-- Responsive mobile web-app
+- Shutdown / Reboot your Raspberry Pi with scheduling options ([setup instructions](https://github.com/femto-code/Raspberry-Pi-Dashboard#enable-shutdown--reboot-optional))
+- Responsive mobile web app
 - Dark Theme (manual / auto)
 
 > Update your existing dashboard setup by navigating to project root folder and running `git pull` in the terminal. Please keep in mind, this only works if there are no changes in the workspace.
@@ -44,37 +44,36 @@
 
 ### Prerequisites
 
-- Running Web Server (e.g. *Lighttpd* or *Apache*) with *PHP* installed
+- Running web server (e.g. *Lighttpd* or *Apache*) with *PHP* installed
 - Installed *Git* (comes preinstalled on Raspberry Pi OS / formerly Raspbian as well as other Linux distros)
-- Valid permissions within `/var/www/html`
+- Valid permissions set within `/var/www/html`
 
 #### Valid permissions
 
 The following configuration is the commonly recommended set-up for your web server folder and is meant to be secure to a certain level (with the **minimum** need of permissions):
 
-1. First, make sure `www-data` group exists and add your current user to that system group:<br>
+1. Make sure `www-data` group exists and add your current user to that system group:<br>
 _(if you are using another distro than Raspberry Pi OS the username of web server can differ)_<br>
 `sudo groupadd www-data`<br>
 `sudo usermod -a -G www-data www-data`<br>
 `sudo usermod -a -G www-data <yourlogin>` (replace `<yourlogin>` with your username)
 
-1. Second, give the ownership of web folder to the `www-data` group and *your* user.<br>The following commands ensure that you have _full_ access on the files within the web folder while group members (`www-data`) cannot edit/write for security reasons:<br>
+1. Give the ownership of web folder to the `www-data` group and *your* user.<br>The following commands ensure that you have _full_ access on the files within the web folder while group members (`www-data`) cannot edit/write for security reasons:<br>
 `sudo chown -R <yourlogin>:www-data /var/www/html` (replace `<yourlogin>` with your username)<br>
 `sudo chmod -R 755 /var/www/html`
 
-3. Reboot your RPi (for permission changes to take effect)
+3. Reboot your RPi or log out and back in (for permission changes to take effect)
 
 ### Setup project
 
-- navigate to your web folder: `cd /var/www/html`
-- clone this GitHub repository: `git clone https://github.com/femto-code/Rasberry-Pi-Dashboard.git <your_subfolder_name>`<br>(replace `<your_subfolder_name>` with a name of your choice accordingly, you can also rename the base folder at any time afterwards)
-- ***Alternatively*** download and extract ZIP file from [releases](https://github.com/femto-code/Raspberry-Pi-Dashboard/releases)
+- clone the project into your web folder:<br>`git clone https://github.com/femto-code/Rasberry-Pi-Dashboard.git /var/www/html/<your_subfolder_name>`<br>(replace `<your_subfolder_name>` with a name of your choice accordingly, you can also rename this base folder at any time afterwards)
+- ***Alternatively*** download this repo as a ZIP file and extract it
 - Run in a terminal to set valid permissions:
   - `sudo chown -R <yourlogin>:www-data /var/www/html/<your_subfolder_name>`<br>(replace `<yourlogin>` with your username)
   - `sudo chmod -R 775 /var/www/html/<your_subfolder_name>`
   - this will allow the `www-data` user exclusively to write/edit (7**7**5) files **only in your dashboard folder**!
 > An erroneous permission typically results in the situation where the user responsible for web server (e.g. `www-data`) does not have rights to create/modify the local config file for saving your dashboard adjustments (your custom thresholds, password etc.). In this case, the dashboard won't work at all and will throw this error.
-- **DONE!** Open web browser with URL: `http://IP_OF_YOUR_RPI/<your_subfolder_name>`
+- **DONE!** Open web browser with URL: `http://<IP_OF_YOUR_RPI>/<your_subfolder_name>`
 
 ## Additional configuration / Help
 
@@ -90,7 +89,7 @@ The `vcgencmd` command (specifically dedicated to RPi firmware) is a system comm
 
 #### Enable shutdown / reboot (optional)
 
-> Recommended only, if your RPi is **not** accessible over the Internet!
+> Recommended only, if your RPi is **not** accessible from outside your local (LAN) network!
 
 In order to use the remote shutdown functionality you have to give the user `www-data` advanced rights for running one specific command:
 1. Run `sudo visudo` to open the editor for adjusting user rights
@@ -104,7 +103,7 @@ In order to use the remote shutdown functionality you have to give the user `www
   - forgotten password (and access to dashboard therefore impossible)
 
 1. Go to [https://www.md5-generator.de/](https://www.md5-generator.de/) and generate *MD5 encrypted passphrase*.
-2. Open `local.config` (dynamically created at first start) and apply your custom passphrase string (generated in **step 1**) as follows (don't alter other lines):
+2. Open `local.config` or create it and apply your custom passphrase string (generated in **step 1**) as follows (don't alter other lines):
 ```
 [...]
 'general' =>
@@ -116,9 +115,7 @@ In order to use the remote shutdown functionality you have to give the user `www
   [...]
 ```
 
-4. Remember password and enjoy!
-
-> **As always**: Make sure to change the default password (which is **root**) and choose a more secure one at first setup and if your dashboard is accessible on the network.
+> **As always**: Make sure to change the default password (which is **root**) and choose a more secure one at first setup and consider more security if your dashboard is accessible on the network.
 
 ## License
 
