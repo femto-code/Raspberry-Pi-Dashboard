@@ -48,6 +48,8 @@ cecho () {
     tput sgr0; #  Reset text attributes to normal without clearing screen.
 
 }
+RESET="${ESC}[0m"
+CYAN="${ESC}[36m"
 cyanprint() { printf "${CYAN}%s${RESET}\n" "$1"; }
 _process() {
   #echo "$(date) PROCESSING:  $@"
@@ -60,8 +62,8 @@ _success() {
 
 cecho -c 'blue' "Welcome to the RPi Dashboard installer!"
 read -p "This setup assumes you have a working web server installed that is up and running. Continue? (Y/N): " confirm && [[ $confirm == [yY] || $confirm == [yY][eE][sS] ]] || exit 1
-hostn=${hostname}
-cecho -c 'blue' "This setup will install the dashboard to /var/www/html. Please choose your subfolder name, so you will be able to call the dashboard at http://$hostn/{your_subfolder_name}"
+hostn="`hostname`"
+cecho -c 'blue' "This setup will install the dashboard to /var/www/html.\nPlease choose your subfolder name, so you will be able to call the dashboard at http://$hostn/{your_subfolder_name}"
 read -p "Enter custom subfolder name: " subfoldern
 cd /var/www/html
 git clone https://github.com/femto-code/Raspberry-Pi-Dashboard $subfoldern
