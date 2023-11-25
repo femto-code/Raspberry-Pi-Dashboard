@@ -1,0 +1,19 @@
+version: '3.8'
+services:
+  rasppidash:
+    build:
+      context: ./
+      args:
+        - PHP_VERSION
+        - RASPPIDASH_VERSION
+    platform: linux/arm64/v8
+    image: rasppidash:${RASPPIDASH_VERSION}
+    container_name: rasppidash
+    privileged: true
+    restart: unless-stopped
+    network_mode: host
+    volumes:
+      - /etc/hostname:/etc/hostname
+      - /run/systemd/system:/run/systemd/system
+      - /sys/fs/cgroup:/sys/fs/cgroup
+      - /var/run/dbus:/var/run/dbus
